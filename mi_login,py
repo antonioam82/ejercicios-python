@@ -149,7 +149,7 @@ def registro_usuario():
     usuario_info = nombre_usuario.get()
     clave_info = clave.get()
  
-    file = open(usuario_info, "w")
+    file = open(usuario_info, "w") #CREACION DE ARCHIVO CON "nombre" y "clave"
     file.write(usuario_info + "\n")
     file.write(clave_info)
     file.close()
@@ -160,7 +160,7 @@ def registro_usuario():
     Label(ventana_registro, text="Registro completado con éxito", fg="green", font=("calibri", 11)).pack()
  
  
-ventana_inicio()  
+ventana_inicio()  #EJECUCIÓN DE LA VENTANA DE INICIO.
  
 
     
