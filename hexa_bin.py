@@ -1,3 +1,4 @@
+#CONVERSOR HEXADECIMAL-BINARIO (MÉTODO LARGO)
 import subprocess
 
 def ns(c):
