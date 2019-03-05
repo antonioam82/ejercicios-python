@@ -1,3 +1,4 @@
+#CONVERSOR HEXADECIMAL-BINARIO (MÉTODO CORTO).
 import subprocess
 
 def ns(c):
