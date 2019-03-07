@@ -1,5 +1,5 @@
-#!/usr/bin/python
-# -*- coding: latin-1 -*-
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
 from shutil import copyfile
 from sys import exit
 
