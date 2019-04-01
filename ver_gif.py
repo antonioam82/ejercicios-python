@@ -1,6 +1,6 @@
-from pyglet.window import key
+#from pyglet.window import key
 import pyglet
-import os
+
     
 animation = pyglet.image.load_animation('walk.gif')
 bin = pyglet.image.atlas.TextureBin()
