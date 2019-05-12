@@ -9,10 +9,10 @@ def atras():
     t.back(100)
 
 def izq():
-    t.left(90)
+    t.left(60)
 
 def der():
-    t.right(90)
+    t.right(60)
 
 #FUNCIONES DE COLOR.
 
