@@ -2,7 +2,7 @@ import pygame, sys
 import os
 from pygame.locals import *
 
-os.chdir(r'C:\Users\Antonio\Documents\docs')
+os.chdir(r'')
 
 pygame.init()
 
