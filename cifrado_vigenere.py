@@ -3,7 +3,7 @@ LETTERS = ("ABCDEFGHIJKLMNOPQRSTUVWXYZ")
 
 def main():
     myMessage=input("Mensaje: ")
-    myKey='ASIMOV'
+    myKey='MINOMBREESANTONIOALFONSO'
     myMode=input("Mode: ")
 
     if myMode=='encrypt':
