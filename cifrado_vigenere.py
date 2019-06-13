@@ -1,47 +1,48 @@
-
-LETTERS = ("ABCDEFGHIJKLMNOPQRSTUVWXYZ")
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+LETRAS = ("ABCDEFGHIJKLMNOPQRSTUVWXYZ")
 
 def main():
-    myMessage=input("Mensaje: ")
-    myKey='MINOMBREESANTONIOALFONSO'
-    myMode=input("Mode: ")
+    mensage=input("Mensaje: ")
+    myKey='MINOMBREESANTONIO'
+    accion=input("Mode: ")
 
-    if myMode=='encrypt':
-        translated=encryptMessage(myKey,myMessage)
-    elif myMode=='decrypt':
-        translated=decryptMessage(myKey,myMessage)
-    print(translated)
+    if accion=='encriptar':
+        traducido=cifrar_mensage(myKey,mensage)
+    elif accion=='descifrar':
+        traducido=descifrar_mensage(myKey,mensage)
+    print(traducido)
 
-def encryptMessage(key,message):
-    return translateMessage(key,message,'encrypt')
+def cifrar_mensage(clave,mensa):
+    return traductor_mensage(clave,mensa,'encriptar')
 
-def decryptMessage(key,message):
-    return translateMessage(key,message,'decrypt')
+def descifrar_mensage(clave,mensa):
+    return traductor_mensage(clave,mensa,'descifrar')
 
-def translateMessage(key,message,mode):
-    translated=[]
-    keyIndex=0
-    key=key.upper()
+def traductor_mensage(clave,mensa,accion):
+    traducido=[]
+    indice_clave=0
+    clave=clave.upper()
 
-    for symbol in message:
-        num=LETTERS.find(symbol.upper())
+    for symbol in mensa:
+        num=LETRAS.find(symbol.upper())
         if num!=-1:
-            if mode=='encrypt':
-                num+=LETTERS.find(key[keyIndex])
-            elif mode=='decrypt':
-                num-=LETTERS.find(key[keyIndex])
-            num%=len(LETTERS)
+            if accion=='encriptar':
+                num+=LETRAS.find(clave[indice_clave])
+            elif accion=='descifrar':
+                num-=LETRAS.find(clave[indice_clave])
+            num%=len(LETRAS)
             if symbol.isupper():
-                translated.append(LETTERS[num])
+                traducido.append(LETRAS[num])
             elif symbol.islower():
-                translated.append(LETTERS[num].lower())
-            keyIndex+=1
-            if keyIndex==len(key):
-                keyIndex=0
+                traducido.append(LETRAS[num].lower())
+            indice_clave+=1
+            if indice_clave==len(clave):
+                indice_clave=0
 
         else:
-            translated.append(symbol)
-    return ('').join(translated)
+            traducido.append(symbol)
+    return ('').join(traducido)
 
 if __name__ == '__main__':
     main()
