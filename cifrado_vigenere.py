@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-LETRAS = ("ABCDEFGHIJKLMNOPQRSTUVWXYZ")
+LETRAS = ("ABCDEFGHIJKLMNÑOPQRSTUVWXYZ")
 
 def main():
     mensage=input("Mensaje: ")
