@@ -1,25 +1,23 @@
-#!/usr/bin/env python
-# -*- coding: utf-8 -*-
 LETRAS = ("ABCDEFGHIJKLMNÑOPQRSTUVWXYZ")
 
 def main():
-    mensage=input("Mensaje: ")
-    myKey='MINOMBREESANTONIO'
+    mensaje=input("Mensaje: ")
+    myKey="MINOMBREESANTONIOALFONSO"
     accion=input("Mode: ")
 
     if accion=='encriptar':
-        traducido=cifrar_mensage(myKey,mensage)
+        traducido=cifrar_mensaje(myKey,mensaje)
     elif accion=='descifrar':
-        traducido=descifrar_mensage(myKey,mensage)
+        traducido=descifrar_mensaje(myKey,mensaje)
     print(traducido)
 
-def cifrar_mensage(clave,mensa):
-    return traductor_mensage(clave,mensa,'encriptar')
+def cifrar_mensaje(clave,mensa):
+    return traductor_mensaje(clave,mensa,'encriptar')
 
-def descifrar_mensage(clave,mensa):
-    return traductor_mensage(clave,mensa,'descifrar')
+def descifrar_mensaje(clave,mensa):
+    return traductor_mensaje(clave,mensa,'descifrar')
 
-def traductor_mensage(clave,mensa,accion):
+def traductor_mensaje(clave,mensa,accion):
     traducido=[]
     indice_clave=0
     clave=clave.upper()
