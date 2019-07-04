@@ -1,10 +1,20 @@
-from VALID import OKI
+from VALID import OKI, ns
 import time
 import subprocess
 parti=[0,0,0,0,0,0]
 total=0
 i=0
 
+def resultado(p):
+    if p in range(0,51):
+        r=("INFRAVALORACIÓN")
+    elif p in range(51,100):
+        r=("VALORACIÓN ADECUADA")
+    else:
+        r=("SOBREVALORACIÓN")
+    print("\nPUNTUACIÓN TOTAL: ",p)
+    print(r)
+        
 def validate(p):
     global total
     global i
@@ -33,7 +43,6 @@ con los demás en ambientes nuevos: """)))
     validate(OKI(input("\nE)Estoy dispuesto a aceptar los riesgos del nuevo trabajo: ")))
     validate(OKI(input("""\nF)Pienso que no me escojerán porque contratarán a alguien
 con recomendaciones: """)))
-    subprocess.call(["cmd.exe","/C","cls"])
     print("\n2)SE CITA EN UN RESTAURANTE CON UNA PERSONA QUE LE GUSTA DESDE HACE TIEMPO:")
     time.sleep(1)
     validate(OKI(input("\nA)Estoy seguro que durante la velada me mostraré expontaneo: ")))
@@ -43,9 +52,8 @@ esté pasado de moda: """)))
     validate(OKI(input("\nD)Organizo una noche mas bién original: ")))
     validate(OKI(input("""\nE)Ya me siento satisfecho con el hecho de que haya
 aceptado cenar conmigo: """)))
-    validate(OKI(input("""\nEl éxito de la velada no dependerá del restaurante sino
+    validate(OKI(input("""\nF)El éxito de la velada no dependerá del restaurante sino
 de mi capacidad para interesar al otro: """)))
-    subprocess.call(["cmd.exe","/C","cls"])
     print("\n3)LA VÍSPERA DEL EXAMEN DE CONDUCIR:")
     time.sleep(1)
     validate(OKI(input("\nA)Me siento confiado en las enseñanzas de mi profesor de autoscuela: ")))
@@ -70,5 +78,18 @@ e la prueba: """)))
     validate(OKI(input("\nC)Tenía el mismo sentimiento de compañerismo cuando era suplente: ")))
     validate(OKI(input("\nD)Creo que aseguraré mi puesto con este encuentro: ")))
     validate(OKI(input("\nE)Jugaré lo mejor que pueda: ")))
-    validate(OKI(input("\nF)El rsultado del partido no dependerá de las condiciones del campo: ")))
-    break
+    validate(OKI(input("\nF)El resultado del partido no dependerá de las condiciones del campo: ")))
+
+    resultado(total)
+    print("\nPERFILES PARTICULARES:\n")
+    print("SEGURIDAD: ",parti[0])
+    print("IDENTIDAD: ",parti[1])
+    print("PERTENENCIA: ",parti[2])
+    print("VISIÓN DE FUTURO: ",parti[3])
+    print("COMPETENCIA: ",parti[4])
+    print("CONTROL: ",parti[5])
+
+    conti=ns(input("¿Repetir test?: "))
+    if conti=="n":
+        break
+    subprocess.call(["cmd.exe","/C","cls"])
