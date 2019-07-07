@@ -9,16 +9,17 @@ curses.noecho()
 curses.cbreak()
 stdscr.keypad(True)
 
-for i in ["Hello","my","friend!"]:
+for i in ["Este","es","un","sencillo","ejemplo","de",
+          "prueba","espero","que","te","guste"]:
     try:
-        n=random.randint(1,40)
-        m=random.randint(1,100)
+        n=random.randint(1,28)#25
+        m=random.randint(1,116)#125
         stdscr.addstr(n,m,i)
     except:
-        stdscr.addstr(15,5,"We have a problem here")
+        stdscr.addstr(5,15,"We have a problem here")#15,5
     
     stdscr.refresh()
-    time.sleep(4)
+    time.sleep(1)
     stdscr.clear()
 
 curses.curs_set(1)
