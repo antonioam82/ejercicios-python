@@ -12,10 +12,11 @@ def abrir_archivo():
 
 
 def guardar_archivo():
-    archivo_guardado=filedialog.asksaveasfilename(initialdir = "/",title = "Select file",
+    archivo_guardado=filedialog.asksaveasfilename(initialdir = "/",title = "Select file",defaultext=".txt",
                                  filetypes = (("jpeg files","*.jp2g"),
                                               ("txt files","*.txt"),
                                               ("all files","*.*")))
+    
     archivo=open(archivo_guardado,"w")
     print(archivo_guardado)
 
