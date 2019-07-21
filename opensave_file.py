@@ -12,7 +12,7 @@ def abrir_archivo():
 
 
 def guardar_archivo():
-    archivo_guardado=filedialog.asksaveasfilename(initialdir = "/",title = "Select file",defaultext=".txt",
+    archivo_guardado=filedialog.asksaveasfilename(initialdir = "/",title = "Select file",defaultextension=".txt",
                                  filetypes = (("jpeg files","*.jp2g"),
                                               ("txt files","*.txt"),
                                               ("all files","*.*")))
@@ -25,8 +25,6 @@ def carpeta():
     if directorio!="":
         os.chdir(directorio)
     print(os.getcwd())
-
-
 
 Button(text="Abrir archivo",bg="pale green",command=abrir_archivo).place(x=10,y=10)
 Button(text="Guardar archivo",bg="light blue",command=guardar_archivo).place(x=10,y=40)
