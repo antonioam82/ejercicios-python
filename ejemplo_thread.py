@@ -1,6 +1,4 @@
 import threading
-import time
-
 
 #FUNCIÓN A EJECUTAR
 def cuenta(n, name):
