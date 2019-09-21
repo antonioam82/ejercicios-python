@@ -1,23 +1,25 @@
-#import sys
+#IMPORTAMOS RECURSOS NECESARIOS
+import sys
 from  tkinter import *
 import time
 
+#FUNCION PARA ACTUALIZAR LA HORA
 def times():
 	current_time=time.strftime("%H:%M:%S") 
 	clock.config(text=current_time,bg="black",fg="green",font="Arial 50 bold")
 	clock.after(200,times)
-
-
+	
+#VENTANA
 root=Tk()
-root.geometry("492x250")
+root.geometry("485x250")
+root.title("Reloj digital con Tkinter")
 clock=Label(root,font=("times",50,"bold"))
-clock.grid(row=2,column=2,pady=25,padx=100)
+
+clock.grid(row=2,column=1,pady=25,padx=100)
 times()
 
-digi=Label(root,text="Reloj Digital",font="times 24 bold",fg="red")
-digi.grid(row=0,column=2)
-
-#nota=Label(root,text=" horas   minutos   segundos",font="Arial 15 bold")
-#nota.grid(row=3,column=2)
+digi=Label(root,text="Hora Actual",font="times 24 bold",fg="red")
+digi.grid(row=0,column=1)
 
 root.mainloop()
+
