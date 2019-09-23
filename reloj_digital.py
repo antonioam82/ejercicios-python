@@ -18,7 +18,7 @@ clock=Label(root,font=("times",50,"bold"))
 clock.grid(row=2,column=1,pady=25,padx=100)
 times()
 
-digi=Label(root,text="Hora Actual",font="times 24 bold",fg="red")
+digi=Label(root,text=" Hora Actual",font="times 24 bold",fg="red")
 digi.grid(row=0,column=1)
 
 root.mainloop()
