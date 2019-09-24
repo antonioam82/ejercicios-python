@@ -7,7 +7,8 @@ import time
 def times():
 	current_time=time.strftime("%H:%M:%S") 
 	clock.config(text=current_time,bg="black",fg="green",font="Arial 50 bold")
-	clock.after(200,times)
+	#print("act")
+	clock.after(200,times)#200
 	
 #VENTANA
 root=Tk()
@@ -22,4 +23,5 @@ digi=Label(root,text=" Hora Actual",font="times 24 bold",fg="red")
 digi.grid(row=0,column=1)
 
 root.mainloop()
+
 
