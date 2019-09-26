@@ -8,7 +8,7 @@ import time
 def times():
 	current_time=time.strftime("%H:%M:%S") 
 	clock.config(text=current_time,bg="black",fg="green",font="Arial 50 bold")
-	clock.after(200,times)#200
+	clock.after(200,times)
 	
 #VENTANA
 root=Tk()
