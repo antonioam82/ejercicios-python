@@ -1,4 +1,5 @@
-#IMPORTAMOS RECURSOS NECESARIOS
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
 import sys
 from  tkinter import *
 import time
