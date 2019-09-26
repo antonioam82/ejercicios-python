@@ -8,7 +8,6 @@ import time
 def times():
 	current_time=time.strftime("%H:%M:%S") 
 	clock.config(text=current_time,bg="black",fg="green",font="Arial 50 bold")
-	#print("act")
 	clock.after(200,times)#200
 	
 #VENTANA
