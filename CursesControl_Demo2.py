@@ -20,7 +20,7 @@ def main(stdscr):
     for i in range(12):
         n=random.randint(1,28)
         m=random.randint(1,116)
-        stdscr.addstr(n,m,"WALL")
+        stdscr.addstr(n,m,"*")
         wp.append((n,m))
     
     while True:
@@ -40,7 +40,7 @@ def main(stdscr):
         current_p=(posicion1,posicion2)
         if current_p in wp:
             stdscr.clear()
-            texto="CRASH!"
+            texto="BOOOM!"
         #stdscr.clear()
         stdscr.addstr(posicion1,(posicion2)-((len(texto))//2),texto)
     
