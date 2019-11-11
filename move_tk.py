@@ -55,6 +55,7 @@ if __name__ == "__main__":
   
     #MOSTRAR VENTANA
     master = Tk() 
+    master.title("Move_tk")
     gfg = GFG(master) 
 
     #CONTROLAR MOVIMIENTO POR TECLADO
