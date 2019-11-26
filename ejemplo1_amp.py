@@ -23,7 +23,7 @@ plt.xlabel("x")
 plt.ylabel("y")
 
 #GUARDAMOS ANIMACIÓN.
-anim.save_gif('graph_anim.gif') # save animation for docs
+anim.save_gif('graph_anim.gif')
 
 #INTRODUCIMOS LÍNEA DE TIEMPO
 #Y BOTÓN PAUSE/PLAY
