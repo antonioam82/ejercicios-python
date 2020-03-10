@@ -52,7 +52,7 @@ Entry(p3, textvariable=numero).place(x=190,y=70)
 #ELEMENTOS PESTAÑA Multi5.
 Button(p4, text='Multi5',bg='light blue',command=multi5).place(x=225,y=160)
 Entry(p4, textvariable=numero).place(x=190,y=70)
-#ELEMENTOS PESTAÑA Div5.
+#ELEMENTOS PESTAÑA Divid5.
 Button(p5, text='Divid5',bg='light blue',command=divid5).place(x=225,y=160)
 Entry(p5, textvariable=numero).place(x=190,y=70)
 
