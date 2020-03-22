@@ -1,41 +1,28 @@
+import numpy as np
+import cv2
 import random
-from PIL import Image
 
-def salpimienta(ima,porcen):
+img_gs = cv2.imread('lena.jpg',cv2.IMREAD_GRAYSCALE)
 
-    tama = ima.size[0]*ima.size[1]
-    aux=(tama*porcen)//800
+def salt_pepper(prob):
+      row, col = img_gs.shape
 
-    if ima.mode=='RGB':
-        dato_min=(0,0,0)
-        dato_max=(255,255,255)
+      s_vs_p = 0.5
+      output = np.copy(img_gs)
 
-    elif ima.mode=='L':
-        dato_min=0
-        dato_max=255
+      num_salt = np.ceil(prob * img_gs.size * s_vs_p)
+      coords = [np.random.randint(0, i - 1, int(num_salt))
+            for i in img_gs.shape]
+      output[tuple(coords)] = 1
 
-    for x in range(aux):
-        cor_x=random.randrange(2,ima.width-2)
-        cor_y=random.randrange(2,ima.height-2)
+      num_pepper = np.ceil(prob * img_gs.size * (1. - s_vs_p))
+      coords = [np.random.randint(0, i - 1, int(num_pepper))
+            for i in img_gs.shape]
+      output[tuple(coords)] = 0
+      cv2.imshow("ima",output)
 
-        ima.putpixel((cor_x,cor_y),dato_max)
-        ima.putpixel((cor_x+1,cor_y),dato_max)
-        ima.putpixel((cor_x,cor_y+1),dato_max)
-        ima.putpixel((cor_x+1,cor_y+1),dato_max)
+      return output
 
-    for x in range(aux):
-        cor_x=random.randrange(2,ima.width-2)
-        cor_y=random.randrange(2,ima.height-2)
+sp_05 = salt_pepper(0.5)
 
-        ima.putpixel((cor_x,cor_y),dato_min)
-        ima.putpixel((cor_x+1,cor_y),dato_min)
-        ima.putpixel((cor_x,cor_y+1),dato_min)
-        ima.putpixel((cor_x+1,cor_y+1),dato_min)
-
-    ima.save('lena_new.jpg')
-    ima.show()
-    return None
-
-foto = Image.open('lena.jpg')
-
-salpimienta(foto,10)
+cv2.imwrite('lena_new.jpg', sp_05)
