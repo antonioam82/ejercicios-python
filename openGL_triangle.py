@@ -38,7 +38,8 @@ class Window:
     def main_loop(self):
         while not glfw.window_should_close(self._win):
             glfw.poll_events()
-
+            
+            glClearColor(0, 0, 0, 0)
             glClear(GL_COLOR_BUFFER_BIT)
 
             glDrawArrays(GL_TRIANGLES, 0, 3)
