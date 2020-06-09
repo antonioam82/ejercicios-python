@@ -1,7 +1,7 @@
 import glfw
 from OpenGL.GL import *
 import numpy as np
-from math import sin, cos
+from math import sin, cos, tan
 
 
 # initializing glfw library
@@ -26,9 +26,9 @@ vertices = [-0.5, -0.5, 0.0,
              0.5, -0.5, 0.0,
              0.0,  0.5, 0.0]
 
-colors = [1.0, 0.0, 1.0,
+colors = [1.0, 0.0, 0.0,
           0.0, 1.0, 0.0,
-          0.5, 0.9, 1.0]
+          0.0, 0.0, 1.0]
 
 def window_resize(window,width,height):
     glViewport(0, 0, width, height)
@@ -48,6 +48,8 @@ glColorPointer(3, GL_FLOAT, 0, colors)
 
 #glPolygonMode(GL_FRONT_AND_BACK, GL_LINE)
 
+
+
 # the main application loop
 while not glfw.window_should_close(window):
     glfw.poll_events()
@@ -58,9 +60,17 @@ while not glfw.window_should_close(window):
     ct = glfw.get_time()  # returns the elapsed time, since init was called
 
     glLoadIdentity()
-    glScale(abs(sin(ct)),abs(sin(ct)),1)#glScale(abs(cos(ct)), abs(sin(ct)), 1)
-    glRotatef(cos(ct) * 360, 0, 0, 1)# sin 45
+    #glScale(abs(sin(ct)),abs(sin(ct)),1)#glScale(abs(cos(ct)), abs(sin(ct)), 1)
+    #glRotatef(tan(ct)*45,0,0,1)#glRotatef(cos(ct) * 360, 0, 0, 1)# sin 45
+    #glTranslatef(sin(ct), cos(ct), 0)
+    
+    glScale(abs(sin(ct)),abs(sin(ct)),1)
+    glRotatef((ct)*360,0,0,1)#glRotatef(tan(ct)*360,0,0,1)
     glTranslatef(sin(ct), cos(ct), 0)
+    
+    #glScale(abs(cos(ct)), abs(sin(ct)), 1)
+    #glRotatef(cos(ct) * 360, 0, 0, 1)
+    #glTranslatef(sin(ct), cos(ct), 0)
 
     glDrawArrays(GL_TRIANGLES, 0, 3)
 
