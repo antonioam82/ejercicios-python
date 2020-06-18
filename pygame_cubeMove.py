@@ -110,7 +110,7 @@ def main():
                     glTranslatef(0,0,-1.0)
                     
         
-        #glRotate(1, 3, 1, 1)#(1,3,1,1)
+        glRotate(1, 3, 1, 1)#(1,3,1,1)
         glClear(GL_COLOR_BUFFER_BIT|GL_DEPTH_BUFFER_BIT)
         cube()
         pygame.display.flip()
