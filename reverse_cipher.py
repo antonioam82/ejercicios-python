@@ -2,7 +2,7 @@
 from VALID import ns
 
 while True:
-	text = raw_input("Your text: ")
+	text = input("Your text: ")
 	translated = ""
 	i = len(text) - 1
 	
@@ -13,6 +13,6 @@ while True:
 		
 	print('Final translation: ',translated)
 	
-	conti = ns(raw_input("Continue(n/s)?: "))
+	conti = ns(input("Continue(n/s)?: "))
 	if conti == "n":
 		break
