@@ -123,7 +123,7 @@ def main():
         pygame.display.flip()
         pygame.time.wait(10)
 
-for x in range(8):
+for x in range(7):
     main()
 print("Done!")
 pygame.quit()
