@@ -1,7 +1,7 @@
 from PIL import Image
 from PIL.ExifTags import TAGS
 
-imagename = "kasu3.jpg"
+imagename = "image.jpg"
 
 image = Image.open(imagename)
 exifdata = image._getexif()
