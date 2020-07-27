@@ -1,7 +1,5 @@
 from PIL import Image
 from PIL.ExifTags import TAGS
-import os
-os.chdir(r'/home/alfmar/Documentos/Antonio')
 
 imagename = "dob.jpg"
 
