@@ -6,11 +6,13 @@ from VALID import OKI, ns
 while True:
     num =(OKI(input("Número de archivos: ")))+1
     for i in range(0,num):
-        pyautogui.moveTo(219,146)
+        pyautogui.moveTo(241,132)
         time.sleep(0.3)
+        pyautogui.click()
+        time.sleep(0.5)
         pyautogui.click(button='right')
-        time.sleep(0.3)
-        pyautogui.moveTo(253,682)
+        time.sleep(0.6)
+        pyautogui.moveTo(274,699)
         time.sleep(0.3)
         pyautogui.click()
     conti = ns(input("¿Continuar?: "))
