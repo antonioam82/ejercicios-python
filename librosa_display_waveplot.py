@@ -1,5 +1,5 @@
 # Plot a monophonic waveform
-
+import librosa.display
 import matplotlib.pyplot as plt
 y, sr = librosa.load(librosa.util.example_audio_file(), duration=10)
 plt.figure()
