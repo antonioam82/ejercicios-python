@@ -1,11 +1,12 @@
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
 from tkinter import *
 import psutil
 
 def cpu_met():
-    c = psutil.cpu_percent(interval = 1)
-    cpu_label.config(text='{}%'.format(c))
+    cpu_use = psutil.cpu_percent(interval = 1)
+    cpu_label.config(text='{}%'.format(cpu_use))
     cpu_label.after(200,cpu_met)
-
 
 ventana = Tk()
 ventana.geometry("480x140")
