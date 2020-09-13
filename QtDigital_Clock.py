@@ -25,11 +25,7 @@ class AppDemo(QWidget):
         timer.timeout.connect(self.displayTime)
         timer.start(1000)
         
-        
-
-        
-
-    def displayTime(self):
+   def displayTime(self):
         currentTime = QTime.currentTime()
 
         displayText = currentTime.toString('hh:mm:ss')
