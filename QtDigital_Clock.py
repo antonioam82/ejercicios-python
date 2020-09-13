@@ -7,6 +7,7 @@ class AppDemo(QWidget):
     def __init__(self):
         super().__init__()
         self.resize(250,150)
+        self.setWindowTitle("Reloj digital con PyQt5")
 
         layout = QVBoxLayout()
         fnt = QFont('Open Sans', 120, QFont.Bold)
@@ -15,13 +16,16 @@ class AppDemo(QWidget):
         self.lbl.setAlignment(Qt.AlignCenter)
         self.lbl.setFont(fnt)
         layout.addWidget(self.lbl)
-
+        
         self.setLayout(layout)
+        
 
         timer = QTimer(self)
         
         timer.timeout.connect(self.displayTime)
         timer.start(1000)
+        
+        
 
         
 
