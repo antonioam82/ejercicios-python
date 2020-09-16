@@ -6,6 +6,8 @@ from PyQt5.QtCore import QTimer, QTime, Qt
 class AppDemo(QWidget):
     def __init__(self):
         super().__init__()
+
+        #CREAMOS VENTANA.
         self.resize(250,150)
         self.setWindowTitle("Reloj digital con PyQt5")
 
@@ -19,26 +21,23 @@ class AppDemo(QWidget):
         
         self.setLayout(layout)
         
-
+        #CREAMOS EL 'TIMER'
         timer = QTimer(self)
         
         timer.timeout.connect(self.displayTime)
         timer.start(1000)
-        
-        
+
+    #FUNCIÓN PARA MOSTRAR HORA.
     def displayTime(self):
         currentTime = QTime.currentTime()
 
         displayText = currentTime.toString('hh:mm:ss')
-        print(displayText)
 
         self.lbl.setText(displayText)
         
-
-
-app = QApplication(sys.argv)
-
-demo = AppDemo()
-demo.show()
-
-app.exit(app.exec_())
+#EJECUTAMOS APLICACIÓN.
+if __name__ == "__main__":
+    app = QApplication(sys.argv)
+    demo = AppDemo()
+    demo.show()
+sys.exit(app.exec_())
