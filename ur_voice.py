@@ -9,7 +9,7 @@ class App:
         WIDTH = 2
         CHANNELS = 2
         RATE = 44100
-        RECORD_SECONDS = 10
+        #RECORD_SECONDS = 10
         self.playing = False
 
         self.p = pyaudio.PyAudio()
