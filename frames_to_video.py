@@ -5,18 +5,15 @@ from os.path import isfile, join
 
 
 def convertToVideo(pathIn, pathOut, fps, time):
-    # converts images to video
     frame_array = []
     files = [f for f in os.listdir(pathIn) if isfile(join(pathIn, f))]
-    files.sort(key=lambda x: int((x.split(".")[0]).split(" ")[1]))
-    print(files)
+    files.sort(key=lambda x: int((x.split(".")[0]).split(" ")[1]))#REORDENA FRAMES
     for i in range(len(files)):
         filename = pathIn+files[i]
         print(filename)
         img=cv2.imread(filename)
-        #img=cv2.resize(img,3840 , 2160) #make it not stretch
         height, width, layers = img.shape
-        size = (width,height)#layers)
+        size = (width,height)
 
         for k in range (time):
             frame_array.append(img)
@@ -25,11 +22,12 @@ def convertToVideo(pathIn, pathOut, fps, time):
     for i in range(len(frame_array)):
         out.write(frame_array[i])
     out.release()
-    print("OK")
+    print("TASK COMPLETED")
 
-directory = #path to images sequence
+#EJECUTAMOS  FUNCIÓN.
+directory = #RUTA A LA COLECCIÓN DE FRAMES ej:'C:/Users/Antonio/Documents/Mis programas/frames'
 pathIn = directory + '/'
-pathOut=pathIn + 'video.avi'
-fps = 60
+pathOut=pathIn + 'video.avi' 
+fps = 20
 time = 5
 convertToVideo(pathIn, pathOut, fps, time)
