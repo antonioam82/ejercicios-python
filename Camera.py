@@ -59,12 +59,23 @@ class App:
 
         self.visor()
         self.ventana.mainloop()
+
+    #def show_photo_name(self):
+        #self.counter.config(text=self.image)
+        #time.sleep(2)
+        #self.counter.config(text='00:00:00')
+
+    #def init_name(self):
+        #t2 = threading.Thread(target=self.show_photo_name)
+        #t2.start()
         
     def captura(self):
         ver,frame=self.vid.get_frame()
         if ver:
             image="IMG-"+time.strftime("%H-%M-%S-%d-%m")+".jpg"
             cv2.imwrite(image,cv2.cvtColor(frame,cv2.COLOR_BGR2RGB))
+            self.counter.config(text=image)
+            #self.init_name()
             
     def visor(self):
         ret, frame=self.vid.get_frame()
