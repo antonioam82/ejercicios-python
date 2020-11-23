@@ -9,6 +9,9 @@ import time
 import os
 import glob
 
+os.chdir(r'C:\Users\Antonio\Documents\videos')
+
+
 if not os.path.exists(os.getcwd()+"\CAMARA_VIDEOS"):
     os.makedirs("CAMARA_VIDEOS")
 os.chdir(os.getcwd()+"\CAMARA_VIDEOS")
@@ -45,7 +48,7 @@ class App:
         self.canvas=Canvas(self.ventana,bg='red',width=self.vid.width,height=self.vid.height)
         self.canvas.pack()
         self.btnScreenshot = Button(self.ventana,text="Photo",width=28,bg='goldenrod2',
-                    activebackground='red')
+                    activebackground='red',command=self.captura)
         self.btnRecord = Button(self.ventana,text='Record',width=29,bg='red',
                                 fg='white',command=self.record)
         self.btnRecord.pack(side=LEFT)        
