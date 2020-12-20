@@ -16,7 +16,7 @@ if __name__ == "__main__":
     seed(1234)
     #INPUTS
     initial = OKI(input("Initial price: "))
-    target = OKI(input("Traget: "))
+    target = OKI(input("Target: "))
     rang = OKI(input("Range: "))
     
     gbm = create_GBM(initial, 0.1, 0.05)#100
