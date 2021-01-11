@@ -4,7 +4,7 @@ import os
 from PIL import Image
 
 #ESTABLECER DIRECTORIO DE TRABAJO.
-os.chdir(r'C:\Users\Antonio\Documents\Mis programas\pdf_images')
+#os.chdir(r'C:\Users\Antonio\Documents\Mis programas\pdf_images')
 
 #NOMBRE ARCHIVO PDF.
 file = "1710.05006.pdf"
