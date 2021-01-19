@@ -12,5 +12,6 @@ x = []
 y = []
 
 for num_civs in range(2,MAX_CIVS + 2,CIV_STEP_SIZE):
-    #print(num_civs)
-
+    print(num_civs)
+    civs_per_vol = num_civs/NUM_EQUIV_VOLUMES
+    print(civs_per_vol)
