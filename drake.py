@@ -4,7 +4,7 @@ def se(q):
     while True:
         p = input(q)
         try:
-            r = int(p)
+            r = float(p)
             break
         except Exception as e:
             r = str(e)
