@@ -24,7 +24,7 @@ while True:
     L = se("Length of time (in years) over which the civilizations release the detectable signals: ")
 
     N = R*fp*ne*fl*fi*fc*L
-    print("{} Civilitations.".format(N))
+    print("\n{} Civilitations.".format(N))
 
     conti = ny(input("Continue(n/y): "))
     if conti == "n":
