@@ -22,5 +22,12 @@ for num_civs in range(2,MAX_CIVS + 2,CIV_STEP_SIZE):
         while len(locations)<num_civs:
             location = random.randint(1,NUM_EQUIV_VOLUMES)
             locations.append(location)
-    print(len(locations))
+    #print(len(locations))
+        overlap_count = Counter(locations)
+        overlap_rollup = Counter(overlap_count.values())
+        num_single_civs+=overlap_rollup[1]
 
+    prob = 1-(num_single_civs/(num_civs*TRIALS))
+    print("{:.4f} {:.4f}".format(civs_per_vol,prob))
+    x.append(civs_per_vol)
+    y.append(prob)
