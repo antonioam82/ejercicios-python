@@ -31,3 +31,10 @@ for num_civs in range(2,MAX_CIVS + 2,CIV_STEP_SIZE):
     print("{:.4f} {:.4f}".format(civs_per_vol,prob))
     x.append(civs_per_vol)
     y.append(prob)
+
+coefficients = np.polyfit(x,y,4)
+p = np.poly1d(coefficients)
+xp = np.linspace(0,5)
+_=plt.plot(x,y,'.',xp,p(xp),'-')
+plt.ylim(-0.5,1.5)
+plt.show()
