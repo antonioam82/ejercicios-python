@@ -33,6 +33,11 @@ def detect_prob(disc_vol_scaled):
     return round(detection_prob,3)
 
 def random_polar_coordinates(disc_radius_scaled):
+    r = random()
+    theta = iniform(0,2*math.pi)
+    x = round(math.sqrt(r)*math.cos(theta)*disc_radius_scaled)
+    y = round(math.sqrt(r)*math.sin(theta)*disc_radius_scaled)
+    return x,y
 
 
 
