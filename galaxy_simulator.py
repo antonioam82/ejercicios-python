@@ -72,5 +72,12 @@ def main():
 
     spirals(b=-0.3,r=disc_radius_scaled,rot_fac=2,fuz_fac=1.5,arm=0)
     spirals(b=-0.3,r=disc_radius_scaled,rot_fac=1.91,fuz_fac=1.5,arm=1)
+    spirals(b=-0.3,r=-disc_radius_scaled,rot_fac=2,fuz_fac=1.5,arm=0)
+    spirals(b=-0.3,r=-disc_radius_scaled,rot_fac=-2.09,fuz_fac=1.5,arm=1)
+    spirals(b=-0.3,r=-disc_radius_scaled,rot_fac=0.5,fuz_fac=1.5,arm=0)
+    spirals(b=-0.3,r=-disc_radius_scaled,rot_fac=0.4,fuz_fac=1.5,arm=1)
+    spirals(b=-0.3,r=-disc_radius_scaled,rot_fac=-0.5,fuz_fac=1.5,arm=0)
+    spirals(b=-0.3,r=-disc_radius_scaled,rot_fac=-0.6,fuz_fac=1.5,arm=1)
+    star_haze(disc_radius_scaled,density=8)
 
-
+root.mainloop()
