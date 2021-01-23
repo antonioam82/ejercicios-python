@@ -39,6 +39,32 @@ def random_polar_coordinates(disc_radius_scaled):
     y = round(math.sqrt(r)*math.sin(theta)*disc_radius_scaled)
     return x,y
 
+def spirals(b,r,rot_fac,fuz_fac,arm):
+
+    spiral_stars = []
+    fuzz = int(0.030*abs(r))
+    theta_max_degrees = 520
+
+    for i in range(theta_max_degrees):
+        theta = math.radians(i)
+        x = r*math.exp(b*theta)*math.cos(theta+math.pi*rot_fac)\
+            +randint(-fuzz,fuzz)*fuz_fac
+        y = r*math.exp(b*theta)*math.sin(theta+math.pi*rot_fac)\
+            +randint(-fuzz,fuzz)*fuz_fac
+        spiral_stars.append((x,y))
+
+    for x,y in spiral_stars:
+        if arm == 0 and int(x%2)==0:
+            c.create_oval(x-2,y-2,x+2,y+2,fill='white',outline='')
+        elif arm == 0 and int(x%2)!=0:
+            c.create_oval(x-1,y-1,x+1,y+1,fill='white',outline='')
+        elif arm == 1:
+            c.create_oval(x, y, x, y, fill='white', outline='')
+
+
+            
+            
+        
 
 
 root.mainloop()
