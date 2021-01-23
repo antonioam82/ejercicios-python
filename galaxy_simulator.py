@@ -2,7 +2,7 @@ import tkinter as tk
 from random import randint,uniform,random
 import math
 
-SCALE = 255
+SCALE = 225
 NUM_CIVS = 15600000
 
 root = tk.Tk()
@@ -15,13 +15,17 @@ DISC_RADIUS = 50000
 DISC_HEIGHT = 1000
 DISC_VOL = math.pi*DISC_RADIUS**2*DISC_HEIGHT
 
+
+
 def scale_galaxy():
+    print("1")
     disc_radius_scaled = round(DISC_RADIUS/SCALE)
     bubble_vol = 4/3 * math.pi*(SCALE/2)**3
     disc_vol_scaled = DISC_VOL/bubble_vol
     return disc_radius_scaled, disc_vol_scaled
 
 def detect_prob(disc_vol_scaled):
+    print("2")
     ratio = NUM_CIVS/disc_vol_scaled
     if ratio<0.002:
         detection_prob = 0
@@ -34,13 +38,13 @@ def detect_prob(disc_vol_scaled):
 
 def random_polar_coordinates(disc_radius_scaled):
     r = random()
-    theta = iniform(0,2*math.pi)
+    theta = uniform(0,2*math.pi)
     x = round(math.sqrt(r)*math.cos(theta)*disc_radius_scaled)
     y = round(math.sqrt(r)*math.sin(theta)*disc_radius_scaled)
     return x,y
 
 def spirals(b,r,rot_fac,fuz_fac,arm):
-
+    print("hhhhhh")
     spiral_stars = []
     fuzz = int(0.030*abs(r))
     theta_max_degrees = 520
@@ -54,20 +58,20 @@ def spirals(b,r,rot_fac,fuz_fac,arm):
         spiral_stars.append((x,y))
 
     for x,y in spiral_stars:
+        #print("fhfh")
         if arm == 0 and int(x%2)==0:
             c.create_oval(x-2,y-2,x+2,y+2,fill='white',outline='')
         elif arm == 0 and int(x%2)!=0:
             c.create_oval(x-1,y-1,x+1,y+1,fill='white',outline='')
         elif arm == 1:
-            c.create_oval(x, y, x, y, fill='white',outline='')
+            c.create_oval(x,y,x,y,fill='white',outline='')
 
 def star_haze(disc_radius_scaled,density):
     for i in range(0,disc_radius_scaled*density):
-        x,y = random_polar_coordinates(dis_radius_scaled)
+        x,y = random_polar_coordinates(disc_radius_scaled)
         c.create_text(x,y,fill='white',font=('Helvetica','7'),text='.')
 
 def main():
-    global c
     disc_radius_scaled,disc_vol_scaled = scale_galaxy()
     detection_prob = detect_prob(disc_vol_scaled)
 
@@ -86,9 +90,9 @@ def main():
     c.create_text(-455,-300,fill='white',anchor='w',text='Probability of Detection for{:,} civilitations={}'.format(NUM_CIVS,detection_prob))
     
     if SCALE == 225:
-        c.create_text(118,72,fill='red',anchor='w',text='<-----------Earth Radio Bubble')
+        c.create_text(118,72,fill='red',anchor='w',text='<----Earth Radio Bubble')
 
-root.mainloop()
+    root.mainloop()
 
 if __name__=='__main__':
     main()
