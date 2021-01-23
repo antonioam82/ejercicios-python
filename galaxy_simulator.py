@@ -59,7 +59,7 @@ def spirals(b,r,rot_fac,fuz_fac,arm):
         elif arm == 0 and int(x%2)!=0:
             c.create_oval(x-1,y-1,x+1,y+1,fill='white',outline='')
         elif arm == 1:
-            c.create_oval(x, y, x, y, fill='white', outline='')
+            c.create_oval(x, y, x, y, fill='white',outline='')
 
 def star_haze(disc_radius_scaled,density):
     for i in range(0,disc_radius_scaled*density):
@@ -67,6 +67,7 @@ def star_haze(disc_radius_scaled,density):
         c.create_text(x,y,fill='white',font=('Helvetica','7'),text='.')
 
 def main():
+    global c
     disc_radius_scaled,disc_vol_scaled = scale_galaxy()
     detection_prob = detect_prob(disc_vol_scaled)
 
@@ -80,4 +81,14 @@ def main():
     spirals(b=-0.3,r=-disc_radius_scaled,rot_fac=-0.6,fuz_fac=1.5,arm=1)
     star_haze(disc_radius_scaled,density=8)
 
+    c.create_text(-455,-360,fill='white',anchor='w',text='One Pixel={} LY'.format(SCALE))
+    c.create_text(-455,-330,fill='white',anchor='w',text='Radio Bubble Diameter={} LY'.format(SCALE))
+    c.create_text(-455,-300,fill='white',anchor='w',text='Probability of Detection for{:,} civilitations={}'.format(NUM_CIVS,detection_prob))
+    
+    if SCALE == 225:
+        c.create_text(118,72,fill='red',anchor='w',text='<-----------Earth Radio Bubble')
+
 root.mainloop()
+
+if __name__=='__main__':
+    main()
