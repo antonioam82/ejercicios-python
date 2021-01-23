@@ -66,9 +66,11 @@ def star_haze(disc_radius_scaled,density):
         x,y = random_polar_coordinates(dis_radius_scaled)
         c.create_text(x,y,fill='white',font=('Helvetica','7'),text='.')
 
-    
+def main():
+    disc_radius_scaled,disc_vol_scaled = scale_galaxy()
+    detection_prob = detect_prob(disc_vol_scaled)
 
-
-root.mainloop()
+    spirals(b=-0.3,r=disc_radius_scaled,rot_fac=2,fuz_fac=1.5,arm=0)
+    spirals(b=-0.3,r=disc_radius_scaled,rot_fac=1.91,fuz_fac=1.5,arm=1)
 
 
