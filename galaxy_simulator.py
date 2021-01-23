@@ -7,7 +7,7 @@ NUM_CIVS = 15600000
 
 root = tk.Tk()
 root.title("Milky Way Galaxy")
-c = tk.Canvas(root,width=1000,height=800,bg="black")
+c = tk.Canvas(root,width=1000,height=800,bg="black")#1000,800
 c.grid()
 c.configure(scrollregion=(-500,-400,500,400))
 
@@ -16,16 +16,13 @@ DISC_HEIGHT = 1000
 DISC_VOL = math.pi*DISC_RADIUS**2*DISC_HEIGHT
 
 
-
 def scale_galaxy():
-    print("1")
     disc_radius_scaled = round(DISC_RADIUS/SCALE)
     bubble_vol = 4/3 * math.pi*(SCALE/2)**3
     disc_vol_scaled = DISC_VOL/bubble_vol
     return disc_radius_scaled, disc_vol_scaled
 
 def detect_prob(disc_vol_scaled):
-    print("2")
     ratio = NUM_CIVS/disc_vol_scaled
     if ratio<0.002:
         detection_prob = 0
@@ -44,7 +41,6 @@ def random_polar_coordinates(disc_radius_scaled):
     return x,y
 
 def spirals(b,r,rot_fac,fuz_fac,arm):
-    print("hhhhhh")
     spiral_stars = []
     fuzz = int(0.030*abs(r))
     theta_max_degrees = 520
@@ -85,12 +81,12 @@ def main():
     spirals(b=-0.3,r=-disc_radius_scaled,rot_fac=-0.6,fuz_fac=1.5,arm=1)
     star_haze(disc_radius_scaled,density=8)
 
-    c.create_text(-455,-360,fill='white',anchor='w',text='One Pixel={} LY'.format(SCALE))
-    c.create_text(-455,-330,fill='white',anchor='w',text='Radio Bubble Diameter={} LY'.format(SCALE))
-    c.create_text(-455,-300,fill='white',anchor='w',text='Probability of Detection for{:,} civilitations={}'.format(NUM_CIVS,detection_prob))
+    c.create_text(-455,-360,fill='white',anchor='w',text='One Pixel = {} LY'.format(SCALE))
+    c.create_text(-455,-330,fill='white',anchor='w',text='Radio Bubble Diameter = {} LY'.format(SCALE))
+    c.create_text(-455,-300,fill='white',anchor='w',text='Probability of Detection for {:,} civilitations = {}'.format(NUM_CIVS,detection_prob))
     
     if SCALE == 225:
-        c.create_text(118,72,fill='red',anchor='w',text='<----Earth Radio Bubble')
+        c.create_text(118,72,fill='red',anchor='w',text='<----------------------Earth Radio Bubble')
 
     root.mainloop()
 
