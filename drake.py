@@ -26,7 +26,7 @@ while True:
     N = R*fp*ne*fl*fi*fc*L
     print("\n{} Civilitations.".format(N))
 
-    conti = ny(input("Continue(n/y): "))
+    conti = ny(input("Continue(n/y)?: "))
     if conti == "n":
         break
 
