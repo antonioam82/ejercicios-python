@@ -43,7 +43,12 @@ class Game:
 
         if (self.current_state[0][0] != '.' and
             self.current_state[0][0] == self.current_state[1][1] and
-            self.current_state[0][0] == self.current_state[2][0]):
+            self.current_state[0][0] == self.current_state[2][2]):
+            return self.current_state[0][0]
+
+        if (self.current_state[0][2] != '.' and
+            self.current_state[0][2] == self.current_state[1][1] and
+            self.current_state[0][2] == self.current_state[2][0]):
             return self.current_state[0][2]
 
         for i in range(0, 3):
