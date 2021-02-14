@@ -51,6 +51,7 @@ def main():
     x=1
     y=1
     z=1
+    m=2
     #c=0
     while True:
         for event in pygame.event.get():
@@ -74,8 +75,12 @@ def main():
                     x=1
                     y=1
                     z=1
+                if event.key == pygame.K_v:
+                    m+=1
+                if event.key == pygame.K_b:
+                    m-=1
                     
-        glRotatef(1, x, y, z)#(1, 3, 1, 1)
+        glRotatef(m, x, y, z)#(1, 3, 1, 1)
         glClear(GL_COLOR_BUFFER_BIT|GL_DEPTH_BUFFER_BIT)
         #b+=0.001
         #c+=1
