@@ -63,11 +63,11 @@ def main():
                     x=0
                     y=1
                     z=0
-                if event.key == pygame.K_RIGHT:
+                if event.key == pygame.K_UP:
                     x=1
                     y=0
                     z=0
-                if event.key == pygame.K_UP:
+                if event.key == pygame.K_RIGHT:
                     x=0
                     y=0
                     z=1
