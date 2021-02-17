@@ -47,7 +47,7 @@ def main():
 
     glTranslatef(0.0,0.0,-5)
 
-    glRotatef(0, 0, 0, 0)
+    #glRotatef(0, 0, 0, 0)
 
     x=0
     y=0
