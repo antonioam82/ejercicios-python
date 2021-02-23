@@ -4,21 +4,17 @@ from matplotlib.widgets import Button
 
 
 freqs = np.arange(2, 20, 3)
-print(freqs)
 
 fig, ax = plt.subplots()
 plt.subplots_adjust(bottom=0.2)
 t = np.arange(0.0, 1.0, 0.001)
-print(t)
 s = np.sin(2*np.pi*freqs[0]*t)
-print(s)
 l, = plt.plot(t, s, lw=2)
 
 
 class Index:
     ind = 0
 
-    #FUNCIONES PARA CAMBIAR FRECUANCIAS.
     def next(self, event):
         self.ind += 1
         i = self.ind % len(freqs)
