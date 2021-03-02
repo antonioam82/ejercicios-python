@@ -52,3 +52,12 @@ plt.title('Regresión Lineal Simple')
 plt.xlabel('Número de habitaciones')
 plt.ylabel('Valor medio')
 plt.show()
+
+#PENDIENTE.
+print("Pendiente: ",lr.coef_)
+#INTERCEPTOR.
+print("Interceptor: ",lr.intercept_)
+print("")
+
+#PRECISIÓN DEL MODELO.
+print("Precisión del modelo: ",lr.score(X_train, y_train))
