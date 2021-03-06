@@ -62,3 +62,14 @@ def getPlayerMove(board):
         print('What is your next move? (1-9)')
         move = input()
     return int(move)
+
+def chooseRandomMoveFromList(board, movesList):
+    possibleMoves = []
+    for i in movesList:
+        if isSpaceFree(board, i):
+            possibleMoves.append(i)
+    if len(possibleMoves) != 0:
+        return random.choice(possibleMoves)
+    else:
+        return None
+
