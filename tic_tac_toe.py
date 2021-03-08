@@ -37,7 +37,9 @@ def makeMove(board, letter, move):
     board[move] = letter
 
 def isWinner(bo, le):
-    return((bo[7] == le and bo[8] == le[9] == le) or
+    print(bo)
+    return((bo[7] == le and bo[8] == le and bo[9] == le) or
+           (bo[4] == le and bo[5] == le and bo[6] == le) or
            (bo[1] == le and bo[2] == le and bo[3] == le) or
            (bo[7] == le and bo[4] == le and bo[1] == le) or
            (bo[8] == le and bo[5] == le and bo[2] == le) or
@@ -135,14 +137,14 @@ while True:
                     turn = 'computer'
         else:
             move = getComputerMove(theBoard, computerLetter)
-            makeMove(theBoard, compuerLetter, move)
+            makeMove(theBoard, computerLetter, move)
 
             if isWinner(theBoard, computerLetter):
                 drawBoard(theBoard)
                 print('The computer has beaten you! You lose.')
                 gameIsPlaying = False
             else:
-                if BoardFull(theBoard):
+                if isBoardFull(theBoard):
                     drawBoard(theBoard)
                     print('The game is a tie!')
                     break
