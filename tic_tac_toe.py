@@ -1,17 +1,17 @@
 import random
 
 def drawBoard(board):
-    print(' | |')
-    print(' ' + board[7] + ' | ' + board[8] + ' | ' + board[9])
-    print(' | |')
+    print(' |  |')
+    print('  ' + board[7] + ' | ' + board[8] + ' | ' + board[9])
+    print(' |  |')
     print('-----------')
-    print(' | |')
-    print(' ' + board[4] + ' | ' + board[5] + ' | ' + board[6])
-    print(' | |')
+    print(' |  |')
+    print('  ' + board[4] + ' | ' + board[5] + ' | ' + board[6])
+    print(' |  |')
     print('-----------')
-    print(' | |')
-    print(' ' + board[1] + ' | ' + board[2] + ' | ' + board[3])
-    print(' | |')
+    print(' |  |')
+    print('  ' + board[1] + ' | ' + board[2] + ' | ' + board[3])
+    print(' |  |')
 
 def inputPlayerLetter():
     letter = ''
@@ -37,7 +37,7 @@ def makeMove(board, letter, move):
     board[move] = letter
 
 def isWinner(bo, le):
-    print(bo)
+    #print(bo)
     return((bo[7] == le and bo[8] == le and bo[9] == le) or
            (bo[4] == le and bo[5] == le and bo[6] == le) or
            (bo[1] == le and bo[2] == le and bo[3] == le) or
