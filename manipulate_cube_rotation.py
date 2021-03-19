@@ -3,16 +3,16 @@ from pygame.locals import *
 from OpenGL.GL import *
 from OpenGL.GLU import *
 
-verticies = (
-    (1, -1, -1),
-    (1, 1, -1),
-    (-1, 1, -1),
-    (-1, -1, -1),
-    (1, -1, 1),
-    (1, 1, 1),
-    (-1, -1, 1),
-    (-1, 1, 1)
-    )
+verticies = [
+    [1, -1, -1],
+    [1, 1, -1],
+    [-1, 1, -1],
+    [-1, -1, -1],
+    [1, -1, 1],
+    [1, 1, 1],
+    [-1, -1, 1],
+    [-1, 1, 1]
+    ]
 
 edges = (
     (0,1),
@@ -37,10 +37,23 @@ def Cube():
 
     glEnd()
 
+def change_verts(s):
+    #global vertices
+    if s == 'r':
+        for i in range(4,8):
+            verticies[i][2] -= 0.02        
+    else:
+        for i in range(4,8):
+            verticies[i][2] += 0.02
+
+
+
 def main():
     pygame.init()
     display = (800, 600)
     pygame.display.set_mode(display, DOUBLEBUF|OPENGL)
+
+    
 
 
     gluPerspective(45, (display[0]/display[1]), 0.1, 50.0)#45 0.1 50.0
@@ -81,6 +94,10 @@ def main():
                     m-=1
                 if event.key == pygame.K_s:
                     m=0
+                if event.key == pygame.K_r:
+                    change_verts('r')
+                if event.key == pygame.K_i:
+                    change_verts('i')
         
         glRotatef(m, x, y, z)#(1, 3, 1, 1)
         glClear(GL_COLOR_BUFFER_BIT|GL_DEPTH_BUFFER_BIT)
@@ -90,3 +107,4 @@ def main():
         pygame.time.wait(10)
 
 main()
+
