@@ -40,11 +40,15 @@ def Cube():
 def change_verts(s):
     #global vertices
     if s == 'r':
+        for i in range(0,4):
+            verticies[i][2] +=0.9
         for i in range(4,8):
-            verticies[i][2] -= 0.02        
+            verticies[i][2] -= 0.09       
     else:
+        for i in range(0,4):
+            verticies[i][2] -=0.9
         for i in range(4,8):
-            verticies[i][2] += 0.02
+            verticies[i][2] += 0.09
 
 
 
