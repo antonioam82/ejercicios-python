@@ -37,7 +37,7 @@ def Cube():
 
     glEnd()
 
-''''def change_verts1(s):
+def change_verts1(s):
     #global vertices
     if s == 'r':
         for i in range(0,4):
@@ -48,7 +48,7 @@ def Cube():
         for i in range(0,4):
             verticies[i][2] -=0.9
         for i in range(4,8):
-            verticies[i][2] += 0.09'''
+            verticies[i][2] += 0.09
 
 
 
@@ -118,6 +118,16 @@ def main():
                     verticies[1][2] -= 0.09
                     verticies[2][2] -= 0.09
                     verticies[3][2] -= 0.09
+                if event.key == pygame.K_t:
+                    verticies[1][1] += 0.09
+                    verticies[2][1] += 0.09
+                    verticies[5][1] += 0.09
+                    verticies[7][1] += 0.09
+                if event.key == pygame.K_y:
+                    verticies[1][1] -= 0.09
+                    verticies[2][1] -= 0.09
+                    verticies[5][1] -= 0.09
+                    verticies[7][1] -= 0.09
         
         glRotatef(m, x, y, z)#(1, 3, 1, 1)
         glClear(GL_COLOR_BUFFER_BIT|GL_DEPTH_BUFFER_BIT)
