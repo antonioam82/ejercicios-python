@@ -4,14 +4,14 @@ from OpenGL.GL import *
 from OpenGL.GLU import *
 
 verticies = [
-    [1, -1, -1],
-    [1, 1, -1],
-    [-1, 1, -1],
-    [-1, -1, -1],
-    [1, -1, 1],
-    [1, 1, 1],
-    [-1, -1, 1],
-    [-1, 1, 1]
+    [1, -1, -1],#det inf der
+    [1, 1, -1],#det sup der
+    [-1, 1, -1],#det sup iz
+    [-1, -1, -1],#det inf iz
+    [1, -1, 1],#del inf der
+    [1, 1, 1],#del sup der
+    [-1, -1, 1],#del inf der
+    [-1, 1, 1]#del sup iz
     ]
 
 edges = (
@@ -37,7 +37,7 @@ def Cube():
 
     glEnd()
 
-def change_verts1(s):
+''''def change_verts1(s):
     #global vertices
     if s == 'r':
         for i in range(0,4):
@@ -48,21 +48,7 @@ def change_verts1(s):
         for i in range(0,4):
             verticies[i][2] -=0.9
         for i in range(4,8):
-            verticies[i][2] += 0.09
-
-def change_verts2(s):
-    #global vertices
-    if s == 'e':
-        for i in range(0,4):
-            verticies[i][1] +=0.9
-        for i in range(4,8):
-            verticies[i][1] -= 0.09       
-    else:
-        for i in range(0,4):
-            verticies[i][1] -=0.9
-        for i in range(4,8):
-            verticies[i][1] += 0.09
-
+            verticies[i][2] += 0.09'''
 
 
 
@@ -113,9 +99,15 @@ def main():
                 if event.key == pygame.K_s:
                     m=0
                 if event.key == pygame.K_r:
-                    change_verts1('r')
+                    verticies[0][0] += 0.09
+                    verticies[1][0] += 0.09
+                    verticies[4][0] += 0.09
+                    verticies[5][0] += 0.09
                 if event.key == pygame.K_i:
-                    change_verts1('i')
+                    verticies[0][0] -= 0.09
+                    verticies[1][0] -= 0.09
+                    verticies[4][0] -= 0.09
+                    verticies[5][0] -= 0.09
                 if event.key == pygame.K_q:
                     verticies[0][2] += 0.09
                     verticies[1][2] += 0.09
