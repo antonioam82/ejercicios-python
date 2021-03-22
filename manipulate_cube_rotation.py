@@ -103,6 +103,7 @@ def main():
                     m=0
                 if event.key == pygame.K_c:
                     verts()
+
                 if event.key == pygame.K_r:
                     verticies[0][0] += 0.09
                     verticies[1][0] += 0.09
@@ -133,6 +134,10 @@ def main():
                     verticies[2][1] -= 0.09
                     verticies[5][1] -= 0.09
                     verticies[7][1] -= 0.09
+                    
+        keys = pygame.key.get_pressed()
+        if keys[pygame.K_a]:
+            glRotatef(1, 1, 1, 1)
         
         glRotatef(m, x, y, z)#(1, 3, 1, 1)
         glClear(GL_COLOR_BUFFER_BIT|GL_DEPTH_BUFFER_BIT)
