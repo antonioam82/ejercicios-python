@@ -3,7 +3,9 @@ from pygame.locals import *
 from OpenGL.GL import *
 from OpenGL.GLU import *
 
-verticies = [
+def verts():
+    global verticies
+    verticies = [
     [1, -1, -1],#det inf der
     [1, 1, -1],#det sup der
     [-1, 1, -1],#det sup iz
@@ -37,7 +39,7 @@ def Cube():
 
     glEnd()
 
-def change_verts1(s):
+'''def change_verts1(s):
     #global vertices
     if s == 'r':
         for i in range(0,4):
@@ -48,17 +50,18 @@ def change_verts1(s):
         for i in range(0,4):
             verticies[i][2] -=0.9
         for i in range(4,8):
-            verticies[i][2] += 0.09
+            verticies[i][2] += 0.09'''
 
 
 
 def main():
+    global verticies
     pygame.init()
     display = (800, 600)
     pygame.display.set_mode(display, DOUBLEBUF|OPENGL)
 
     
-
+    verts()
 
     gluPerspective(45, (display[0]/display[1]), 0.1, 50.0)#45 0.1 50.0
 
@@ -98,6 +101,8 @@ def main():
                     m-=1
                 if event.key == pygame.K_s:
                     m=0
+                if event.key == pygame.K_c:
+                    verts()
                 if event.key == pygame.K_r:
                     verticies[0][0] += 0.09
                     verticies[1][0] += 0.09
