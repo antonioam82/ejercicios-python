@@ -52,8 +52,6 @@ def Cube():
         for i in range(4,8):
             verticies[i][2] += 0.09'''
 
-
-
 def main():
     global verticies
     pygame.init()
