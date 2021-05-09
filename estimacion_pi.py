@@ -2,7 +2,7 @@
 import random
 
 #PUNTOS A GENERAR. 
-INTERVAL= 5000
+INTERVAL= 1000
   
 circle_points= 0 #PUNTOS DENTRO DEL CUADRADO 
 square_points= 0 #PUNTOS DENTRO DEL CÍRCULO
