@@ -1,8 +1,8 @@
 #IMPORTAR MÓDULO "RANDOM".
 import random
 
-#PUNTOS A GENERAR. 
-INTERVAL= 1000
+#RANGO
+INTERVAL= 2000
   
 circle_points= 0 #PUNTOS DENTRO DEL CUADRADO 
 square_points= 0 #PUNTOS DENTRO DEL CÍRCULO
@@ -14,7 +14,7 @@ for i in range(INTERVAL**2):
     rand_y= random.uniform(-1, 1)
   
     #DISTANCIA DE CADA PUNTO DEL ORIGEN
-    origin_dist= rand_x**2 + rand_y**2
+    origin_dist= (rand_x**2 + rand_y**2)**0.5
   
     #COMPROBAR SI EL PUNTO ESTÁ DENTRO DEL CÍRCULO.
     if origin_dist<= 1:
@@ -27,3 +27,4 @@ for i in range(INTERVAL**2):
 
 #ESTIMACIÓN FINAL.
 print("PI ESTIMATION: ", pi)
+print('TOTAL POINTS: ',square_points)
