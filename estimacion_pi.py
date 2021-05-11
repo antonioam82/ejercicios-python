@@ -4,8 +4,8 @@ import random
 #RANGO
 INTERVAL= 2000
   
-circle_points= 0 #PUNTOS DENTRO DEL CUADRADO 
-square_points= 0 #PUNTOS DENTRO DEL CÍRCULO
+circle_points= 0 #PUNTOS DENTRO DEL CÍRCULO 
+square_points= 0 #PUNTOS DENTRO DEL CUADRADO
   
 for i in range(INTERVAL**2):
 
