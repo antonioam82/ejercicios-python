@@ -8,13 +8,13 @@ class assistant:
     def __init__(self):
         self.window = Tk()
         self.window.title("Screen Assistant")
-        self.window.geometry("515x250")
+        self.window.geometry("520x250")
 
         self.currentDir = StringVar()
         self.currentDir.set(os.getcwd())
 
-        Entry(self.window,textvariable=self.currentDir,width=85).place(x=0,y=0)
-
+        Entry(self.window,textvariable=self.currentDir,width=86).place(x=0,y=0)
+        Label(self.window,text='ZZZZZZ...',bg='black',fg='green',font=('arial',20,'bold'),width=29).place(x=10,y=26)
 
 
         self.window.mainloop()
