@@ -1,4 +1,5 @@
 from tkinter import *
+from tkinter import filedialog
 import cv2
 import pyautogui
 import threading
@@ -19,10 +20,16 @@ class assistant:
         self.statusLab.place(x=10,y=26)
         self.btnActiv = Button(self.window,text="ACTIVATE",bg='blue',fg='white',width=70,height=3,command=self.wake_up)
         self.btnActiv.place(x=10,y=80)
-        Button(self.window,text="CHANGE DIRECTORY",bg='khaki',width=70,height=3).place(x=10,y=142)
+        Button(self.window,text="CHANGE DIRECTORY",bg='khaki',width=70,height=3,command=self.change_dir).place(x=10,y=142)
 
 
         self.window.mainloop()
+
+    def change_dir(self):
+        new_dir = filedialog.askdirectory()
+        if new_dir != "":
+            os.chdir(new_dir)
+            self.currentDir.set(os.getcwd())
 
     def wake_up(self):
         if self.awake == False:
