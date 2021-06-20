@@ -10,15 +10,16 @@ class WordClock:
         def __init__(self):
                 self.root = Tk()
                 self.root.geometry("500x250")
+                self.root.title("World Time")
                 self.clock = Label(self.root,font=("times",50,"bold"))
                 self.clock.grid(row=2,column=1,pady=65,padx=110)
-                self.locations = {"Amsterdam":"Europe/Amsterdam","Caracas":"America/Caracas",
-                                  "Dublin":"Europe/Dublin","London":"Europe/London","New York":"America/New_York","Moscow":"Europe/Moscow","Tokyo":"Asia/Tokyo"}
+                self.locations = {"Amsterdam":"Europe/Amsterdam","Berlin":"Europe/Berlin","Buenos Aires":"America/Buenos_Aires","Caracas":"America/Caracas","Dublin":"Europe/Dublin",
+                                  "London":"Europe/London","New York":"America/New_York","Moscow":"Europe/Moscow","Seoul":"Asia/Seoul","Tokyo":"Asia/Tokyo"}
                 self.location_label = Label(self.root,text="Local Time",width=26,font="arial 24 bold",fg="red")
                 self.location_label.place(x=0,y=20)
                 self.entry = ttk.Combobox(self.root,width=42)
-                self.entry["values"]=["Local Time","Amsterdam","Caracas","Dublin","London",
-                                     "New York","Moscow","Tokyo"]
+                self.entry["values"]=["Local Time","Amsterdam","Berlin","Buenos Aires","Caracas","Dublin","London",
+                                     "New York","Moscow","Seoul","Tokyo"]
                 self.entry.set("Local Time")
                 self.entry.place(x=110,y=175)
 
