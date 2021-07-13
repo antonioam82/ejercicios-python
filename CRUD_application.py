@@ -41,6 +41,21 @@ def limpiarCampos():
     miPass.set("")
     textoComentario.delete(1.0, END)
 
+def actualizar():
+    miConexion=sqlite3.connect("Usuarios")
+
+    miCursor=miConexion.cursor()
+
+    miCursor.execute("UPDATE DATOSUSUARIOS SET NOMBRE_USUARIO='" + miNombre.get() +
+                     "', PASSWORD='" + miPass.get() +
+                     "', APELLIDO='" + miApellido.get() +
+                     "', DIRECCION='" + miDireccion.get() +
+                     "', COMENTARIOS='" + textoComentario.get("1.0", END) +
+                     "' WHERE ID=" + miId.get())
+    miConexion.commit()
+
+    messagebox.showinfo("BBDD","Registro actualizado con éxito")    
+
 def crear():
     miConexion=sqlite3.connect("Usuarios")
 
@@ -54,6 +69,27 @@ def crear():
     miConexion.commit()
 
     messagebox.showinfo("BBDD","Registro insertado con éxito")
+
+def leer():
+
+    miConexion=sqlite3.connect("Usuarios")
+
+    miCursor=miConexion.cursor()
+
+    miCursor.execute("SELECT * FROM DATOSUSUARIOS WHERE ID=" + miId.get())
+
+    elUsuario=miCursor.fetchall()
+
+    for usuario in elUsuario:
+
+        miId.set(usuario[0])
+        miNombre.set(usuario[1])
+        miPass.set(usuario[2])
+        miApellido.set(usuario[3])
+        miDireccion.set(usuario[4])
+        textoComentario.insert(1.0,usuario[5])
+
+    miConexion.commit()
 
 root = Tk()
 
@@ -69,8 +105,8 @@ borrarMenu.add_command(label="Borrar campos",command=limpiarCampos)
 
 crudMenu=Menu(barraMenu, tearoff=0)
 crudMenu.add_command(label="Crear",command=crear)
-crudMenu.add_command(label="Leer")
-crudMenu.add_command(label="Actualizar")
+crudMenu.add_command(label="Leer",command=leer)
+crudMenu.add_command(label="Actualizar",command=actualizar)
 crudMenu.add_command(label="Borrar")
 
 ayudaMenu=Menu(barraMenu, tearoff=0)
@@ -145,10 +181,10 @@ miFrame2.pack()
 botonCrear = Button(miFrame2,text="Create",command=crear)
 botonCrear.grid(row=1,column=0, sticky="e", padx=10, pady=10)
 
-botonLeer = Button(miFrame2,text="Read")
+botonLeer = Button(miFrame2,text="Read",command=leer)
 botonLeer.grid(row=1,column=1, sticky="e", padx=10, pady=10)
 
-botonActualizar = Button(miFrame2,text="Update")
+botonActualizar = Button(miFrame2,text="Update",command=actualizar)
 botonActualizar.grid(row=1,column=2, sticky="e", padx=10, pady=10)
 
 botonBorrar = Button(miFrame2,text="Delete",command=limpiarCampos)
