@@ -32,6 +32,18 @@ def salirAplicacion():
     if valor == "yes":
         root.destroy()
 
+def eliminar():
+
+    miConexion = sqlite3.connect("Usuarios")
+
+    miCursor=miConexion.cursor()
+
+    miCursor.execute("DELETE FROM DATOSUSUARIOS WHERE ID=" + miId.get())
+
+    miConexion.commit()
+
+    messagebox.showinfo("BBDD","Registro borrado con éxito.")
+
 def limpiarCampos():
 
     miNombre.set("")
@@ -46,12 +58,17 @@ def actualizar():
 
     miCursor=miConexion.cursor()
 
-    miCursor.execute("UPDATE DATOSUSUARIOS SET NOMBRE_USUARIO='" + miNombre.get() +
+    datos=miNombre.get(),miPass.get(),miApellido.get(),miDireccion.get(),textoComentario.get("1.0",END)
+
+    """miCursor.execute("UPDATE DATOSUSUARIOS SET NOMBRE_USUARIO='" + miNombre.get() +
                      "', PASSWORD='" + miPass.get() +
                      "', APELLIDO='" + miApellido.get() +
                      "', DIRECCION='" + miDireccion.get() +
                      "', COMENTARIOS='" + textoComentario.get("1.0", END) +
-                     "' WHERE ID=" + miId.get())
+                     "' WHERE ID=" + miId.get())"""
+    
+    miCursor.execute("UPDATE DATOSUSUARIOS SET NOMBRE_USUARIO=?, PASSWORD=?, APELLIDO=?, DIRECCION=?, COMENTARIOS=? "+
+                     "WHERE ID=" + miId.get(),(datos))
     miConexion.commit()
 
     messagebox.showinfo("BBDD","Registro actualizado con éxito")    
@@ -61,11 +78,16 @@ def crear():
 
     miCursor=miConexion.cursor()
 
-    miCursor.execute("INSERT INTO DATOSUSUARIOS VALUES(NULL, '" + miNombre.get()+
+    datos=miNombre.get(),miPass.get(),miApellido.get(),miDireccion.get(),textoComentario.get("1.0",END)
+
+    """miCursor.execute("INSERT INTO DATOSUSUARIOS VALUES(NULL, '" + miNombre.get()+
                      "','" + miPass.get() +
                      "','" + miApellido.get() +
                      "','" + miDireccion.get() +
-                     "','" + textoComentario.get("1.0",END) + "')")
+                     "','" + textoComentario.get("1.0",END) + "')")"""
+    
+    miCursor.execute("INSERT INTO DATOSUSUARIOS VALUES(NULL,?,?,?,?,?)",(datos))
+    
     miConexion.commit()
 
     messagebox.showinfo("BBDD","Registro insertado con éxito")
@@ -107,7 +129,7 @@ crudMenu=Menu(barraMenu, tearoff=0)
 crudMenu.add_command(label="Crear",command=crear)
 crudMenu.add_command(label="Leer",command=leer)
 crudMenu.add_command(label="Actualizar",command=actualizar)
-crudMenu.add_command(label="Borrar")
+crudMenu.add_command(label="Borrar",command=eliminar)
 
 ayudaMenu=Menu(barraMenu, tearoff=0)
 ayudaMenu.add_command(label="Licencia")
@@ -187,7 +209,7 @@ botonLeer.grid(row=1,column=1, sticky="e", padx=10, pady=10)
 botonActualizar = Button(miFrame2,text="Update",command=actualizar)
 botonActualizar.grid(row=1,column=2, sticky="e", padx=10, pady=10)
 
-botonBorrar = Button(miFrame2,text="Delete",command=limpiarCampos)
+botonBorrar = Button(miFrame2,text="Delete",command=eliminar)
 botonBorrar.grid(row=1,column=3, sticky="e", padx=10, pady=10)
 
 
