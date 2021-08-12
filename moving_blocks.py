@@ -4,7 +4,7 @@ from pygame.locals import *
 pygame.init()
 
 WINDOWWIDTH = 400
-WINDOWHEIGHT = 400
+WINDOWHEIGHT = 450
 windowSurface = pygame.display.set_mode((WINDOWWIDTH, WINDOWHEIGHT), 0, 32)
 pygame.display.set_caption("Animation")
 
@@ -46,7 +46,28 @@ while True:
         if b['dir'] == UPRIGHT:
             b['rect'].left += MOVESPEED
             b['rect'].top -= MOVESPEED
-   
+
+        if b['rect'].top < 0:
+            if b['dir'] == UPLEFT:
+                b['dir'] = DOWNLEFT
+            if b['dir'] == UPRIGHT:
+                b['dir'] = DOWNRIGHT
+        if b['rect'].bottom > WINDOWHEIGHT:
+            if b['dir'] == DOWNLEFT:
+                b['dir'] = UPLEFT
+            if b['dir'] == DOWNRIGHT:
+                b['dir'] = UPRIGHT
+        if b['rect'].left < 0:
+            if b['dir'] == DOWNLEFT:
+                b['dir'] = DOWNRIGHT
+            if b['dir'] == UPLEFT:
+                b['dir'] = UPRIGHT
+        if b['rect'].right > WINDOWWIDTH:
+            if b['dir'] == DOWNRIGHT:
+                b['dir'] = DOWNLEFT
+            if b['dir'] == UPRIGHT:
+                b['dir'] = UPLEFT
+        
         
 
         pygame.draw.rect(windowSurface, b['color'], b['rect'])
