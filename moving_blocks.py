@@ -3,8 +3,8 @@ from pygame.locals import *
 
 pygame.init()
 
-WINDOWWIDTH = 400
-WINDOWHEIGHT = 450
+WINDOWWIDTH = 700#400
+WINDOWHEIGHT = 730#450
 windowSurface = pygame.display.set_mode((WINDOWWIDTH, WINDOWHEIGHT), 0, 32)
 pygame.display.set_caption("Animation")
 
@@ -13,17 +13,19 @@ DOWNRIGHT = 3
 UPLEFT = 7
 UPRIGHT = 9
 
-MOVESPEED = 4
+MOVESPEED = 6#4
 
 BLACK = (0,0,0)
 RED = (255,0,0)
 GREEN = (0,255,0)
 BLUE = (0,0,255)
+OTHER = (234,200,10)
 
 b1 = {'rect':pygame.Rect(300, 80, 50, 100), 'color':RED, 'dir':UPRIGHT}
 b2 = {'rect':pygame.Rect(200, 200, 20, 20), 'color':GREEN, 'dir':UPLEFT}
 b3 = {'rect':pygame.Rect(100, 150, 60, 60), 'color':BLUE, 'dir':DOWNLEFT}
-blocks = [b1, b2, b3]
+b4 = {'rect':pygame.Rect(200, 208, 80, 60), 'color':OTHER, 'dir':DOWNRIGHT}
+blocks = [b1, b2, b3, b4]
 
 while True:
     for event in pygame.event.get():
@@ -67,7 +69,9 @@ while True:
                 b['dir'] = DOWNLEFT
             if b['dir'] == UPRIGHT:
                 b['dir'] = UPLEFT
-                
+        
+        
+
         pygame.draw.rect(windowSurface, b['color'], b['rect'])
 
     pygame.display.update()
