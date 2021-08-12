@@ -67,9 +67,7 @@ while True:
                 b['dir'] = DOWNLEFT
             if b['dir'] == UPRIGHT:
                 b['dir'] = UPLEFT
-        
-        
-
+                
         pygame.draw.rect(windowSurface, b['color'], b['rect'])
 
     pygame.display.update()
