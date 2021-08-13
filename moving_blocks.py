@@ -8,23 +8,27 @@ WINDOWHEIGHT = 730#450
 windowSurface = pygame.display.set_mode((WINDOWWIDTH, WINDOWHEIGHT), 0, 32)
 pygame.display.set_caption("Animation")
 
+#DIRECCIÓN INICIAL
 DOWNLEFT = 1
 DOWNRIGHT = 3
 UPLEFT = 7
 UPRIGHT = 9
 
-MOVESPEED = 6#4
+#VELOCIDAD MOVIMIENTO
+MOVESPEED = 6
 
+#COLORES
 BLACK = (0,0,0)
 RED = (255,0,0)
 GREEN = (0,255,0)
 BLUE = (0,0,255)
-OTHER = (234,200,10)
+YELLOW = (234,200,10)
 
+#CREAR FIGURAS
 b1 = {'rect':pygame.Rect(300, 80, 50, 100), 'color':RED, 'dir':UPRIGHT}
 b2 = {'rect':pygame.Rect(200, 200, 20, 20), 'color':GREEN, 'dir':UPLEFT}
 b3 = {'rect':pygame.Rect(100, 150, 60, 60), 'color':BLUE, 'dir':DOWNLEFT}
-b4 = {'rect':pygame.Rect(200, 208, 80, 60), 'color':OTHER, 'dir':DOWNRIGHT}
+b4 = {'rect':pygame.Rect(200, 208, 80, 60), 'color':YELLOW, 'dir':DOWNRIGHT}
 blocks = [b1, b2, b3, b4]
 
 while True:
