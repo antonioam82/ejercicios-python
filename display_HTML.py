@@ -25,6 +25,7 @@ class app():
         Entry(self.root,textvariable=self.url,width=50,font=('arial',14)).place(x=20,y=505)
         Button(self.root,text="GET HTML",width=89,bg="azure4",command=self.init_task).place(x=20,y=533)
         Button(self.root,text="COPY URL",width=9,command=self.init_copy).place(x=580,y=505)
+        Button(self.root,text="CLEAR",width=13,height=3,command=self.clear_display).place(x=669,y=505)
         
         
         self.root.mainloop()
@@ -38,6 +39,9 @@ class app():
                 self.url.set(self.copia)
                 self.ultima_copia = self.copia
                 break
+
+    def clear_display(self):
+        self.html_display.delete('1.0',END)
 
     def init_copy(self):
         t2 = threading.Thread(target=self.copy_paste)
@@ -55,7 +59,7 @@ class app():
             soup = BeautifulSoup(content, 'lxml')
             self.html_display.insert(END,soup.prettify())
         except Exception as e:
-            messagebox.showwarning("UNEXPECTED ERROR",str(e))
+            messagebox.showwarning("CAN NOT GET HTML",str(e))
         
 
 if __name__=="__main__":
