@@ -52,15 +52,17 @@ class app():
         t.start()
 
     def get_html(self):
-        try:
-            web = self.url.get()
-            result = requests.get(web)
-            content = result.text
-            soup = BeautifulSoup(content, 'lxml')
-            self.html_display.insert(END,soup.prettify())
-        except Exception as e:
-            messagebox.showwarning("CAN NOT GET HTML",str(e))
-        
+        if self.url.get()!="":
+            try:
+                web = self.url.get()
+                result = requests.get(web)
+                content = result.text
+                soup = BeautifulSoup(content, 'lxml')
+                self.html_display.insert(END,soup.prettify())
+            except Exception as e:
+                messagebox.showwarning("CAN NOT GET HTML",str(e))
+        else:
+            messagebox.showwarning("NO URL","No URL provided")
 
 if __name__=="__main__":
     app()
