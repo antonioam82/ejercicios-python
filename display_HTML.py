@@ -1,5 +1,5 @@
 from tkinter import *
-from tkinter import messagebox
+from tkinter import messagebox, filedialog
 import tkinter.scrolledtext as sct
 from bs4 import BeautifulSoup
 import pyperclip
@@ -26,7 +26,7 @@ class app():
         Button(self.root,text="GET HTML",width=89,bg="azure4",command=self.init_task).place(x=20,y=533)
         Button(self.root,text="COPY URL",width=9,command=self.init_copy).place(x=580,y=505)
         Button(self.root,text="CLEAR",width=13,height=3,command=self.clear_display).place(x=669,y=505)
-        Button(self.root,text="SAVE",width=13,height=3).place(x=781,y=505)
+        Button(self.root,text="SAVE",width=13,height=3,command=self.save_html).place(x=781,y=505)
         
         
         self.root.mainloop()
@@ -40,6 +40,19 @@ class app():
                 self.url.set(self.copia)
                 self.ultima_copia = self.copia
                 break
+
+    def save_html(self):
+        if len(self.html_display.get('1.0',END))>1:
+               document = filedialog.asksaveasfilename(initialdir="/",
+                          title="SAVE AS",defaultextension=".txt")
+               if document != "":
+                   new_file = open(document,"w",encoding="utf-8")
+                   lines = ""
+                   for l in str(self.html_display.get("1.0",END)):
+                       lines=lines+l
+                   new_file.write(lines)
+                   new_file.close()
+                   messagebox.showinfo("SAVED","HTML saved correctly.")
 
     def clear_display(self):
         self.html_display.delete('1.0',END)
