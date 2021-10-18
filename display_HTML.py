@@ -48,7 +48,7 @@ class app():
                           title="SAVE AS",initialfile="html",defaultextension=".txt")
                if document != "":
                    new_file = open(document,"w",encoding="utf-8")
-                   lines = ""
+                   lines = "URL: {}\n\n".format(self.web)
                    for l in str(self.html_display.get("1.0",END)):
                        lines=lines+l
                    new_file.write(lines)
@@ -70,8 +70,8 @@ class app():
         if self.url.get()!="":
             try:
                 self.clear_display()
-                web = self.url.get()
-                result = requests.get(web)
+                self.web = self.url.get()
+                result = requests.get(self.web)
                 content = result.text
                 soup = BeautifulSoup(content, 'lxml')
                 self.html_display.insert(END,soup.prettify())
@@ -82,3 +82,4 @@ class app():
 
 if __name__=="__main__":
     app()
+
