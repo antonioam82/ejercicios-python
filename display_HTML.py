@@ -21,6 +21,7 @@ class app():
         self.currentDir = StringVar()
         self.currentDir.set(os.getcwd())
 
+        Label(self.root,text="URL",bg="gray70").place(x=20,y=487)
         Entry(self.root,textvariable=self.currentDir,width=149).place(x=0,y=0)
         Entry(self.root,textvariable=self.url,width=50,font=('arial',14)).place(x=20,y=505)
         Button(self.root,text="GET HTML",width=89,bg="azure4",command=self.init_task).place(x=20,y=533)
