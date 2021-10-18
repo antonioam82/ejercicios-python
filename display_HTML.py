@@ -26,6 +26,7 @@ class app():
         Button(self.root,text="GET HTML",width=89,bg="azure4",command=self.init_task).place(x=20,y=533)
         Button(self.root,text="COPY URL",width=9,command=self.init_copy).place(x=580,y=505)
         Button(self.root,text="CLEAR",width=13,height=3,command=self.clear_display).place(x=669,y=505)
+        Button(self.root,text="SAVE",width=13,height=3).place(x=781,y=505)
         
         
         self.root.mainloop()
@@ -54,6 +55,7 @@ class app():
     def get_html(self):
         if self.url.get()!="":
             try:
+                self.clear_display()
                 web = self.url.get()
                 result = requests.get(web)
                 content = result.text
