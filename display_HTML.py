@@ -45,7 +45,7 @@ class app():
     def save_html(self):
         if len(self.html_display.get('1.0',END))>1:
                document = filedialog.asksaveasfilename(initialdir="/",
-                          title="SAVE AS",defaultextension=".txt")
+                          title="SAVE AS",initialfile="html",defaultextension=".txt")
                if document != "":
                    new_file = open(document,"w",encoding="utf-8")
                    lines = ""
