@@ -33,6 +33,7 @@ class app():
         self.root.mainloop()
 
     def copy_paste(self):
+        messagebox.showinfo("COPY URL","Copy the URL you want.")
         self.ultima_copia = pyperclip.paste().strip()
         while True:
             time.sleep(0.1)
