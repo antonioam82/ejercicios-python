@@ -59,6 +59,9 @@ class app():
     def clear_display(self):
         self.html_display.delete('1.0',END)
 
+    def BMP(self,s):
+        return "".join((i if ord(i) < 10000 else '\ufffd' for i in s))
+
     def init_copy(self):
         t2 = threading.Thread(target=self.copy_paste)
         t2.start()
@@ -73,8 +76,12 @@ class app():
                 self.clear_display()
                 self.web = self.url.get()
                 result = requests.get(self.web)
-                content = result.text
+                content =   self.BMP(result.text)
                 soup = BeautifulSoup(content, 'lxml')
+                #if 'iframe' in soup:#iframe
+                   # print("YES")
+                #else:
+                    #print("NO")
                 self.html_display.insert(END,soup.prettify())
             except Exception as e:
                 messagebox.showwarning("CAN NOT GET HTML",str(e))
