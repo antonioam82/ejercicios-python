@@ -5,19 +5,24 @@ from colorama import init, Fore, Back
 
 def AB():
     while True:
-        op = input("Introduzca aquí su opción: ").upper()
+        op = input("Introduzca aquí su opción: ").upper().strip()
         if op == "A" or op == "B":
             return op
             break
         else:
             print("Introduce A o B según su opción.")
 
+def check_name_ex(ex):
+    if not "." in ex:
+        ex = "."+ex
+    return ex
+    
 def BMP(s):
     return "".join((i if ord(i) < 10000 else '\ufffd' for i in s))
 			
 def change_dir():
     while True:
-        dire = input("Introduzca directorio base: ")
+        dire = input("Introduzca directorio base: ").strip()
         if os.path.isdir(dire):
             os.chdir(dire)
             break
@@ -31,7 +36,7 @@ def ns(c):
 	
 while True:
     init()
-    print(Back.BLUE+"\n----------------------------------FILE FINDER-----------------------------------")
+    print(Back.BLUE+"\n----------------------------------FILE FINDER----------------------------------")
     print(Back.RESET+"")
     print("Directorio actual: {} ".format(os.getcwd()))
     print("\n**********ELIJA OPCIÓN**********")
@@ -43,15 +48,19 @@ while True:
 	
     if opc == 'A':
         change_dir()
-        filetype = input("Introduce extension: ")
+        filetype = check_name_ex(input("Introduce extension: ").strip())
         print("BUSCANDO...\n")
         for nombredir, dirs, ficheros in os.walk(os.getcwd()):
             for nombrefichero in ficheros:
-                if nombrefichero.endswith(filetype):
+                name,ex = os.path.splitext(nombrefichero)
+                if filetype == ex:
                     count+=1
                     print(Fore.GREEN+'{}-'.format(count)+os.path.join(nombredir,BMP(nombrefichero)))
                     
-        print(Fore.BLACK+Back.GREEN+'\n{} ARCHIVOS ENCONTRADOS.'.format(count))
+        if count > 0:
+            print(Fore.BLACK+Back.GREEN+'\n{} ARCHIVOS ENCONTRADOS.'.format(count))
+        else:
+            print(Fore.BLACK+Back.RED+'\n{} ARCHIVOS ENCONTRADOS.'.format(count))
         print(Fore.RESET+Back.RESET+"")
 					
     elif opc == "B":
