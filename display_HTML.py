@@ -1,7 +1,10 @@
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
 from tkinter import *
 from tkinter import messagebox, filedialog
 import tkinter.scrolledtext as sct
 from bs4 import BeautifulSoup
+from urllib.parse import urlparse
 import pyperclip
 import time
 import threading
@@ -43,6 +46,13 @@ class app():
                 self.ultima_copia = self.copia
                 break
 
+    def is_url(self,url):
+        try:
+            result = urlparse(url)
+            return all([result.scheme, result.netloc])
+        except ValueError:
+            return False
+
     def save_html(self):
         if len(self.html_display.get('1.0',END))>1:
                document = filedialog.asksaveasfilename(initialdir="/",
@@ -74,15 +84,16 @@ class app():
         if self.url.get()!="":
             try:
                 self.clear_display()
-                self.web = self.url.get()
-                result = requests.get(self.web)
-                content =   self.BMP(result.text)
-                soup = BeautifulSoup(content, 'lxml')
-                #if 'iframe' in soup:#iframe
-                   # print("YES")
-                #else:
-                    #print("NO")
-                self.html_display.insert(END,soup.prettify())
+                is_url = self.is_url(self.url.get())
+                if is_url:
+                    self.web = self.url.get()
+                    result = requests.get(self.web)
+                    content =   self.BMP(result.text)
+                    soup = BeautifulSoup(content, 'lxml')
+                    self.html_display.insert(END,soup.prettify())
+                else:
+                    messagebox.showwarning("Invalid URL","Enter a valid URL")
+                    self.url.set("")
             except Exception as e:
                 messagebox.showwarning("CAN NOT GET HTML",str(e))
         else:
