@@ -9,13 +9,13 @@ def get_rolling_std(values,window):
     return pd.Series(pd.Series.rolling(values,window).std())#,name='Std Dev')
 
 def get_bollinger_bands(rm,rstd):
-    upper_band = rm + rstd * 5
-    lower_band = rm - rstd * 5
+    upper_band = rm + rstd * 2
+    lower_band = rm - rstd * 2
     return upper_band, lower_band
 
 def test_run():
-    spy = yf.Ticker("SPY")
-    df = spy.history(start='2012-01-01',end='2012-12-31')["Close"]
+    spy = yf.Ticker("BTC-USD")
+    df = spy.history(start='2021-01-01',end='2022-1-6')["Close"]
 
     rm_SPY = get_rolling_mean(df,window=20)
     rstd_SPY = get_rolling_std(df,window=20)
