@@ -19,7 +19,7 @@ df['dlr'] = ta.others.DailyLogReturnIndicator(df["Close"]).daily_log_return()
 print(df["dlr"].head())
 
 plt.grid()
-plt.title(ticker+ "DAILY RETURNS" )
+plt.title(ticker+ " DAILY RETURN" )
 plt.plot(df["Date"],df["dlr"], color="green")
 
 #plt.fill_between(df["Date"],df["Low Band"],df["High Band"], alpha=0.2, color="orange")
