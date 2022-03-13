@@ -50,10 +50,12 @@ np.argmax(predictions[200])
 
 
 #check
-#plt.imshow(x_test[200])
-#plt.show()
-for i in range(120):
-    predicted_number = np.argmax(predictions[i])
-    plt.imshow(x_test[i])
-    plt.title("This is a {}".format(predicted_number))
-    plt.show()
+plt.imshow(x_test[200])
+plt.show()
+
+#IN JUPYTER NOTEBOOK
+#for i in range(120):
+    #predicted_number = np.argmax(predictions[i])
+    #plt.imshow(x_test[i])
+    #plt.title("This is a {}".format(predicted_number))
+    #plt.show()
