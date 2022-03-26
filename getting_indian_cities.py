@@ -24,7 +24,7 @@ for rows in data_rows:
 
     row.append(value2)
 x = PrettyTable()
-x.field_names = ['Rank','City','Popukation(2011)',
+x.field_names = ['Rank','City','Population(2011)',
                 'Population(2001)','State or union territory']
 x.add_rows(row)
 print(x)
