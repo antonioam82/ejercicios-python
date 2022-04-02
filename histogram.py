@@ -18,3 +18,15 @@ plt.plot(intensity_values,hist)
 plt.title("Histogram")
 plt.grid()
 plt.show()
+
+#histograma para cada canal
+image = cv2.imread("lenna.jpg",cv2.COLOR_BGR2RGB)
+color = ('blue', 'green', 'red')
+for i, col in enumerate(color):
+    histr = cv2.calcHist([image],[i], None, [256], [0,256])
+    plt.plot(intensity_values,histr,color = col,label=col+" channel")
+    plt.xlim([0,256])
+plt.legend()
+plt.title("Histogram Channels")
+plt.grid()
+plt.show()
