@@ -171,11 +171,11 @@ select 'copy' to import it.""")
         if self.current_marker.get() in decoded_data:
             self.clear()
             self.textEntry.insert(END,decoded_data[:-(self.spaces)])
+            self.btn_copim.configure(text="EXPORT DATA",command=self.copytext)
         else:
             messagebox.showwarning("NO DATA","Data not found.")
         self.invLabel.configure(text="")
         self.running = False
-        self.btn_copim.configure(text="EXPORT DATA",command=self.copytext)
 
     def get_size_format(self,b, factor=1024, suffix="B"):
         for unit in ["","K","M","G","T","P","E","Z"]:
