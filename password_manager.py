@@ -1,7 +1,4 @@
 from cryptography.fernet import Fernet
-import os
-
-os.chdir(r'C:\Users\Antonio\Documents\pruebas')
 
 class PasswordManager:
 
