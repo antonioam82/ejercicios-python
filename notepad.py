@@ -1,5 +1,6 @@
 from tkinter.filedialog import *
 import tkinter as tk
+import threading
 
 def saveFile():
     doc = asksaveasfilename(title="save text", initialfile="my_text",defaultextension=".txt")
@@ -9,9 +10,15 @@ def saveFile():
         new_file.write(text)
         new_file.close()
 
+def init_task():
+    t = threading.Thread(target=saveFile)
+    t.start()
+
 def openFile():
     file = askopenfile(mode = 'r', filetype =[('text_files', '*.txt')])
     if file is not None:
+        if len(entry.get('1.0',END))>1: ###############
+            clearFile()
         content = file.read()
         entry.insert(INSERT, content)
 
