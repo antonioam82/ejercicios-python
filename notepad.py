@@ -1,4 +1,5 @@
 from tkinter.filedialog import *
+from tkinter.messagebox import *
 import tkinter as tk
 import threading
 
@@ -22,6 +23,15 @@ def openFile():
         content = file.read()
         entry.insert(INSERT, content)
 
+def destroy_window():
+    if len(entry.get('1.0',END)) > 1:
+        question = askquestion("GUARDAR?","¿Desea guardar los cambios hechos en el documento?")
+        if question == "yes":
+            saveFile()
+        else:
+            pass
+    canvas.destroy()
+
 def clearFile():
     entry.delete('1.0',END)
 
@@ -41,7 +51,7 @@ b2.pack(in_ = top, side=LEFT)
 b3 = Button(canvas,text="Clear",bg="white",command=clearFile)
 b3.pack(in_ = top, side=LEFT)
 
-b4 = Button(canvas,text="Exit",bg="white", command=canvas.destroy)
+b4 = Button(canvas,text="Exit",bg="white", command=destroy_window)
 b4.pack(in_ = top, side=LEFT)
 
 entry = Text(canvas, wrap = WORD, bg = "azure", font = ("poppins", 15))
