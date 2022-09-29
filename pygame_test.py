@@ -3,6 +3,7 @@ import sys
 
 pygame.init()
 
+myfont = pygame.font.SysFont("monospace",15)
 screen = pygame.display.set_mode((600,500))
 color = (255,0,0)
 x = 100
@@ -24,7 +25,9 @@ while not done:
         x-=3;
     if keyPressed[pygame.K_RIGHT]:
         x+=3;
-        
+
+    text1 = myfont.render("Text",1,(0,0,255))
+    screen.blit(text1,(400,10))
     pygame.draw.rect(screen,color,pygame.Rect(x,y,100,100))
     pygame.display.update()
     clock.tick(60)
