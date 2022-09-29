@@ -26,9 +26,10 @@ while not done:
     if keyPressed[pygame.K_RIGHT]:
         x+=3;
 
-    text1 = myfont.render("Text",1,(0,0,255))
-    screen.blit(text1,(400,10))
     pygame.draw.rect(screen,color,pygame.Rect(x,y,100,100))
+    text1 = myfont.render("(x,y)=("+str(x)+","+str(y)+")",1,(0,0,255))
+    screen.blit(text1,(400,10))
+    
     pygame.display.update()
     clock.tick(60)
 
