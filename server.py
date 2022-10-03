@@ -1,21 +1,22 @@
 import socket
 
-#RECIVE Y DEVUELVE INFORMACIÓN ENVIADA DESDE "client.py"
-
-HOST = "127.0.0.1" #direccion de loopback
-PORT = 65123       # > 1023 (Puerto escucha)
+HOST = "127.0.0.1" # ESTABLECEMOS DIRECCIÓN
+PORT = 65123       # PUERTO DE ESCUCHA
 
 with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
-    s.bind((HOST,PORT))
-    s.listen()
-    conn, addr = s.accept()
+
+    s.bind((HOST, PORT))       # ASOCIAR SOCKET A DIRECCIÓN IP Y PUERTO
+    s.listen()                 # PONER SOCKET A LA ESCUCHA
+    conn, addr = s.accept()    # ESPERAR CONEXIONES ENTRANTES
 
     with conn:
-        print(f"Conectado a {addr}:")
+        print(f"Conexión establecida con {addr}:")
         while True:
-            data = conn.recv(1024) #1kb datos
+            data = conn.recv(1024)  # RECIBE DATOS DEL CLIENTE
             if not data:
                 break
-            
-            conn.sendall(data)
+
+            conn.sendall(data)      # DEVUELVE LOS DATOS AL CLIENTE
+
+
             
