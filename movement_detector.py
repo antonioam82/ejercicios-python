@@ -6,7 +6,7 @@ import winsound
 cap = cv2.VideoCapture(0)
 
 cap.set(cv2.CAP_PROP_FRAME_WIDTH, 640)
-cap.set(cv2.CAP_PROP_FRAME_WIDTH, 480)
+#cap.set(cv2.CAP_PROP_FRAME_WIDTH, 480)
 
 _, start_frame = cap.read()
 start_frame = imutils.resize(start_frame, width=500)
@@ -23,5 +23,5 @@ def beep_alarm():
         if not alarm_mode:
             break
         print("ALARM")
-        winsound.Beep(2500, 1000)
+        winsound.Beep(1800, 1000)
     alarm = False
