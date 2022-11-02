@@ -6,7 +6,7 @@ import winsound
 cap = cv2.VideoCapture(0)
 
 cap.set(cv2.CAP_PROP_FRAME_WIDTH, 640)
-#cap.set(cv2.CAP_PROP_FRAME_WIDTH, 480)
+cap.set(cv2.CAP_PROP_FRAME_HEIGHT, 480)
 
 _, start_frame = cap.read()
 start_frame = imutils.resize(start_frame, width=500)
@@ -48,3 +48,4 @@ while True:
         cv2.imshow("Cam", threshold)
     else:
         cv2.imshow("Cam", frame)
+
