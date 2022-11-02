@@ -25,3 +25,26 @@ def beep_alarm():
         print("ALARM")
         winsound.Beep(1800, 1000)
     alarm = False
+
+while True:
+
+    _,frame = cap.read()
+    frame = imutils.resize(frame, width=500)
+
+    if alarm_mode:
+        frame_bw = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
+        frame_bw = cv2.GaussianBlur(frame_bw. (5, 5), 0)
+
+        difference = cv2.absdiff(frame_bw, start_frame)
+        threshold  = cv2.threshold(difference, 25, 255, cv2.THRESH_BINARY)[1]
+        start_frame = frame_bw
+
+        if threshold.sum() > 300:
+            alarm_counter += 1
+        else:
+            if alarm_counter > 0:
+                alarm_counter -=1
+
+        cv2.imshow("Cam", threshold)
+    else:
+        cv2.imshow("Cam", frame)
