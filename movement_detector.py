@@ -2,6 +2,8 @@ import threading
 import cv2
 import imutils
 import winsound
+from datetime import datetime
+
 
 cap = cv2.VideoCapture(0, cv2.CAP_DSHOW)
 
@@ -23,6 +25,8 @@ def beep_alarm():
         if not alarm_mode:
             break
         print("ALARM")
+        x = datetime.now()
+        print("Date-Time: %s" % x)
         winsound.Beep(1800, 1000)
     alarm = False
 
@@ -64,4 +68,4 @@ while True:
 
 cap.release()
 cv2.destroyAllWindows()
-
+            
