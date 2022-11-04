@@ -1,5 +1,5 @@
 import hashlib
-from colorama import Fore, init
+from colorama import Fore, Back, init
 
 class HASH:
     def generateHash(h):
@@ -7,6 +7,7 @@ class HASH:
         return digest
 x = 0
 init()
+print(Back.BLUE+"-"*56+"HASH CLI"+"-"*56+Back.RESET)
 while x<1:
     print(Fore.GREEN+"Elija número de opción deseada:")
     print("1-Usar algoritmo SHA256")
@@ -37,4 +38,4 @@ while x<1:
         x=0
     else:
         x=1
-print("THE END")
+print("PROGRAM FINISHED")
