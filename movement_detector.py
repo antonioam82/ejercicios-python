@@ -4,6 +4,9 @@ import imutils
 import winsound
 from datetime import datetime
 
+# PRESS 't' TO START/FINISH MOVEMENT DETECTION.
+# PRESS 'q' TO FINISH THE PROGRAM.
+
 
 cap = cv2.VideoCapture(0, cv2.CAP_DSHOW)
 
