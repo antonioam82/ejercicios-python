@@ -26,7 +26,6 @@ while True:
 
         datos=input("Introducir información a hashear: ")
 
-
         algoritmo = algoritmos[nAlgoritmo-1]
             
         bdatos = bytes(datos, 'utf-8')
