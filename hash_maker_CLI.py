@@ -1,6 +1,8 @@
 import hashlib
 from colorama import Fore, Back, init
 
+# GENERAR CADENAS HASH A PARTIRDE TEXTO USANDO DIFERENTES ALGORITMOS
+
 class HASH:
     def generateHash(h):
         digest=h.hexdigest()
