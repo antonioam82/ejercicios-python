@@ -18,7 +18,7 @@ while True:
     print("4-Usar algoritmo SHA256")
     print("5-Usar algoritmo SHA384")
     print("6-Usar algoritmo SHA512")
-    print("7-Finalizar programa")
+    print("7-Finalizar programa.")
 
     try:
         nAlgoritmo = int(input("Introducir opción: "))
