@@ -19,20 +19,25 @@ while True:
     print("5-Usar algoritmo SHA384")
     print("6-Usar algoritmo SHA512")
     print("7-Finalizar programa")
-    nAlgoritmo=int(input("Introducir opción: "))
 
-    algoritmo = ""
-    if nAlgoritmo != 7:
+    try:
+        nAlgoritmo = int(input("Introducir opción: "))
 
-        datos=input("Introducir información a hashear: ")
+        if nAlgoritmo > 0 and nAlgoritmo < 8:
 
-
-        algoritmo = algoritmos[nAlgoritmo-1]
+            if nAlgoritmo != 7:
+                datos=input("Introducir información a hashear: ")
+                algoritmo = algoritmos[nAlgoritmo-1]
+                bdatos = bytes(datos, 'utf-8')
+                h = hashlib.new(algoritmo,bdatos)
+                hash1=HASH.generateHash(h)
+                print("\n"+Fore.YELLOW+hash1+Fore.RESET+"\n")
+            else:
+                break
+        else:
+            print("\n"+Back.RED+Fore.BLACK+"VALOR FUERA DE RANGO."+Fore.RESET+Back.RESET+"\n")
             
-        bdatos = bytes(datos, 'utf-8')
-        h = hashlib.new(algoritmo,bdatos)
-        hash1=HASH.generateHash(h)
-        print("\n"+Fore.YELLOW+hash1+Fore.RESET+"\n")
-    else:
-        break
+    except Exception as e:
+        print("\n"+Back.RED+Fore.BLACK+str(e)+Fore.RESET+Back.RESET+"\n")
+        
 print("PROGRAM FINISHED")
