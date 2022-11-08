@@ -12,12 +12,12 @@ algoritmos = ["md5","sha1","sha224","sha256","sha384","sha512"]
 print(Back.BLUE+"-"*56+"HASH CLI"+"-"*56+Back.RESET)
 while True:
     print(Fore.GREEN+"Elija número de opción deseada:")
-    print("1-Usar algoritmo MD5")
-    print("2-Usar algoritmo SHA1")
-    print("3-Usar algoritmo SHA224")
-    print("4-Usar algoritmo SHA256")
-    print("5-Usar algoritmo SHA384")
-    print("6-Usar algoritmo SHA512")
+    print("1-Genererar hash usando algoritmo MD5")
+    print("2-Genererar hash usando algoritmo SHA1")
+    print("3-Genererar hash usando algoritmo SHA224")
+    print("4-Genererar hash usando algoritmo SHA256")
+    print("5-Genererar hash usando algoritmo SHA384")
+    print("6-Genererar hash usando algoritmo SHA512")
     print("7-Finalizar programa.")
 
     try:
