@@ -26,14 +26,13 @@ while True:
 
         datos=input("Introducir información a hashear: ")
 
+
         algoritmo = algoritmos[nAlgoritmo-1]
             
         bdatos = bytes(datos, 'utf-8')
         h = hashlib.new(algoritmo,bdatos)
         hash1=HASH.generateHash(h)
-        print(""+Fore.YELLOW)
-        print(hash1)
-        print(""+Fore.RESET)
+        print("\n"+Fore.YELLOW+hash1+Fore.RESET+"\n")
     else:
         break
 print("PROGRAM FINISHED")
