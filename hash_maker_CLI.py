@@ -1,3 +1,5 @@
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
 import hashlib
 from colorama import Fore, Back, init
 
@@ -31,7 +33,8 @@ while True:
                 bdatos = bytes(datos, 'utf-8')
                 h = hashlib.new(algoritmo,bdatos)
                 hash1=HASH.generateHash(h)
-                print("\n"+Fore.YELLOW+hash1+Fore.RESET+"\n")
+                print(Fore.BLUE+f"\nALGORITMO: {algoritmo.upper()}"+Fore.RESET)
+                print(Fore.YELLOW+hash1+Fore.RESET+"\n")
             else:
                 break
         else:
