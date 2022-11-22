@@ -15,7 +15,7 @@ def saveFile():
 def openFile():
     file = askopenfile(mode = 'r', filetype =[('text_files', '*.txt')])
     if file is not None:
-        if len(entry.get('1.0',END))>1: ###############
+        if len(entry.get('1.0',END))>1:
             clearFile()
         content = file.read()
         entry.insert(INSERT, content)
@@ -33,7 +33,7 @@ def clearFile():
     entry.delete('1.0',END)
 
 canvas = tk.Tk()
-canvas.geometry("780x600")
+canvas.geometry("550x660")
 canvas.title("Notepad")
 canvas.config(bg = "white")
 
