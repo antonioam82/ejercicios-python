@@ -1,6 +1,7 @@
 from tkinter.filedialog import *
 from tkinter.messagebox import *
 import tkinter as tk
+import os
 
 def saveFile():
     doc = asksaveasfilename(title="save text", initialfile="my_text",defaultextension=".txt")
@@ -34,6 +35,11 @@ canvas = tk.Tk()
 canvas.geometry("780x600")
 canvas.title("Notepad")
 canvas.config(bg = "white")
+
+current_dir = StringVar()
+current_dir.set(os.getcwd())
+
+Entry(canvas,textvariable=current_dir).pack(padx=0,pady=0,fill="both")
 top = Frame(canvas)
 top.pack(padx = 10, pady = 5, anchor = "nw")
 
