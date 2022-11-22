@@ -4,12 +4,13 @@ import tkinter as tk
 import os
 
 def saveFile():
-    doc = asksaveasfilename(title="save text", initialfile="my_text",defaultextension=".txt")
-    if doc != "":
-        new_file = open(doc,"w")
-        text = str(entry.get(1.0, END))
-        new_file.write(text)
-        new_file.close()
+    if len(entry.get('1.0',END)) > 1:
+        doc = asksaveasfilename(title="save text", initialfile="my_text",defaultextension=".txt")
+        if doc != "":
+            new_file = open(doc,"w")
+            text = str(entry.get(1.0, END))
+            new_file.write(text)
+            new_file.close()
 
 def openFile():
     file = askopenfile(mode = 'r', filetype =[('text_files', '*.txt')])
