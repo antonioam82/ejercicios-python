@@ -41,8 +41,9 @@ current_dir = StringVar()
 current_dir.set(os.getcwd())
 
 Entry(canvas,textvariable=current_dir).pack(padx=0,pady=0,fill="both")
+
 top = Frame(canvas)
-top.pack(padx = 10, pady = 5, anchor = "nw")
+top.pack(padx = 10, pady = 3, anchor = "nw")
 
 b1 = Button(canvas,text="Open",bg="white", command=openFile)
 b1.pack(in_ = top, side=LEFT)
@@ -56,7 +57,15 @@ b3.pack(in_ = top, side=LEFT)
 b4 = Button(canvas,text="Exit",bg="white", command=destroy_window)
 b4.pack(in_ = top, side=LEFT)
 
-entry = Text(canvas, wrap = WORD, bg = "azure", font = ("poppins", 15))
-entry.pack(padx = 10, pady = 5, expand = TRUE, fill = BOTH)
+canvas2 = Canvas(canvas)
+canvas2.pack(padx = 10, pady = 5, expand = TRUE, fill = BOTH)
+
+scrollbar = Scrollbar(canvas2,orient=VERTICAL)
+scrollbar.pack(side = RIGHT, fill = Y)
+
+entry = Text(canvas2, wrap = WORD, bg = "azure", font = ("poppins", 15))
+entry.pack(side = LEFT, fill = BOTH)
+entry.config(yscrollcommand = scrollbar.set)
+scrollbar.config(command = entry.yview)
 
 canvas.mainloop()
