@@ -64,7 +64,7 @@ scrollbar = Scrollbar(canvas2,orient=VERTICAL)
 scrollbar.pack(side = RIGHT, fill = Y)
 
 entry = Text(canvas2, wrap = WORD, bg = "azure", font = ("poppins", 15))
-entry.pack(side = LEFT, fill = BOTH)
+entry.pack(side = LEFT, fill = BOTH, expand = TRUE)
 entry.config(yscrollcommand = scrollbar.set)
 scrollbar.config(command = entry.yview)
 
