@@ -1,5 +1,8 @@
 from tkinter.filedialog import *
 from tkinter.messagebox import *
+import pyperclip
+import time
+import threading
 import tkinter as tk
 import os
 
@@ -14,6 +17,23 @@ def saveFile():
             text = str(entry.get(1.0, END))
             new_file.write(text)
             new_file.close()
+
+#FUNCIÓN PARA IMPORTAR TEXTO
+def import_text():
+    clearFile()
+    ultima_copia = pyperclip.paste().strip()
+    showinfo("COPIAR TEXTO","Seleccione texto a copiar.")
+    while True:
+        time.sleep(0.1)
+        copia = pyperclip.paste().strip()
+        if copia != ultima_copia:
+            entry.insert(END,copia)
+            ultima_copia = copia
+            break
+
+#FUNCIÓN PARA INICIAR "import_text()" DE FORMA CONCURRENTE
+def init_copy():
+    threading.Thread(target=import_text).start()
 
 #FUNCIÓN PARA ABRIR Y LEER ARCHIVOS DE TEXTO
 def openFile():
@@ -67,6 +87,9 @@ b3.pack(in_ = top, side=LEFT)
 b4 = Button(canvas,text="Exit",bg="white",command=destroy_window)
 b4.pack(in_ = top, side=LEFT)
 
+b5 = Button(canvas,text="Paste",bg="white",command=init_copy)
+b5.pack(in_ = top, side=LEFT)
+
 #ELEMENTO CANVAS PARA ENTRADA DE TEXTO Y BARRA DE SCROLL
 canvas2 = Canvas(canvas)
 canvas2.pack(padx = 10, pady = 5, expand = TRUE, fill = BOTH)
@@ -84,3 +107,4 @@ entry.config(yscrollcommand = scrollbar.set)
 scrollbar.config(command = entry.yview)
 
 canvas.mainloop()
+
