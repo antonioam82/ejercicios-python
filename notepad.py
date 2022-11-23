@@ -84,11 +84,11 @@ b2.pack(in_ = top, side=LEFT)
 b3 = Button(canvas,text="Clear",bg="white",command=clearFile)
 b3.pack(in_ = top, side=LEFT)
 
-b4 = Button(canvas,text="Exit",bg="white",command=destroy_window)
-b4.pack(in_ = top, side=LEFT)
-
 b5 = Button(canvas,text="Paste",bg="white",command=init_copy)
 b5.pack(in_ = top, side=LEFT)
+
+b4 = Button(canvas,text="Exit",bg="white",command=destroy_window)
+b4.pack(in_ = top, side=LEFT)
 
 #ELEMENTO CANVAS PARA ENTRADA DE TEXTO Y BARRA DE SCROLL
 canvas2 = Canvas(canvas)
