@@ -11,6 +11,7 @@ def cargar_clave():
 genera_clave()
 clave = cargar_clave()
 mensaje = "Mi mensaje".encode()
+
 f = Fernet(clave)
 encriptado = f.encrypt(mensaje)
 print(encriptado)
