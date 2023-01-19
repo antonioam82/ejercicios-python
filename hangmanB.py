@@ -33,13 +33,13 @@ def main():
     count = 0
     display = ['_'] * length
     already_guessed = []
-    play_game = ""
+    #play_game = ""
 
     hangman()
 
 def add_letter(l):
     global display
-    global already_guessed
+    #global already_guessed
     global word
     for c in re.finditer(l, word, re.IGNORECASE):
         display[c.start():c.end()] = list(c.group())
@@ -48,7 +48,7 @@ def add_letter(l):
     print("".join(display))
 
 def play_loop():
-    global play_game
+    #global play_game
     play_game = input("Wanna play again? (y/n)\n")
     while play_game not in ["y", "n", "Y", "N"]:
         play_game = input("Wanna play again? (y/n)\n")
@@ -71,8 +71,9 @@ def hangman():
         print("Invalid input! try a letter, please! \n")
         hangman()
     elif guess in already_guessed:
-        print("Try another letter.\n")
+        print(f"Letter '{guess}' is already guessed. Try another letter.\n")
     elif guess in word:
+        already_guessed.append(guess)
         add_letter(guess)
     else:
         count += 1
@@ -130,7 +131,7 @@ def hangman():
                   "  |    /|\ \n"
                   "  |    / \ \n"
                   "__|__   \n")
-            print("Wrong guess! You are henged!!!!\n")
+            print("Wrong guess! You are hanged!!!!\n")
             print("The word was: ", word)
             play_loop()
 
@@ -144,3 +145,4 @@ def hangman():
 
 main()
 #hangman()
+
