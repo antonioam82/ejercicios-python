@@ -10,7 +10,7 @@ print("Hello " + name + "! Good Luck!")
 time.sleep(1)
 print("Loading")
 time.sleep(2)
-print("The game is about to start!\n Let us play Hangman!")
+print("The game is about to start!\nLet us play Hangman!")
 time.sleep(3)
 
 def main():
