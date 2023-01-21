@@ -8,10 +8,10 @@ print("\nWelcome to Hangman!\n")
 name = input("\nWhat is your name?\n")
 print("Hello " + name + "! Good Luck!")
 time.sleep(1)
-print("Loading")
+print("GET READY..")
 time.sleep(2)
-print("The game is about to start!\nLet us play Hangman!")
-time.sleep(3)
+print("The game is about to start!\nLet us play Hangman!\n")
+time.sleep(1)
 
 def main():
     global count
@@ -23,7 +23,8 @@ def main():
 
     words_list = ["march", "superb", "splendid", "spiderman",
     "deahtstroke", "chocolate", "heart", "happy", "toronto",
-    "cairo", "warsaw", "paris", "chicago", "edmonton"]
+    "cairo", "warsaw", "paris", "chicago", "edmonton","dog","school",
+    "people","catwoman","stratosphere","rocket","stradivarius"]
 
     word = random.choice(words_list)
     print(word)
@@ -77,8 +78,8 @@ def hangman():
         add_letter(guess)
     else:
         count += 1
+        time.sleep(1)
         if count == 1:
-            time.sleep(1)
             print("   _____\n"
                   "  |     \n"
                   "  |     \n"
@@ -87,7 +88,7 @@ def hangman():
                   "  |     \n"
                   "  |     \n"
                   "__|__   \n")
-            print("Wrong guess!" + str(limit - count))
+            print("Wrong guess!: " + str(limit - count) +" remaining guesses")
         elif count == 2:
             time.sleep(1)
             print("   _____\n"
@@ -98,7 +99,7 @@ def hangman():
                   "  |     \n"
                   "  |     \n"
                   "__|__   \n")
-            print("Wrong guess!" + str(limit - count) + "remaining guesses")
+            print("Wrong guess!: " + str(limit - count) +" remaining guesses")
         elif count == 3:
             time.sleep(1)
             print("   _____\n"
@@ -109,7 +110,7 @@ def hangman():
                   "  |     \n"
                   "  |     \n"
                   "__|__   \n")
-            print("Wrong guess!" + str(limit - count) + "remaining guesses")
+            print("Wrong guess!: " + str(limit - count) +" remaining guesses")
         elif count == 4:
             time.sleep(1)
             print("   _____\n"
@@ -120,7 +121,7 @@ def hangman():
                   "  |    /|\ \n"
                   "  |     \n"
                   "__|__   \n")
-            print("Wrong guess!" + str(limit - count) + "remaining guesses")
+            print("Wrong guess!: " + str(limit - count) +" remaining guesses")
         else:
             time.sleep(1)
             print("   _____\n"
@@ -135,8 +136,6 @@ def hangman():
             print("The word was: ", word)
             play_loop()
 
-    '''if word == "_" * length:
-        print("Congrats!!! You are alive!")'''
     if ("".join(display)) == word:
         print("Congrats!!! You are alive!")
         play_loop()
@@ -144,5 +143,4 @@ def hangman():
         hangman()
 
 main()
-#hangman()
 
