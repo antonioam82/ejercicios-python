@@ -8,7 +8,7 @@ print("\nWelcome to Hangman!\n")
 name = input("\nWhat is your name?\n")
 print("Hello " + name + "! Good Luck!")
 time.sleep(1)
-print("GET READY..")
+print("GETTING READY..")
 time.sleep(2)
 print("The game is about to start!\nLet us play Hangman!\n")
 time.sleep(1)
@@ -46,7 +46,7 @@ def add_letter(l):
         display[c.start():c.end()] = list(c.group())
     for c in re.finditer(l, word, re.IGNORECASE):
         display[c.start()] = c.group()
-    print("".join(display))
+    #print("".join(display))
 
 def play_loop():
     #global play_game
@@ -69,7 +69,7 @@ def hangman():
     limit = 5
     guess = input("This is the Hangman word: " + ("".join(display)) + " Enter your guess: \n")
     if len(guess.strip()) == 0 or len(guess.strip()) >= 2 or guess <= "9":
-        print(Fore.RED+"Invalid input! try a letter, please! \n"+Fore.RESET)
+        print("Invalid input! try a letter, please! \n")
         hangman()
     elif guess in already_guessed:
         print(f"Letter '{guess}' is already guessed. Try another letter.\n")
@@ -137,7 +137,7 @@ def hangman():
             play_loop()
 
     if ("".join(display)) == word:
-        print("Congrats!!! You are alive!")
+        print(f"Congrats!!! You  got the word '{word}'. Meaning you are alive!")
         play_loop()
     elif count != limit:
         hangman()
