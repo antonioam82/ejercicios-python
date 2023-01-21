@@ -69,7 +69,7 @@ def hangman():
     limit = 5
     guess = input("This is the Hangman word: " + ("".join(display)) + " Enter your guess: \n")
     if len(guess.strip()) == 0 or len(guess.strip()) >= 2 or guess <= "9":
-        print("Invalid input! try a letter, please! \n")
+        print(Fore.RED+"Invalid input! try a letter, please! \n"+Fore.RESET)
         hangman()
     elif guess in already_guessed:
         print(f"Letter '{guess}' is already guessed. Try another letter.\n")
