@@ -1,5 +1,6 @@
 import socket
 import tqdm
+import time
 
 server = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 server.bind(("localhost", 9999))
@@ -16,10 +17,12 @@ file = open(file_name, "wb")
 
 file_bytes = b""
 
+size = int(file_size)
+
 done = False
 
-progress = tqdm(unit="B", unit_scale=True, unit_divisor=1000,
-                total=int(file_size))
+progress = tqdm.tqdm(unit="B", unit_scale=True, unit_divisor=1000,
+                total=size)
 
 while not done:
     data = client.recv(1024)
@@ -27,6 +30,7 @@ while not done:
         done = True
     else:
         file_bytes += data
+    time.sleep(0.003)
     progress.update(1024)
 
 file.write(file_bytes)
