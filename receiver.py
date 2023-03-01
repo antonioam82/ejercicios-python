@@ -3,7 +3,7 @@ import tqdm
 import time
 
 HOST = "localhost" #IP DEL SERVIDOR
-PORT = 9999        #PUERTO DE ENVIO
+PORT = 9999        #PUERTO DE ESCUCHA
 
 server = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 server.bind((HOST, PORT))     # ASOCIAR SOCKET A DIRECCIÓN IP Y PUERTO
