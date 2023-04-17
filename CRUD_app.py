@@ -97,4 +97,8 @@ tree.heading('#2', text="Cargo", anchor=CENTER)
 tree.column('#3', width=100)
 tree.heading('#3', text="Salario", anchor=CENTER)
 
+def actualizar():
+    miConexion=sqlite3.connect("base")
+    
+
 root.mainloop()
