@@ -90,5 +90,11 @@ def mostrar():
 
 tree = ttk.Treeview(height=10, columns=('#0','#1','#2'))
 tree.place(x=0,y=130)
+tree.column('#0', width=100)
+tree.heading('#0', text="ID", anchor=CENTER)
+tree.heading('#1', text="Nombre del Empleado", anchor=CENTER)
+tree.heading('#2', text="Cargo", anchor=CENTER)
+tree.column('#3', width=100)
+tree.heading('#3', text="Salario", anchor=CENTER)
 
 root.mainloop()
