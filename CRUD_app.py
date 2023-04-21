@@ -99,6 +99,27 @@ tree.heading('#3', text="Salario", anchor=CENTER)
 
 def actualizar():
     miConexion=sqlite3.connect("base")
-    
+    miCursor=miConexion.cursor()
+    try:
+        datos=miNombre.get(),miCargo.get(),miSalario.get()
+        miCursor.execute("UPDATE empleado SET NOMBRE=?, CARGO=?, SALARIO=? WHERE ID="+miId.get(), (datos))
+        miConexion.commit()
+    except:
+        messagebox.showwarning("ADVERTENCIA","Ocurrio un error al crear el registro, verifique su conexion con la BBDD")
+        pass
+    limpiarCampos()
+    mostrar()
+
+def borrar():
+    miConexion = sqlite3.connect("base")
+    miCursor=miConexion.cursor()
+    try:
+        if messagebox.askyesno(message="¿Realmente desea eliminar el registro?", title="ADVERTENCIA"):
+            miCursor.execute("DELETE FROM empleado WHERE ID="+miId.get())
+    except:
+        messagebox.showwarning("DVERTENCIA","Ocurrio un error al tratar de eleminar el registro")
+        pass
+    limpiarCampos()
+    mostrar()
 
 root.mainloop()
