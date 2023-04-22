@@ -122,4 +122,26 @@ def borrar():
     limpiarCampos()
     mostrar()
 
+################################elementos graficos######################
+
+menubar = Menu(root)
+menubasedat=Menu(menubar,tearoff=0)
+menubasedat.add_command(label="Crear/Conectar Base de datos",command=conexion_BBDD)
+menubasedat.add_command(label="Eliminar Base de datos",command=eliminarBBDD)
+menubasedat.add_command(label="Salir",command=salirAplicacion)
+menubar.add_cascade(label="Inicio",menu=menubasedat)
+
+ayudamenu=Menu(menubar,tearoff=0)
+ayudamenu.add_command(label="Resetear Campos",command=limpiarCampos)
+ayudamenu.add_command(label="Acerca",command=mensaje)
+menubar.add_cascade(label="Ayuda",menu=ayudamenu)
+
+e1=Entry(root, textvariable=miId)
+l2=Label(root, text="Nombre")
+l2.place(x=50,y=10)
+e2=Entry(root, textvariable=miNombre, width=50)
+e2.place(x=100,y=10)
+
+root.config(menu=menubar)
+
 root.mainloop()
