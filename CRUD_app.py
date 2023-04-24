@@ -21,7 +21,7 @@ def conexion_BBDD():
     
     try:
         miCursor.execute('''
-            CREATE TABLE empleado (
+            CREATE TABLE 'empleado' (
             ID INTEGER PRIMARY KEY AUTOINCREMENT
             NOMBRE VARCHAR(50) NOT NULL,
             CARGO VARCHAR(50) NOT NULL,
@@ -67,8 +67,8 @@ def crear():
         datos=miNombre.get(),miCargo.get(),miSalario.get()
         miCursor.execute("INSERT INTO empleado VALUES(NULL,?,?,?)", (datos))
         miConexion.commit()
-    except:
-        messagebox.showwarning("ADVERTENCIA","Ocurrio un error al crear el registro, verifique conexion co base de datos")
+    except Exception as e:
+        messagebox.showwarning("ADVERTENCIA",str(e))
         pass
     limpiarCampos()
     mostrar()
@@ -123,7 +123,7 @@ def borrar():
     mostrar()
 
 ################################elementos graficos######################
-
+####################### menus ##########################################
 menubar = Menu(root)
 menubasedat=Menu(menubar,tearoff=0)
 menubasedat.add_command(label="Crear/Conectar Base de datos",command=conexion_BBDD)
@@ -136,11 +136,39 @@ ayudamenu.add_command(label="Resetear Campos",command=limpiarCampos)
 ayudamenu.add_command(label="Acerca",command=mensaje)
 menubar.add_cascade(label="Ayuda",menu=ayudamenu)
 
+####################### etiquetas y cajas de texto ######################
 e1=Entry(root, textvariable=miId)
 l2=Label(root, text="Nombre")
 l2.place(x=50,y=10)
 e2=Entry(root, textvariable=miNombre, width=50)
 e2.place(x=100,y=10)
+
+l3=Label(root, text="Cargo")
+l3.place(x=50,y=40)
+e3=Entry(root, textvariable=miCargo)
+e3.place(x=100,y=40)
+
+l4=Label(root, text="Salario")
+l4.place(x=280,y=40)
+e4=Entry(root, textvariable=miSalario, width=10)
+e4.place(x=320,y=40)
+
+l5=Label(root, text="USD")
+l5.place(x=380, y=40)
+
+####################### Botones #########################################
+
+b1=Button(root, text="Crear Registro", command=crear)
+b1.place(x=50,y=90)
+
+b2=Button(root, text="Modificar Registro", command=actualizar)
+b2.place(x=180,y=90)
+
+b3=Button(root, text="Mostrar Lista", command=mostrar)
+b3.place(x=320,y=90)
+
+b4=Button(root, text="Eliminar Registro", bg="red", command=borrar)
+b4.place(x=450,y=90)
 
 root.config(menu=menubar)
 
