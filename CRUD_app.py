@@ -20,13 +20,12 @@ def conexion_BBDD():
     miCursor = miConexion.cursor()
     
     try:
-        miCursor.execute('''
-            CREATE TABLE 'empleado' (
-            ID INTEGER PRIMARY KEY AUTOINCREMENT
-            NOMBRE VARCHAR(50) NOT NULL,
-            CARGO VARCHAR(50) NOT NULL,
-            SALARIO INT NOT NULL)
-            ''')
+        miCursor.execute('''CREATE TABLE empleado (
+                                   ID INTEGER PRIMARY KEY AUTOINCREMENT,
+                                   NOMBRE VARCHAR(50) NOT NULL,
+                                   CARGO VARCHAR(50) NOT NULL,
+                                   SALARIO INT NOT NULL
+                            )''')
         messagebox.showinfo("CONEXION","Base de datos creada correctamente")
     except:
         messagebox.showinfo("CONEXION","Conexión exitosa con la base de datos")
