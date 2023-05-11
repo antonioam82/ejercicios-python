@@ -18,7 +18,7 @@ counter = 0
 ### Borel-Cantellí: P[all test are normal = True] = 0
 while is_normal == True and counter < int(times):
     x_size = 10**6
-    degrees_freedom = 9
+    degrees_freedom = 5
     # GENERATE DISTRIBUTION
     x = np.random.standard_normal(x_size) 
     
