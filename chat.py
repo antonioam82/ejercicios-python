@@ -1,17 +1,29 @@
 #IMPORTAR LIBRERIA
 import openai
-import win32com.client as wc
+import time
+import os
+import sys
+from colorama import Fore, init
+
+init()
 
 # INTRODUCIR CLAVE
-key = "<your_api_key>"
+key = "<YOUR_API_KEY>"
 openai.api_key = key
-speak=wc.Dispatch("Sapi.SpVoice")
+
+def typewriter(message):
+    print(Fore.GREEN)
+    for i in message:
+        sys.stdout.write(i)
+        sys.stdout.flush()
+        time.sleep(0.01)
+    print(Fore.RESET)
 
 # BUCLE
 while True:
     
     # INTRODUCIR PREGUNTA A ENVIAR
-    prompt = input("\nIntroduce pregunta: ")
+    prompt = input("\nPROMPT> ")
 
     # CONDICIÓN PARA FINALIZAR BUCLE
     if prompt == "END":
@@ -23,6 +35,7 @@ while True:
                                           max_tokens=2048)
 
     # MOSTAR RESPUESTA EN PANTALLA
-    response = completion.choices[0].text
-    print(response)
-    speak.Speak(response)
+    response = str(completion.choices[0].text)
+    
+    typewriter(response)
+    print("")
