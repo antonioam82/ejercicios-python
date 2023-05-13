@@ -26,7 +26,7 @@ if type_random_variable == "normal":
 elif type_random_variable == "exponential":
     x = np.random.standard_exponential(x_size)
     x_str = type_random_variable
-elif type_random_variable == "student":
+elif type_random_variable == "normal":
     x = np.random.standard_t(df=degrees_freedom,size=x_size)
     x_str = type_random_variable + ' (df=' + str(degrees_freedom) + ')'
 elif type_random_variable == "chi-squared":
@@ -41,17 +41,19 @@ x_skew = skew(x)
 x_kurt = kurtosis(x)
 x_median = np.percentile(x,95)
 x_VaR95 = np.percentile(x,5)
+x_cvar95 = np.mean(x[x <= x_VaR95])
 x_jb = x_size/6*(x_skew**2 + 1/4*x_kurt**2)
 p_value = 1 - chi2.cdf(x_jb,df=degrees_freedom)
 is_normal = (p_value > 0.05)
 
-print("MEAN: ",x_mean)
-print("STD_DEV: ",s_stdev)
-print("SKEWNESS: ",x_skew)
-print("KURTOSIS: ",x_kurt)
-print("MEDIAN: ",x_median)
-print("VaR95: ",x_VaR95)
-print("JARQUE-BERA: ",x_jb)
+print("MEAN: ",x_mean)        # MEDIA
+print("STD_DEV: ",s_stdev)    # VOLATILIDAD
+print("SKEWNESS: ",x_skew)    # SIMETRIA
+print("KURTOSIS: ",x_kurt)    # LONG COLAS
+print("MEDIAN: ",x_median)    # MEDIANA
+print("VaR95: ",x_VaR95)      # VALOR EN RIESGO
+print("CVaR95: ",x_cvar95)    # VALOR EN RIESGO CONDICIONAL
+print("JARQUE-BERA: ",x_jb)   # NORMALIDAD
 print("P-VALUE: ",p_value)
 print("IS NORMAL: ",str(is_normal))
 
@@ -60,3 +62,4 @@ plt.figure()
 plt.hist(x,bins=100)
 plt.title('Histogram ' + x_str)
 plt.show()
+
