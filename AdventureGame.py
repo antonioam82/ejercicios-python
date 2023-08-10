@@ -109,13 +109,13 @@ def hauntedRoom():
     elif userInput == "backward":
       introScene()
     else:
-      print("Please enter a valid option for the adventure game.") 
+      print("Please enter a valid option for the adventure game.")
 
 if __name__ == '__main__':
   while True:
-    typer("Welcome to the Adventure Game!")
-    typer("As an avid traveler, you have decided to visit the Catacombs of Paris.")
-    typer("However, during your exploration, you find yourself lost.")
+    typer("Welcome to the Adventure Game! ")
+    typer("As an avid traveler, you have decided to visit the Catacombs of Paris. ")
+    typer("However, during your exploration, you find yourself lost. ")
     typer("You can choose to walk in multiple directions to find a way out.\n")
     typer("Let's start with your name: ")
     name = input()
