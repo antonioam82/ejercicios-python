@@ -1,6 +1,13 @@
 import time
+import os
 
 weapon = False
+
+def clear_screen():
+  try:
+    os.system('cls')
+  except:
+    pass
 
 def typer(text):
   for char in text:
@@ -19,6 +26,7 @@ def play_again():
             print("Please enter a valid option ('y' or 'n'). ")
 
 def introScene():
+  clear_screen()
   directions = ["left", "right", "forward"]
   typer("You are at a crossroads, and you can choose to go down any of the four hallways. Where would you like to go?\n")
   userInput = ""
@@ -37,6 +45,7 @@ def introScene():
       print("Please enter a valid option for the adventure game.")
 
 def showSkeletons():
+  clear_screen()
   directions = ["backward", "forward"]
   global weapon
   typer("You see a wall of skeletons as you walk into the room. Someone is watching you. Where would you like to go?\n")
@@ -55,6 +64,7 @@ def showSkeletons():
       print("Please enter a valid option for the adventure game.")
 
 def strangeCreature():
+  clear_screen()
   actions = ["fight", "flee"]
   global weapon
   typer("A strange goul-like creature has appeared. You can either run or fight it. What would you like to do?\n")
@@ -74,6 +84,7 @@ def strangeCreature():
       print("Please enter a valid option for the adventure game.")
 
 def showShadowFigure():
+  clear_screen()
   directions = ["right", "backward"]
   typer("You see a dark shadowy figure appear in the distance. You are creeped out. Where would you like to go?\n")
   userInput = ""
@@ -90,6 +101,7 @@ def showShadowFigure():
       print("Please enter a valid option for the adventure game.")
 
 def cameraScene():
+  clear_screen()
   directions = ["forward", "backward"]
   typer("You see a camera that has been dropped on the ground. Someone has been here recently. Where would you like to go?\n")
   userInput = ""
@@ -105,6 +117,7 @@ def cameraScene():
       print("Please enter a valid option for the adventure game.")
 
 def hauntedRoom():
+  clear_screen()
   directions = ["right", "left", "backward"]
   typer("You hear strange voices. You think you have awoken some of the dead. Where would you like to go?\n")
   userInput = ""
@@ -123,6 +136,7 @@ def hauntedRoom():
       print("Please enter a valid option for the adventure game.")
 
 def start_game():
+  clear_screen()
   typer("Welcome to the Adventure Game! ")
   typer("As an avid traveler, you have decided to visit the Catacombs of Paris. ")
   typer("However, during your exploration, you find yourself lost. ")
@@ -130,6 +144,7 @@ def start_game():
   typer("Let's start with your name: ")
   name = input()
   print("Good luck, " +name+ ".")
+  time.sleep(2)
   introScene()
 
 start_game()
