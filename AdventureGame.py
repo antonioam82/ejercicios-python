@@ -6,7 +6,7 @@ def typer(text):
   for char in text:
     print(char, end='', flush=True)
     time.sleep(0.01)
-
+    
 def introScene():
   directions = ["left", "right", "forward"]
   typer("You are at a crossroads, and you can choose to go down any of the four hallways. Where would you like to go?\n")
