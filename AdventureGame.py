@@ -13,10 +13,10 @@ def play_again():
         if play_again == "yes":
             start_game()
         elif play_again == "no":
-            print("Thank you for playing! Goodbye.")
+            print("Thank you for playing! Goodbye. ")
             quit()
         else:
-            print("Please enter a valid option ('yes' or 'no').")
+            print("Please enter a valid option ('yes' or 'no'). ")
 
 def introScene():
   directions = ["left", "right", "forward"]
@@ -131,7 +131,7 @@ def start_game():
   name = input()
   print("Good luck, " +name+ ".")
   introScene()
-
+  
 start_game()
 
 if __name__ == '__main__':
