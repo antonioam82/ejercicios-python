@@ -6,7 +6,18 @@ def typer(text):
   for char in text:
     print(char, end='', flush=True)
     time.sleep(0.01)
-    
+
+def play_again():
+    while True:
+        play_again = input("Do you want to play again? (yes/no): ").lower()
+        if play_again == "yes":
+            start_game()
+        elif play_again == "no":
+            print("Thank you for playing! Goodbye.")
+            quit()
+        else:
+            print("Please enter a valid option ('yes' or 'no').")
+
 def introScene():
   directions = ["left", "right", "forward"]
   typer("You are at a crossroads, and you can choose to go down any of the four hallways. Where would you like to go?\n")
@@ -55,8 +66,8 @@ def strangeCreature():
       if weapon:
         typer("You kill the goul with the knife you found earlier. After moving forward, you find one of the exits. Congrats!")
       else:
-        typer("The goul-like creature has killed you.")
-      quit()
+        typer("The goul-like creature has killed you.\n")
+      play_again()
     elif userInput == "flee":
       showSkeletons()
     else:
@@ -87,7 +98,7 @@ def cameraScene():
     userInput = input()
     if userInput == "forward":
       typer("You made it! You've found an exit.\n")
-      quit()
+      play_again()
     elif userInput == "backward":
       showShadowFigure()
     else:
@@ -101,23 +112,27 @@ def hauntedRoom():
     print("Options: right/left/backward")
     userInput = input()
     if userInput == "right":
-      typer("Multiple goul-like creatures start emerging as you enter the room. You are killed.")
-      quit()
+      typer("Multiple goul-like creatures start emerging as you enter the room. You are killed.\n")
+      play_again()
     elif userInput == "left":
-      typer("You made it! You've found an exit.")
-      quit()
+      typer("You made it! You've found an exit.\n")
+      play_again()
     elif userInput == "backward":
       introScene()
     else:
       print("Please enter a valid option for the adventure game.")
 
+def start_game():
+  typer("Welcome to the Adventure Game! ")
+  typer("As an avid traveler, you have decided to visit the Catacombs of Paris. ")
+  typer("However, during your exploration, you find yourself lost. ")
+  typer("You can choose to walk in multiple directions to find a way out.\n")
+  typer("Let's start with your name: ")
+  name = input()
+  print("Good luck, " +name+ ".")
+  introScene()
+
+start_game()
+
 if __name__ == '__main__':
-  while True:
-    typer("Welcome to the Adventure Game! ")
-    typer("As an avid traveler, you have decided to visit the Catacombs of Paris. ")
-    typer("However, during your exploration, you find yourself lost. ")
-    typer("You can choose to walk in multiple directions to find a way out.\n")
-    typer("Let's start with your name: ")
-    name = input()
-    print("Good luck, " +name+ ".")
-    introScene()
+  start_game()
