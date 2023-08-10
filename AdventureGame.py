@@ -73,6 +73,7 @@ def strangeCreature():
     print("Options: flee/fight")
     userInput = input()
     if userInput == "fight":
+      clear_screen()
       if weapon:
         typer("You kill the goul with the knife you found earlier. After moving forward, you find one of the exits. Congrats!")
       else:
@@ -94,7 +95,9 @@ def showShadowFigure():
     if userInput == "right":
       cameraScene()
     elif userInput == "left":
+      clear_screen()
       typer("You find that this door opens into a wall.\n")
+      #...
     elif userInput == "backward":
       introScene()
     else:
@@ -109,6 +112,7 @@ def cameraScene():
     print("Options: forward/backward")
     userInput = input()
     if userInput == "forward":
+      clear_screen()
       typer("You made it! You've found an exit.\n")
       play_again()
     elif userInput == "backward":
