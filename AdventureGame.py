@@ -109,9 +109,7 @@ def hauntedRoom():
     elif userInput == "backward":
       introScene()
     else:
-      print("Please enter a valid option for the adventure game.")
-
-    
+      print("Please enter a valid option for the adventure game.") 
 
 if __name__ == '__main__':
   while True:
