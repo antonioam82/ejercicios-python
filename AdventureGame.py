@@ -9,14 +9,14 @@ def typer(text):
 
 def play_again():
     while True:
-        play_again = input("Do you want to play again? (yes/no): ").lower()
-        if play_again == "yes":
+        play_again = input("Do you want to play again? (y/n): ").lower()
+        if play_again == "y":
             start_game()
-        elif play_again == "no":
+        elif play_again == "n":
             print("Thank you for playing! Goodbye. ")
             quit()
         else:
-            print("Please enter a valid option ('yes' or 'no'). ")
+            print("Please enter a valid option ('y' or 'n'). ")
 
 def introScene():
   directions = ["left", "right", "forward"]
@@ -131,7 +131,7 @@ def start_game():
   name = input()
   print("Good luck, " +name+ ".")
   introScene()
-  
+
 start_game()
 
 if __name__ == '__main__':
