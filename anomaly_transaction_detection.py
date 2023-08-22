@@ -3,9 +3,6 @@ import plotly.express as px
 from sklearn.model_selection import train_test_split
 from sklearn.ensemble import IsolationForest
 from sklearn.metrics import classification_report
-import os
-
-os.chdir(r'C:\Users\Antonio\Documents\Nueva carpeta')
 
 data = pd.read_csv("transaction_anomalies_dataset.csv")
 #print(data.head())
