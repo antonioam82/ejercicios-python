@@ -1,9 +1,7 @@
-import os
+#import os
 import cv2
 import numpy as np
 from scipy.linalg import svd
-
-os.chdir(r'C:\Users\Antonio\Documents\Nueva carpeta')
 
 imagen = cv2.imread('portrait.jpg')
 
