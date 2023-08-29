@@ -1,7 +1,9 @@
-#import os
+import os
 import cv2
 import numpy as np
 from scipy.linalg import svd
+
+os.chdir(r'C:\Users\Antonio\Documents\Nueva carpeta')
 
 imagen = cv2.imread('portrait.jpg')
 
@@ -39,7 +41,7 @@ for i in range(len(s_R)):
     a = (s_R[i]/(sum(s_R)))*100
     sigma_s_R.append(a)
 
-k = 360
+k = 12
 
 U_B_k = U_B[:,:k]
 Sigma_B_k = np.diag(s_B[:k])
@@ -64,6 +66,19 @@ Imagen_SVD[:,:,1] = G_reducida
 Imagen_SVD[:,:,2] = R_reducida
 
 Imagen_con_SVD = cv2.merge([Imagen_SVD[:,:,0],Imagen_SVD[:,:,1],Imagen_SVD[:,:,2]])
+
+img_original_grises = cv2.cvtColor(imagen, cv2.COLOR_BGR2GRAY)
+img_reducida_grises = cv2.cvtColor(Imagen_con_SVD, cv2.COLOR_BGR2GRAY)
+
+diferencia = img_original_grises - img_reducida_grises
+mse = np.mean(diferencia**2)
+print("ERROR CUADRÁTICO MEDIO: ",mse)
+
+cant_bytes_reducida = m*k*3
+print("CANTIDAD DE BYTES REQUERIDOS: ",cant_bytes_reducida)
+
+tasa_compresion = cant_bytes_original / cant_bytes_reducida
+print("TASA DE COMPRESION: ",tasa_compresion)
 
 name = 'New'
 
