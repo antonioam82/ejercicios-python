@@ -7,11 +7,14 @@ import yfinance as yfin
 
 yfin.pdr_override()
 
-assets = ['NVDA','HD','JD','GOOGL']        
+#assets = ['HD','NVDA']
+assets = ['JNJ','NVDA','IBM']
+#assets = ["TSLA", "NEM", "NFLX", "BAC", "AMZN", "JNJ"]
 
+#'2021-01-01'
 data = pd.DataFrame()
 for t in assets:
-    data[t] = wb.DataReader(t, start='2021-1-1')['Adj Close'] #data_source='yahoo'
+    data[t] = wb.DataReader(t, start='2019-01-01')['Adj Close'] #data_source='yahoo'
 
 log_returns = np.log(1+data.pct_change())
 print(log_returns)
@@ -19,7 +22,7 @@ print(log_returns)
 port_returns = []
 port_vols = []
 
-for i in range(100):
+for i in range(2500):
     num_assets = len(assets)
     weights = np.random.random(num_assets)
     weights /= np.sum(weights)
@@ -60,6 +63,7 @@ print("Volatilidad óptima de la cartera: ", round(optimal_stats['Volatility']*1
 print("Ratio Sharpe óptimo de la cartera: ", round(optimal_stats['Sharpe'],4))
 
 plt.figure(figsize=(12, 6))
+plt.grid()
 scatter = plt.scatter(port_vols, port_returns, c=sharpe, cmap='viridis')
 plt.scatter(max_sr_vol, max_sr_ret, c='red', s=30)
 plt.colorbar(scatter, label='Ratio Sharpe (rf=0)')
