@@ -1,4 +1,4 @@
-#import os
+import os
 import cv2
 import numpy as np
 from scipy.linalg import svd
@@ -18,7 +18,7 @@ cv2.waitKey(0)
 cv2.destroyAllWindows()
 
 B,G,R = cv2.split(imagen)
-print(B)
+#print(B)
 
 U_B, s_B, V_transp_B = svd(B, full_matrices=False)
 U_G, s_G, V_transp_G = svd(G, full_matrices=False)
@@ -39,7 +39,7 @@ for i in range(len(s_R)):
     a = (s_R[i]/(sum(s_R)))*100
     sigma_s_R.append(a)
 
-k = 12
+k = 340
 
 U_B_k = U_B[:,:k]
 Sigma_B_k = np.diag(s_B[:k])
@@ -77,6 +77,9 @@ print("CANTIDAD DE BYTES REQUERIDOS: ",cant_bytes_reducida)
 
 tasa_compresion = cant_bytes_original / cant_bytes_reducida
 print("TASA DE COMPRESION: ",tasa_compresion)
+
+porcentag_reduccion = round((1 - cant_bytes_reducida / cant_bytes_original)*100,2)
+print("PORCENTAJE REDUCCIÓN DIMENSIONALIDAD: ",str(porcentag_reduccion)+'%')
 
 name = 'New'
 
