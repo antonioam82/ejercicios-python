@@ -1,3 +1,5 @@
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
 import cv2
 import numpy as np
 from scipy.linalg import svd
