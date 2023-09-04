@@ -22,7 +22,12 @@ def check_file(file):
     else:
         raise argparse.ArgumentTypeError(Fore.RED + Style.BRIGHT + f"file '{file}' not found." + Fore.RESET + Style.RESET_ALL)
 
-
+def redux(args):
+    global num_bytes
+    image = cv2.imread(args.source)
+    m,n = image.shape[:2]
+    num_bytes = m*n*3
+    print("Number of bytes: ",num_bytes)
 
 def main():
     parser = argparse.ArgumentParser(prog="SVD2",description="Programa para reducir la dimensiomalidad de una imagen.")
@@ -31,7 +36,7 @@ def main():
     parser.add_argument('-sigb', '--signif_bytes',type=int, required=True, help='Número de bytes significativos para apliación de reducción')
 
     args = parser.parse_args()
-
+    redux(args)
 
 if __name__ == "__main__":
     main()
