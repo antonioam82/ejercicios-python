@@ -37,6 +37,29 @@ def redux(args):
     num_bytes = m*n*3
     print("Number of bytes: ",num_bytes)
     B,G,R = cv2.split(image)
+    svd_f(B,G,R)
+
+def svd_f(B,G,R):
+    U_B, s_B, V_transp_B = svd(B, full_matrices=False)
+    U_G, s_G, V_transp_G = svd(G, full_matrices=False)
+    U_R, s_R, V_transp_R = svd(R, full_matrices=False)
+
+    sigma_s_B = []
+    for i in range(len(s_B)):
+        a = (s_B[i]/(sum(s_B)))*100
+        sigma_s_B.append(a)
+    
+    sigma_s_G = []
+    for i in range(len(s_G)):
+        a = (s_G[i]/(sum(s_G)))*100
+        sigma_s_G.append(a)
+
+    sigma_s_R = []
+    for i in range(len(s_R)):
+        a = (s_R[i]/(sum(s_R)))*100
+        sigma_s_R.append(a)
+        
+    print('done')
 
 def main():
     parser = argparse.ArgumentParser(prog="SVD2",description="Programa para reducir la dimensiomalidad de una imagen.")
