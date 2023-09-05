@@ -36,6 +36,7 @@ def redux(args):
     m,n = image.shape[:2]
     num_bytes = m*n*3
     print("Number of bytes: ",num_bytes)
+    B,G,R = cv2.split(image)
 
 def main():
     parser = argparse.ArgumentParser(prog="SVD2",description="Programa para reducir la dimensiomalidad de una imagen.")
