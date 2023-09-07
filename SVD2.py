@@ -11,6 +11,26 @@ init()
 
 image_formats = ['.png','.jpg']
 
+def calculate_metrics(i):
+    img_original_grises = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
+    img_reducida_grises = cv2.cvtColor(i, cv2.COLOR_BGR2GRAY)
+    diference = img_original_grises - img_reducida_grises
+    print("")
+    print(Fore.GREEN+"*************************REDUX DATA*************************")
+    mse = np.mean(diference**2)
+    print("Error cuadrático medio:                  ",mse)
+
+    num_bytes_redux = m*byt*3
+    print("Cantidad de bytes requeridos:            ",num_bytes_redux)
+
+    tasa_compresion = num_bytes / num_bytes_redux
+    print("Tasa de compresión:                      ",tasa_compresion)
+
+    porcentag_reduccion = round((1 - num_bytes_redux / num_bytes)*100,2)
+    print("Porcentage reducción de dimensionalidad: ",str(porcentag_reduccion)+'%')
+    print("************************************************************"+Fore.RESET)
+
+
 def check_extension(file):
     #global ex
     name, ex = os.path.splitext(file)
@@ -31,8 +51,9 @@ def check_file(file):
         raise argparse.ArgumentTypeError(Fore.RED + Style.BRIGHT + f"file '{file}' not found." + Fore.RESET + Style.RESET_ALL)
 
 def redux(args):
-    global num_bytes
+    global num_bytes, image, byt, m
     image = cv2.imread(args.source)
+    byt = args.signif_bytes
     m,n = image.shape[:2]
     num_bytes = m*n*3
     print("Number of bytes: ",num_bytes)
@@ -83,6 +104,7 @@ def svd_f(B,G,R,k,m,n,nm):
 
     Imagen_con_SVD = cv2.merge([Imagen_SVD[:,:,0],Imagen_SVD[:,:,1],Imagen_SVD[:,:,2]])
 
+    calculate_metrics(Imagen_con_SVD)
     show_image(Imagen_con_SVD,nm)
 
 def show_image(i,n):
