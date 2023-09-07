@@ -16,7 +16,7 @@ def calculate_metrics(i):
     img_reducida_grises = cv2.cvtColor(i, cv2.COLOR_BGR2GRAY)
     diference = img_original_grises - img_reducida_grises
     print("")
-    print(Fore.GREEN+"*************************REDUX DATA*************************")
+    print(Fore.GREEN+"*************************REDUCTION DATA*************************")
     mse = np.mean(diference**2)
     print("Error cuadrático medio:                  ",mse)
 
@@ -28,7 +28,7 @@ def calculate_metrics(i):
 
     porcentag_reduccion = round((1 - num_bytes_redux / num_bytes)*100,2)
     print("Porcentage reducción de dimensionalidad: ",str(porcentag_reduccion)+'%')
-    print("************************************************************"+Fore.RESET)
+    print("****************************************************************"+Fore.RESET)
 
 
 def check_extension(file):
@@ -66,7 +66,7 @@ def redux(args):
     byt = args.signif_bytes
     m,n = image.shape[:2]
     num_bytes = m*n*3
-    print("Number of bytes: ",num_bytes)
+    print(Fore.YELLOW + Style.DIM + f"Number of bytes (source): {num_bytes}" + Fore.RESET + Style.RESET_ALL)
     B,G,R = cv2.split(image)
     svd_f(B,G,R,args.signif_bytes,m,n,args.destination)
 
