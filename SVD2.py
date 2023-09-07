@@ -39,6 +39,16 @@ def check_extension(file):
     else:
         raise argparse.ArgumentTypeError(Fore.RED + Style.BRIGHT + f"result file must be a supported image format ('.png' or '.jpg')." + Fore.RESET + Style.RESET_ALL)
 
+def check_value(v):
+    if v.isdigit():
+        v = int(v)
+        if v > 0:
+            return v
+        else:
+            raise argparse.ArgumentTypeError(Fore.RED + Style.BRIGHT + "Value must be bigger than 0" + Fore.RESET + Style.RESET_ALL)
+    else:
+        raise argparse.ArgumentTypeError(Fore.RED + Style.BRIGHT + "Value must be an integer" + Fore.RESET + Style.RESET_ALL)
+
 def check_file(file):
     if file in os.listdir():
         name, ex = os.path.splitext(file)
@@ -116,7 +126,7 @@ def main():
     parser = argparse.ArgumentParser(prog="SVD2",description="Programa para reducir la dimensiomalidad de una imagen.")
     parser.add_argument('-src', '--source', type=check_file, required=True, help='Imagen fuente')
     parser.add_argument('-dest', '--destination', default="output_image.png", type=check_extension, help='Imagen reducida')
-    parser.add_argument('-sigb', '--signif_bytes',type=int, required=True, help='Número de bytes significativos para apliación de reducción')
+    parser.add_argument('-sigb', '--signif_bytes',type=check_value, required=True, help='Número de bytes significativos para apliación de reducción')
 
     args = parser.parse_args()
     redux(args)
