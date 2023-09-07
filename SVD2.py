@@ -37,9 +37,9 @@ def redux(args):
     num_bytes = m*n*3
     print("Number of bytes: ",num_bytes)
     B,G,R = cv2.split(image)
-    svd_f(B,G,R,args.signif_bytes,m,n)
+    svd_f(B,G,R,args.signif_bytes,m,n,args.destination)
 
-def svd_f(B,G,R,k,m,n):
+def svd_f(B,G,R,k,m,n,nm):
     U_B, s_B, V_transp_B = svd(B, full_matrices=False)
     U_G, s_G, V_transp_G = svd(G, full_matrices=False)
     U_R, s_R, V_transp_R = svd(R, full_matrices=False)
@@ -82,9 +82,14 @@ def svd_f(B,G,R,k,m,n):
     Imagen_SVD[:,:,2] = R_reducida
 
     Imagen_con_SVD = cv2.merge([Imagen_SVD[:,:,0],Imagen_SVD[:,:,1],Imagen_SVD[:,:,2]])
-     
-    print('done')
 
+    show_image(Imagen_con_SVD,nm)
+
+def show_image(i,n):
+    cv2.imshow(n,i)
+    cv2.waitKey(0)
+    cv2.destroyAllWindows()
+    
 def main():
     parser = argparse.ArgumentParser(prog="SVD2",description="Programa para reducir la dimensiomalidad de una imagen.")
     parser.add_argument('-src', '--source', type=check_file, required=True, help='Imagen fuente')
