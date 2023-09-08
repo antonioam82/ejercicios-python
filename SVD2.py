@@ -74,7 +74,7 @@ def redux(args):
     byt = args.signif_bytes
     m,n = image.shape[:2]
     num_bytes = m*n*3
-    print(Fore.YELLOW + Style.DIM + f"Number of bytes (source): {num_bytes}" + Fore.RESET + Style.RESET_ALL)
+    print(Fore.YELLOW + Style.DIM + f"Number of bytes required (source): {num_bytes}" + Fore.RESET + Style.RESET_ALL)
     B,G,R = cv2.split(image)
     svd_f(B,G,R,args.signif_bytes,m,n,args.destination)
 
