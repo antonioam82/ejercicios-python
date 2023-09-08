@@ -28,7 +28,7 @@ def calculate_metrics(i):
 
     porcentag_reduccion = round((1 - num_bytes_redux / num_bytes)*100,2)
     print("Porcentage reducción de dimensionalidad: ",str(porcentag_reduccion)+'%')
-    print("****************************************************************"+Fore.RESET)
+    print("****************************************************************\n"+Fore.RESET)
 
 
 def check_extension(file):
@@ -115,6 +115,8 @@ def svd_f(B,G,R,k,m,n,nm):
     Imagen_con_SVD = cv2.merge([Imagen_SVD[:,:,0],Imagen_SVD[:,:,1],Imagen_SVD[:,:,2]])
 
     calculate_metrics(Imagen_con_SVD)
+    cv2.imwrite(nm,Imagen_con_SVD)
+    print(Fore.YELLOW + Style.DIM + f"Saved as '{nm}'." + Fore.RESET + Style.RESET_ALL)
     show_image(Imagen_con_SVD,nm)
 
 def show_image(i,n):
