@@ -21,6 +21,7 @@ def calculate_metrics(i):
     print("Error cuadrático medio:                  ",mse)
 
     num_bytes_redux = m*byt*3
+    #text = get_size_format(num_bytes_redux)
     print("Cantidad de bytes requeridos:            ",num_bytes_redux)
 
     tasa_compresion = num_bytes / num_bytes_redux
@@ -38,6 +39,13 @@ def check_extension(file):
         return file
     else:
         raise argparse.ArgumentTypeError(Fore.RED + Style.BRIGHT + f"result file must be a supported image format ('.png' or '.jpg')." + Fore.RESET + Style.RESET_ALL)
+
+def get_size_format(b, factor=1024, suffix="B"):
+	for unit in ["","K","M","G","T","P","E","Z"]:
+	    if b < factor:
+	        return f"{b:.4f}{unit}{suffix}"
+	    b /= factor
+	return f"{b:.4f}Y{suffix}"
 
 def check_value(v):
     if v.isdigit():
