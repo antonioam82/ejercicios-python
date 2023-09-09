@@ -11,7 +11,7 @@ init()
 
 image_formats = ['.png','.jpg']
 
-def calculate_metrics(i):
+def calculate_metrics(i,nm):
     img_original_grises = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
     img_reducida_grises = cv2.cvtColor(i, cv2.COLOR_BGR2GRAY)
     diference = img_original_grises - img_reducida_grises
@@ -20,8 +20,10 @@ def calculate_metrics(i):
     mse = np.mean(diference**2)
     print("Error cuadrático medio:                  ",mse)
 
+    size = get_size_format(os.stat(nm).st_size)
+    print("Tamaño real en bytes:                    ",size)
+
     num_bytes_redux = m*byt*3
-    #text = get_size_format(num_bytes_redux)
     print("Cantidad de bytes requeridos:            ",num_bytes_redux)
 
     tasa_compresion = num_bytes / num_bytes_redux
@@ -74,6 +76,7 @@ def redux(args):
     byt = args.signif_bytes
     m,n = image.shape[:2]
     num_bytes = m*n*3
+    
     print(Fore.YELLOW + Style.DIM + f"Number of bytes required (source): {num_bytes}" + Fore.RESET + Style.RESET_ALL)
     B,G,R = cv2.split(image)
     svd_f(B,G,R,args.signif_bytes,m,n,args.destination)
@@ -122,8 +125,8 @@ def svd_f(B,G,R,k,m,n,nm):
 
     Imagen_con_SVD = cv2.merge([Imagen_SVD[:,:,0],Imagen_SVD[:,:,1],Imagen_SVD[:,:,2]])
 
-    calculate_metrics(Imagen_con_SVD)
     cv2.imwrite(nm,Imagen_con_SVD)
+    calculate_metrics(Imagen_con_SVD,nm)
     print(Fore.YELLOW + Style.DIM + f"Saved as '{nm}'." + Fore.RESET + Style.RESET_ALL)
     show_image(Imagen_con_SVD,nm)
 
@@ -134,9 +137,9 @@ def show_image(i,n):
     
 def main():
     parser = argparse.ArgumentParser(prog="SVD2",description="Programa para reducir la dimensiomalidad de una imagen.")
-    parser.add_argument('-src', '--source', type=check_file, required=True, help='Imagen fuente')
-    parser.add_argument('-dest', '--destination', default="output_image.png", type=check_extension, help='Imagen reducida')
-    parser.add_argument('-sigb', '--signif_bytes',type=check_value, required=True, help='Número de bytes significativos para apliación de reducción')
+    parser.add_argument('-src', '--source', type=check_file, required=True, help='Imagen fuente.')
+    parser.add_argument('-dest', '--destination', default="output_image.png", type=check_extension, help='Imagen reducida.')
+    parser.add_argument('-sigb', '--signif_bytes',type=check_value, required=True, help='Número de bytes significativos para apliación de reducción.')
 
     args = parser.parse_args()
     redux(args)
