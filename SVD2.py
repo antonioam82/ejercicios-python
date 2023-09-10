@@ -79,9 +79,9 @@ def redux(args):
     
     print(Fore.YELLOW + Style.DIM + f"Number of bytes required (source): {num_bytes}" + Fore.RESET + Style.RESET_ALL)
     B,G,R = cv2.split(image)
-    svd_f(B,G,R,args.signif_bytes,m,n,args.destination)
+    svd_f(args,B,G,R,args.signif_bytes,m,n,args.destination)
 
-def svd_f(B,G,R,k,m,n,nm):
+def svd_f(args,B,G,R,k,m,n,nm):
     U_B, s_B, V_transp_B = svd(B, full_matrices=False)
     U_G, s_G, V_transp_G = svd(G, full_matrices=False)
     U_R, s_R, V_transp_R = svd(R, full_matrices=False)
@@ -128,7 +128,8 @@ def svd_f(B,G,R,k,m,n,nm):
     cv2.imwrite(nm,Imagen_con_SVD)
     calculate_metrics(Imagen_con_SVD,nm)
     print(Fore.YELLOW + Style.DIM + f"Saved as '{nm}'." + Fore.RESET + Style.RESET_ALL)
-    show_image(Imagen_con_SVD,nm)
+    if args.show:
+        show_image(Imagen_con_SVD,nm)
 
 def show_image(i,n):
     cv2.imshow(n,i)
@@ -140,6 +141,7 @@ def main():
     parser.add_argument('-src', '--source', type=check_file, required=True, help='Imagen fuente.')
     parser.add_argument('-dest', '--destination', default="output_image.png", type=check_extension, help='Imagen reducida.')
     parser.add_argument('-sigb', '--signif_bytes',type=check_value, required=True, help='Número de bytes significativos para apliación de reducción.')
+    parser.add_argument('-shw', '--show', help='Mostrar resultado',action='store_true')
 
     args = parser.parse_args()
     redux(args)
