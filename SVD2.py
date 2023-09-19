@@ -30,7 +30,7 @@ def calculate_metrics(i,nm):
     print("Tasa de compresión:                      ",tasa_compresion)
 
     porcentag_reduccion = round((1 - num_bytes_redux / num_bytes)*100,2)
-    print("Porcentage reducción de dimensionalidad: ",str(porcentag_reduccion)+'%')
+    print("Porcentaje reducción de dimensionalidad: ",str(porcentag_reduccion)+'%')
     print("****************************************************************\n"+Fore.RESET)
 
 
