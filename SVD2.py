@@ -124,6 +124,7 @@ def svd_f(args,B,G,R,k,m,n,nm):
     Imagen_SVD[:,:,2] = R_reducida
 
     Imagen_con_SVD = cv2.merge([Imagen_SVD[:,:,0],Imagen_SVD[:,:,1],Imagen_SVD[:,:,2]])
+    #print(Imagen_con_SVD)
 
     cv2.imwrite(nm,Imagen_con_SVD)
     calculate_metrics(Imagen_con_SVD,nm)
@@ -140,7 +141,7 @@ def main():
     parser = argparse.ArgumentParser(prog="SVD2",description="Programa para reducir la dimensiomalidad de una imagen.")
     parser.add_argument('-src', '--source', type=check_file, required=True, help='Imagen fuente.')
     parser.add_argument('-dest', '--destination', default="output_image.png", type=check_extension, help='Imagen reducida.')
-    parser.add_argument('-sigb', '--signif_bytes',type=check_value, required=True, help='Número de bytes significativos para apliación de reducción.')
+    parser.add_argument('-sigbytes', '--signif_bytes', type=check_value, required=True, help='Número de bytes significativos para apliación de reducción.')
     parser.add_argument('-shw', '--show', help='Mostrar resultado',action='store_true')
 
     args = parser.parse_args()
