@@ -12,12 +12,14 @@ class ToDo:
         current_dir.set(os.getcwd())
 
         tk.Entry(self.root, textvariable=current_dir,width=149).place(x=0,y=0)
-        self.canvas = Canvas(self.root,bg="blue",width=500,height=500)
+        self.canvas = Canvas(self.root,bg="blue")#,width=500,height=500)
         self.canvas.place(x=9,y=27)
-        #self.todo_list = Listbox(
+        self.todo_list = Listbox(self.canvas,bg="gray96",width=80,height=30)
+        self.todo_list.pack()
         
 
 
 if __name__ == "__main__":
     ToDo()
+
 
