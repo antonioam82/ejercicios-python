@@ -1,6 +1,9 @@
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
 import os
 import tkinter as tk
 from tkinter import ttk, Tk, Listbox, Canvas
+import json
 
 class ToDo:
     def __init__(self):
