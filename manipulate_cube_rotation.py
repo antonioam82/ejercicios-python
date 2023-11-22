@@ -6,14 +6,14 @@ from OpenGL.GLU import *
 def verts():
     global verticies
     verticies = [
-    [1, -1, -1],#det inf der
-    [1, 1, -1],#det sup der
-    [-1, 1, -1],#det sup iz
-    [-1, -1, -1],#det inf iz
-    [1, -1, 1],#del inf der
-    [1, 1, 1],#del sup der
-    [-1, -1, 1],#del inf der
-    [-1, 1, 1]#del sup iz
+    [1, -1, -1],
+    [1, 1, -1],
+    [-1, 1, -1],
+    [-1, -1, -1],
+    [1, -1, 1],
+    [1, 1, 1],
+    [-1, -1, 1],
+    [-1, 1, 1]
     ]
 
 edges = (
@@ -71,11 +71,13 @@ def main():
     y=0
     z=0
     m=0
-    while True:
+    running = True
+    while (running):
         for event in pygame.event.get():
-            if event.type == pygame.QUIT:
-                pygame.quit()
-                quit()
+            if (event.type == pygame.QUIT):
+                #pygame.quit()
+                #quit()
+                running = False
             if event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_LEFT:
                     x=0
@@ -143,6 +145,6 @@ def main():
         Cube()
         pygame.display.flip()
         pygame.time.wait(10)
+    pygame.quit()
 
 main()
-
