@@ -13,7 +13,7 @@ class App:
     def __init__(self):
         self.root = Tk()
         self.root.title("Tone maker")
-        self.root.geometry("800x600")
+        self.root.geometry("700x500")
         self.root.resizable(height=False,width=False)
 
         self.root.mainloop()
