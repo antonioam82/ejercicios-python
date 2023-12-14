@@ -3,6 +3,7 @@ from scipy.io import wavfile
 import argparse
 from playsound import playsound
 from colorama import init, Fore, Style
+import pyfiglet
 
 init()
 
@@ -49,6 +50,7 @@ def main():
 
     args = parser.parse_args()
     try:
+        print(pyfiglet.figlet_format("modula",font="larry3d"))
         generate_tone(args)
     except Exception as e:
         print(Fore.RED + Style.BRIGHT + "\nUNEXPECTED ERROR: ",str(e) + Fore.RESET + Style.RESET_ALL)
