@@ -25,7 +25,6 @@ def generate_tone(args):
     if args.play_audio:
         print(f"\nPlaying '{name}'")
         playsound(name)
-    
 
 def main():
     parser = argparse.ArgumentParser(prog="MODULA 0.1",description="Generate modulated audio tones")
@@ -44,3 +43,4 @@ def main():
 
 if __name__ == '__main__':
     main()
+
