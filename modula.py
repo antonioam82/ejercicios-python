@@ -1,6 +1,7 @@
 import numpy as np
 from scipy.io import wavfile
 import argparse
+from playsound import playsound
 
 def generate_tone(args):
     name = args.destination
@@ -18,6 +19,9 @@ def generate_tone(args):
     wavfile.write(name, sample_rate, np.int16(modulated_wave * 32767))
 
     print("Modulated signal audio saved correctly.")
+    if args.play_audio:
+        print(f"\nPlaying '{name}'")
+        playsound(name)
     
 
 def main():
@@ -27,6 +31,7 @@ def main():
     parser.add_argument('-sr','--sample_rate',type=int,default=44100,help="Sample rate in Hz")
     parser.add_argument('-freq','--frequency',type=int,default=440,help="Base frequency in Hz")
     parser.add_argument('-mr','--modulation_rate',type=int,default=12,help="Modulation rate in Hz")
+    parser.add_argument('-play','--play_audio',action='store_true',help="Play modulated signal")
 
     args = parser.parse_args()
     generate_tone(args)
