@@ -6,6 +6,13 @@ from colorama import init, Fore, Style
 
 init()
 
+def write_data(name, duration, sample_rate, frequency, modulation_rate):
+    with open(name.replace('.wav', '_data.txt'), 'w') as file:
+        file.write(f"Duration: {duration} seconds\n")
+        file.write(f"Sample Rate: {sample_rate} Hz\n")
+        file.write(f"Frequency: {frequency} Hz\n")
+        file.write(f"Modulation Rate: {modulation_rate} Hz\n")
+
 def generate_tone(args):
     name = args.destination
     duration = args.duration
@@ -26,6 +33,10 @@ def generate_tone(args):
         print(f"\nPlaying '{name}'")
         playsound(name)
 
+    if args.write_data:
+        write_data(name, duration, sample_rate, frequency, modulation_rate)
+        print("Created data file, correctly")
+
 def main():
     parser = argparse.ArgumentParser(prog="MODULA 0.1",description="Generate modulated audio tones")
     parser.add_argument('-dest','--destination',type=str,default="modulated_audio_signal.wav",help="Destination file name")
@@ -34,6 +45,7 @@ def main():
     parser.add_argument('-freq','--frequency',type=int,default=440,help="Base frequency in Hz")
     parser.add_argument('-mr','--modulation_rate',type=int,default=12,help="Modulation rate in Hz")
     parser.add_argument('-play','--play_audio',action='store_true',help="Play modulated signal")
+    parser.add_argument('-wr','--write_data',action='store_true',help="Create text file with audio data")
 
     args = parser.parse_args()
     try:
