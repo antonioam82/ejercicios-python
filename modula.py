@@ -36,7 +36,5 @@ def main():
     args = parser.parse_args()
     generate_tone(args)
 
-
-
 if __name__ == '__main__':
     main()
