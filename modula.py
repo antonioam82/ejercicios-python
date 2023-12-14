@@ -2,6 +2,9 @@ import numpy as np
 from scipy.io import wavfile
 import argparse
 from playsound import playsound
+from colorama import init, Fore, Style
+
+init()
 
 def generate_tone(args):
     name = args.destination
@@ -34,7 +37,10 @@ def main():
     parser.add_argument('-play','--play_audio',action='store_true',help="Play modulated signal")
 
     args = parser.parse_args()
-    generate_tone(args)
+    try:
+        generate_tone(args)
+    except Exception as e:
+        print(Fore.RED + Style.BRIGHT + "\nUNEXPECTED ERROR: ",str(e) + Fore.RESET + Style.RESET_ALL)
 
 if __name__ == '__main__':
     main()
