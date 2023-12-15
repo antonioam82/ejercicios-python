@@ -4,15 +4,24 @@ import argparse
 from playsound import playsound
 from colorama import init, Fore, Style
 import pyfiglet
+import os
 
 init()
 
 def write_data(name, duration, sample_rate, frequency, modulation_rate):
     with open(name.replace('.wav', '_data.txt'), 'w') as file:
+        file.write(f"Name: {name}\n")
         file.write(f"Duration: {duration} seconds\n")
         file.write(f"Sample Rate: {sample_rate} Hz\n")
         file.write(f"Frequency: {frequency} Hz\n")
         file.write(f"Modulation Rate: {modulation_rate} Hz\n")
+
+def check_extension(file):
+    name, ex = os.path.splitext(file)
+    if ex == ".wav":
+        return file
+    else:
+        raise argparse.ArgumentTypeError(Fore.RED + Style.BRIGHT + f"result file must have '.wav' extension." + Fore.RESET + Style.RESET_ALL)
 
 def generate_tone(args):
     name = args.destination
@@ -40,7 +49,7 @@ def generate_tone(args):
 
 def main():
     parser = argparse.ArgumentParser(prog="MODULA 0.1",description="Generate modulated audio tones")
-    parser.add_argument('-dest','--destination',type=str,default="modulated_audio_signal.wav",help="Destination file name")
+    parser.add_argument('-dest','--destination',type=check_extension,default="modulated_audio_signal.wav",help="Destination file name")
     parser.add_argument('-dur','--duration',type=int,default=3,help="Audio duration, in seconds")
     parser.add_argument('-sr','--sample_rate',type=int,default=44100,help="Sample rate in Hz")
     parser.add_argument('-freq','--frequency',type=int,default=440,help="Base frequency in Hz")
