@@ -30,4 +30,6 @@ for i in range(0,len(f)):
     x = round(sp.jv(i,B),2)
     bessel.append(x)
 
-print(bessel)
+n_positivos = bessel[1:11];
+n_negativos = np.flip(n_positivos);
+n0.append(bessel[0]);
