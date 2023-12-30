@@ -5,7 +5,7 @@ import sounddevice as sd
 import argparse
 
 def write_data(args):
-    with open('signal_data3.txt', 'w') as file:
+    with open('signal_data.txt', 'w') as file:
         file.write(f"Modulating signal amplitude: {args.modulating_signal_amplitude}\n")
         file.write(f"Modulating signal frequency: {args.modulating_signal_frequency}\n")
         file.write(f"Carrier signal amplitude: {args.carrier_signal_amplitude}\n")
@@ -76,7 +76,7 @@ def main():
     sd.play(carrier, samplerate=44100)
     sd.wait()
     print("Playing AM Modulated")
-    sd.play(AM_modulated, samplerate=44100)  # Puedes ajustar el samplerate según sea necesario
+    sd.play(AM_modulated, samplerate=44100)
     sd.wait()
     
 
