@@ -4,6 +4,15 @@ from playsound import playsound
 import sounddevice as sd
 import argparse
 
+def write_data(args):
+    with open('signal_data3.txt', 'w') as file:
+        file.write(f"Modulating signal amplitude: {args.modulating_signal_amplitude}\n")
+        file.write(f"Modulating signal frequency: {args.modulating_signal_frequency}\n")
+        file.write(f"Carrier signal amplitude: {args.carrier_signal_amplitude}\n")
+        file.write(f"Carrier signal frequency: {args.carrier_signal_frequency}\n")
+        file.write(f"Modulation Index: {args.modulation_index}\n")
+        file.write(f"Duration: {args.duration}\n")
+
 def plot_signals(m,c,am):
     
     plt.subplot(3,1,1)
@@ -48,10 +57,14 @@ def main():
     parser.add_argument('-msfr','--modulating_signal_frequency',required=True,type=float,help="Modulating signal frequency value")
     parser.add_argument('-mi','--modulation_index',required=True,type=float,help="Modulation index value")
     parser.add_argument('-dur','--duration',required=True,type=int,help="Signal duration in seconds")
+    parser.add_argument('-wr','--write_data',action='store_true',help="Create text file with signal data")
     parser.add_argument('-plt','--plot',action='store_true',help="Plot signals")
 
     args = parser.parse_args()
     modulation, carrier, AM_modulated = modulation_function(args)
+
+    if args.write_data:
+        write_data(args)
 
     if args.plot:
         plot_signals(modulation, carrier, AM_modulated)
