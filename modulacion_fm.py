@@ -57,3 +57,17 @@ for f_inicial in range(0,len(f)):
         f_inicial=f_1;
 
     f_ns.append(f_inicial);
+
+finv_ns = np.flip(f_ns);
+
+for f_final in range(0,len(f)):
+
+    if f_final==0:
+        f_1=Fc+Fm;
+        f_final = f_1;
+
+    else:
+        f_1=f_1+Fm;
+        f_final = f_1;
+
+    f_ps.append(f_final);
