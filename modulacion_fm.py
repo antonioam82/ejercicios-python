@@ -45,3 +45,15 @@ f_ns = []
 f_ps = []
 F0 = []
 F0.append(Fc)
+
+for f_inicial in range(0,len(f)):
+
+    if f_inicial == 0:
+        f_1=Fc-Fm;
+        f_inicial=f_1;
+
+    else:
+        f_1 = f_1-Fm;
+        f_inicial=f_1;
+
+    f_ns.append(f_inicial);
