@@ -71,3 +71,7 @@ for f_final in range(0,len(f)):
         f_final = f_1;
 
     f_ps.append(f_final);
+f_inv_ps = np.flip(f_ps);
+Fn = np.concatenate((finv_ns,F0,f_ps))
+
+t = np.arange(0,n*1/Fm,1/Fs)
