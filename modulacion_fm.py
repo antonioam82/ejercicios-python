@@ -33,3 +33,15 @@ for i in range(0,len(f)):
 n_positivos = bessel[1:11];
 n_negativos = np.flip(n_positivos);
 n0.append(bessel[0]);
+
+jn = np.concatenate((n_negativos,n0,n_positivos))
+
+nB = 4
+Bwb = 2*Fm*nB
+BWc = 2*(Af*Vm)
+
+
+f_ns = []
+f_ps = []
+F0 = []
+F0.append(Fc)
