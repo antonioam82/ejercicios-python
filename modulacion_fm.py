@@ -75,3 +75,8 @@ f_inv_ps = np.flip(f_ps);
 Fn = np.concatenate((finv_ns,F0,f_ps))
 
 t = np.arange(0,n*1/Fm,1/Fs)
+
+f_VcJn = []
+VcJn = 0
+VcJn = np.round(abs((jn*Vc)/(np.sqrt(2))),2)
+f_VcJn.append(VcJn)
