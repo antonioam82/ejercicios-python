@@ -85,3 +85,9 @@ f_VndB = []
 VndB = 0
 VndB = np.round(abs((20*np.log10(VcJn))),2)
 f_VndB.append(VndB)
+
+
+f_PnW = []
+PnW = 0
+PnW = abs(((jn*Vc)**2)/100)
+f_PnW.append(PnW)
