@@ -80,3 +80,8 @@ f_VcJn = []
 VcJn = 0
 VcJn = np.round(abs((jn*Vc)/(np.sqrt(2))),2)
 f_VcJn.append(VcJn)
+
+f_VndB = []
+VndB = 0
+VndB = np.round(abs((20*np.log10(VcJn))),2)
+f_VndB.append(VndB)
