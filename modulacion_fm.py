@@ -91,3 +91,13 @@ f_PnW = []
 PnW = 0
 PnW = abs(((jn*Vc)**2)/100)
 f_PnW.append(PnW)
+
+f_PndBm = []
+PndBm = 0
+PndBm = np.round(abs((10*np.log10(PnW*1000))),2)
+f_PndBm.append(PndBm)
+
+
+Vportadora = Vc*np.cos(2*pi*Fc*t)
+Vmoduladora = Vm*np.sin(2*pi*Fm*t)
+Vfm = Vc*np.cos(2*pi*Fc*t+B*np.sin(2*pi*Fm*t))
