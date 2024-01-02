@@ -101,3 +101,18 @@ f_PndBm.append(PndBm)
 Vportadora = Vc*np.cos(2*pi*Fc*t)
 Vmoduladora = Vm*np.sin(2*pi*Fm*t)
 Vfm = Vc*np.cos(2*pi*Fc*t+B*np.sin(2*pi*Fm*t))
+
+print('RESULTADOS MODULACIÓN FM\n')
+print('{:^10} {:^10} {:^10} {:^10}'.format('Af','B','BWd','Bwc'))
+print('{:^10} {:^10} {:^10} {:^10}'.format(Af,B,Bwb,BWc))
+print("")
+print('{:^10} {:^9} {:^9} {:^9} {:^9}'.format('Jn','Fn','Vc*Jn','Vn(dB)','Vn(dBm)'))
+for formatted in map('{:^10} {:^10} {:^9} {:^10} {:^10}'.format, jn, Fn, VcJn, VndB, PndBm):
+    print(formatted)
+
+print("\nECUACION PORTADORA:")
+print("Vc(t)=",Vc,"cos(2pi",Fc,"t)")
+print("\nECUACION MODULADORA:")
+print("Vm(t)=",Vm,"sen(2pi",Fm,"t)")
+print("\nECUACION GENERAL PARA FM:")
+print("Vfm(t)=",Vc,"cos[2pi",Fc,"t +", B, "sen(2pi",Fm,"t)]")
