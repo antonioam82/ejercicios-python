@@ -31,6 +31,7 @@ def eliminar_tarea():
 
 root = tk.Tk()
 root.title("Lista de Tareas")
+root.configure(bg="light blue")
 
 frame = tk.Frame(root)
 frame.pack(padx=20, pady=20)
@@ -53,10 +54,10 @@ for tarea in tareas:
 entrada_tarea = tk.Entry(root, width=30)
 entrada_tarea.pack()
 
-btn_agregar = tk.Button(root, text="Agregar tarea", width=15, command=agregar_tarea)
+btn_agregar = tk.Button(root, text="Agregar tarea", width=15, bg="gray88", command=agregar_tarea)
 btn_agregar.pack(pady=5)
 
-btn_eliminar = tk.Button(root, text="Eliminar tarea", width=15, command=eliminar_tarea)
+btn_eliminar = tk.Button(root, text="Eliminar tarea", width=15, bg="gray88", command=eliminar_tarea)
 btn_eliminar.pack(pady=5)
 
 root.mainloop()
