@@ -12,14 +12,14 @@ screen = pygame.display.set_mode((WIDTH,HEIGHT))
 
 points = []
 
-points.append(np.matrix([[-1], [-1], [1]]))
-points.append(np.matrix([[1], [-1], [1]]))
-points.append(np.matrix([[1], [1], [1]]))
-points.append(np.matrix([[-1], [1], [1]]))
-points.append(np.matrix([[-1], [-1], [-1]]))
-points.append(np.matrix([[1], [-1], [-1]]))
-points.append(np.matrix([[1], [1], [-1]]))
-points.append(np.matrix([[-1], [1], [-1]]))
+points.append(np.matrix([-1, -1, 1]))
+points.append(np.matrix([1, -1, 1]))
+points.append(np.matrix([1, 1, 1]))
+points.append(np.matrix([-1, 1, 1]))
+points.append(np.matrix([-1, -1, -1]))
+points.append(np.matrix([1, -1, -1]))
+points.append(np.matrix([1, 1, -1]))
+points.append(np.matrix([-1, 1, -1]))
 
 projection_matrix = np.matrix([
     [1, 0, 0],
@@ -28,8 +28,9 @@ projection_matrix = np.matrix([
     ])
 
 while True:
+    
     for event in pygame.event.get():
-        if event.type == pygame.QUIT:
+        if (event.type == pygame.QUIT):
             pygame.quit()
             exit()
         if event.type == pygame.KEYDOWN:
@@ -37,13 +38,12 @@ while True:
                 pygame.quit()
                 exit()
 
+    screen.fill(WHITE)
 
+    for point in points:
+        projected2d = np.dot(projection_matrix, point.reshape((3,1)))
+        x = int(projected2d[0,0])
+        y = int(projected2d[1,0])
+        pygame.draw.circle(screen, BLACK, (x, y), 5)
 
-screen.fill(WHITE)
-
-for point in points:
-    projected2d = np.dot(projection_matrix, point)
-    pygame.draw.circle(screen, BLACK, (
-
-
-pygame.display.update()
+    pygame.display.update()
