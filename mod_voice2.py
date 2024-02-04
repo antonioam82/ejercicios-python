@@ -26,7 +26,7 @@ def enter_speed_rate():
             if rate > 0.0:
                 return rate
             else:
-                print("La velocidad debe ser mayor a 0.0")
+                print("La velocidad debe ser mayor a 0.0.")
                 
         except ValueError:
             print("Por favor, introduce un número válido.")
@@ -101,4 +101,5 @@ def grabar_audio(r):
 
 rate = enter_speed_rate()
 grabar_audio(rate)
+
     
