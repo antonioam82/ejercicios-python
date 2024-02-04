@@ -13,16 +13,31 @@ from pynput import keyboard
     return audio * (1 + 0.5 * modulation_signal)'''
 
 def change_speed(input_audio, speed_factor):
-    #modified_audio = input_audio.speedup(playback_speed=speed_factor) # cambia velocidad
-    modified_audio = input_audio.reverse() # inversion audio
+    # Calcula la nueva tasa de fotogramas
+    new_frame_rate = int(input_audio.frame_rate * speed_factor)
+    # Sobrescribe el atributo frame_rate con la nueva tasa de fotogramas
+    modified_audio = input_audio._spawn(input_audio.raw_data, overrides={"frame_rate": new_frame_rate})
     return modified_audio
+
+def enter_speed_rate():
+    while True:
+        try:
+            rate = float(input("Introduce velocidad: "))
+            if rate > 0.0:
+                return rate
+            else:
+                print("La velocidad debe ser mayor a 0.0")
+                
+        except ValueError:
+            print("Por favor, introduce un número válido.")
+
 
 '''def normalize_volume(input_audio):
     audio = pydub.AudioSegment.from_file(input_audio)
     normalized_audio = pydub.effects.normalize(audio)
     return normalized_audio'''
 
-def grabar_audio():
+def grabar_audio(r):
     CHUNK = 1024
     FORMAT = pyaudio.paInt16
     CHANNELS = 1
@@ -73,7 +88,8 @@ def grabar_audio():
             # Cargar el archivo temporal con pydub
             input_audio = pydub.AudioSegment.from_wav(tmp_filename)
 
-            speed_factor = 1.0
+            #modulated_audio = change_speed(input_audio, speed_factor)
+            speed_factor = r#1.8 #2.0 #0.6
             modulated_audio = change_speed(input_audio, speed_factor)
             #modulated_audio = normalize_volume(input_audio)
 
@@ -83,4 +99,6 @@ def grabar_audio():
     except Exception as e:
         print("ERROR: " , str(e))
 
-grabar_audio()
+rate = enter_speed_rate()
+grabar_audio(rate)
+    
