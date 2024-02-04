@@ -4,8 +4,11 @@ import tempfile
 import pydub
 import pydub.playback
 import sounddevice as sd
+from colorama import Fore, Style, init
 import numpy as np
 from pynput import keyboard
+
+init()
 
 '''def apply_modulation(audio, modulation_frequency, fs):
     t = np.linspace(0, len(audio) / fs, len(audio), endpoint=False)
@@ -26,10 +29,10 @@ def enter_speed_rate():
             if rate > 0.0:
                 return rate
             else:
-                print("La velocidad debe ser mayor a 0.0.")
+                print(Fore.RED + Style.DIM + "ERROR: La velocidad debe ser mayor a 0.0." + Fore.RESET + Style.RESET_ALL)
                 
         except ValueError:
-            print("Por favor, introduce un número válido.")
+            print(Fore.RED + Style.DIM +"Por favor, introduce un número válido." + Fore.RESET + Style.RESET_ALL)
 
 
 '''def normalize_volume(input_audio):
