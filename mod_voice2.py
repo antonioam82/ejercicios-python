@@ -66,7 +66,7 @@ def grabar_audio(r):
         if not listener.running:
             break
 
-    print("Grabación detenida.")
+    print("Grabación detenida (reproduciendo resultado).")
 
     stream.stop_stream()
     stream.close()
@@ -99,5 +99,4 @@ def grabar_audio(r):
 
 rate = enter_speed_rate()
 grabar_audio(rate)
-
     
