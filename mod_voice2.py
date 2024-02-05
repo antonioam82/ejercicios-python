@@ -29,7 +29,7 @@ def enter_speed_rate():
             if rate > 0.0:
                 return rate
             else:
-                print(Fore.RED + Style.BRIGHT + "ERROR: l factor debe ser mayor a 0.0." + Fore.RESET + Style.RESET_ALL)
+                print(Fore.RED + Style.BRIGHT + "ERROR: El factor debe ser mayor a 0.0." + Fore.RESET + Style.RESET_ALL)
                 
         except ValueError:
             print(Fore.RED + Style.BRIGHT + "Por favor, introduce un número válido." + Fore.RESET + Style.RESET_ALL)
