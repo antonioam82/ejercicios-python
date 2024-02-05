@@ -29,16 +29,11 @@ def enter_speed_rate():
             if rate > 0.0:
                 return rate
             else:
-                print(Fore.RED + Style.DIM + "ERROR: La velocidad debe ser mayor a 0.0." + Fore.RESET + Style.RESET_ALL)
+                print(Fore.RED + Style.BRIGHT + "ERROR: La velocidad debe ser mayor a 0.0." + Fore.RESET + Style.RESET_ALL)
                 
         except ValueError:
-            print(Fore.RED + Style.DIM +"Por favor, introduce un número válido." + Fore.RESET + Style.RESET_ALL)
+            print(Fore.RED + Style.BRIGHT + "Por favor, introduce un número válido." + Fore.RESET + Style.RESET_ALL)
 
-
-'''def normalize_volume(input_audio):
-    audio = pydub.AudioSegment.from_file(input_audio)
-    normalized_audio = pydub.effects.normalize(audio)
-    return normalized_audio'''
 
 def grabar_audio(r):
     CHUNK = 1024
@@ -100,7 +95,7 @@ def grabar_audio(r):
             pydub.playback.play(modulated_audio)
 
     except Exception as e:
-        print("ERROR: " , str(e))
+        print(Fore.RED + Style.BRIGHT + "ERROR: " , str(e) + Fore.RESET + Style.RESET_ALL)
 
 rate = enter_speed_rate()
 grabar_audio(rate)
