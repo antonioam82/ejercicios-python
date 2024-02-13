@@ -5,6 +5,7 @@ import argparse
 from playsound import playsound
 from colorama import init, Fore, Style
 import pyfiglet
+import sounddevice as sd
 import os
 
 init()
@@ -19,6 +20,11 @@ def write_data(name, signal, duration, sample_rate, frequency, modulation_rate):
         file.write(f"Sample Rate: {sample_rate} Hz\n")
         file.write(f"Frequency: {frequency} Hz\n")
         file.write(f"Modulation Rate: {modulation_rate} Hz\n")
+
+def play_audio(file_name):
+    sample_rate, audio_data = wavfile.read(file_name)
+    sd.play(audio_data, sample_rate)
+    sd.wait()
 
 def check_extension(file):
     name, ex = os.path.splitext(file)
@@ -59,7 +65,7 @@ def generate_tone(args):
     print("Modulated signal audio saved correctly.")
     if args.play_audio:
         print(f"\nPlaying '{name}'")
-        playsound(name)
+        play_audio(name)
 
     if args.write_data:
         write_data(name, signal, duration, sample_rate, frequency, modulation_rate)
