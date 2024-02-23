@@ -61,6 +61,7 @@ def generate_tone(args):
     modulated_wave = np.sin(2 * np.pi * (frequency + modulation_rate * modulation_wave) * t)
     modulated_wave /= np.max(np.abs(modulated_wave), axis=0)
     wavfile.write(name, sample_rate, np.int16(modulated_wave * 32767))
+    #wavfile.write(name, sample_rate, np.int16(modulated_wave * args.sample_rate))
 
     print("Modulated signal audio saved correctly.")
     if args.play_audio:
@@ -69,7 +70,7 @@ def generate_tone(args):
 
     if args.write_data:
         write_data(name, signal, duration, sample_rate, frequency, modulation_rate)
-        print("Created data file, correctly")
+        print(f'Created data file "{args.destination}", correctly')
 
 def main():
     parser = argparse.ArgumentParser(prog="MODULA 0.1",description="Generate modulated audio tones")
