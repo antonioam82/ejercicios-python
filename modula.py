@@ -1,3 +1,5 @@
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
 import numpy as np
 from scipy.io import wavfile
 from scipy.signal import sawtooth
