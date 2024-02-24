@@ -12,7 +12,7 @@ init()
 
 signals = ["sin","sqrt","trg","swt"]
 
-def write_data(name, signal, duration, sample_rate, frequency, modulation_rate):
+def write_data(name, signal, duration, sample_rate, frequency, modulation_rate, scale):
     with open(name.replace('.wav', '_data.txt'), 'w') as file:
         file.write(f"Name: {name}\n")
         file.write(f"Signal: {signal}\n")
@@ -20,6 +20,7 @@ def write_data(name, signal, duration, sample_rate, frequency, modulation_rate):
         file.write(f"Sample Rate: {sample_rate} Hz\n")
         file.write(f"Frequency: {frequency} Hz\n")
         file.write(f"Modulation Rate: {modulation_rate} Hz\n")
+        file.write(f"Scale: {scale}")
 
 def play_audio(file_name):
     sample_rate, audio_data = wavfile.read(file_name)
@@ -46,6 +47,8 @@ def generate_tone(args):
     frequency = args.frequency
     modulation_rate = args.modulation_rate
     signal = args.signal
+    scale = args.scale
+    
     t = np.linspace(0, duration, int(sample_rate * duration), endpoint=False)
 
     if signal == "sin":
@@ -60,7 +63,7 @@ def generate_tone(args):
     #modulation_wave = np.sin(2 * np.pi * modulation_rate * t)
     modulated_wave = np.sin(2 * np.pi * (frequency + modulation_rate * modulation_wave) * t)
     modulated_wave /= np.max(np.abs(modulated_wave), axis=0)
-    wavfile.write(name, sample_rate, np.int16(modulated_wave * 32767))
+    wavfile.write(name, sample_rate, np.int16(modulated_wave * scale))
     #wavfile.write(name, sample_rate, np.int16(modulated_wave * args.sample_rate))
 
     print("Modulated signal audio saved correctly.")
@@ -69,7 +72,7 @@ def generate_tone(args):
         play_audio(name)
 
     if args.write_data:
-        write_data(name, signal, duration, sample_rate, frequency, modulation_rate)
+        write_data(name, signal, duration, sample_rate, frequency, modulation_rate, scale)
         print(f'Created data file "{args.destination}", correctly')
 
 def main():
@@ -82,6 +85,7 @@ def main():
     parser.add_argument('-play','--play_audio',action='store_true',help="Play modulated signal")
     parser.add_argument('-wr','--write_data',action='store_true',help="Create text file with audio data")
     parser.add_argument('-sig','--signal',default='sin',type=check_type,help="Modulation wave")
+    parser.add_argument('-scl','--scale',default=32767,type=int,help="Sound scale")
     
     args = parser.parse_args()
     try:
