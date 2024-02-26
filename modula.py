@@ -75,7 +75,8 @@ def generate_tone(args):
 
     if args.write_data:
         write_data(name, signal, duration, sample_rate, frequency, modulation_rate, scale)
-        print(f'Created data file "{args.destination}", correctly')
+        fname = args.destination.replace('.wav', '_data.txt')
+        print(f"Successfully created data file '{fname}'")
 
 def main():
     parser = argparse.ArgumentParser(prog="MODULA 0.1",description="Generate modulated audio tones")
