@@ -12,7 +12,7 @@ import os
 
 init()
 
-signals = ["sin","sqrt","trg","swt"]
+#signals = ["sin","sqrt","trg","swt"]
 
 def write_data(name, signal, duration, sample_rate, frequency, modulation_rate, scale):
     with open(name.replace('.wav', '_data.txt'), 'w') as file:
@@ -36,11 +36,11 @@ def check_extension(file):
     else:
         raise argparse.ArgumentTypeError(Fore.RED + Style.BRIGHT + f"result file must have '.wav' extension." + Fore.RESET + Style.RESET_ALL)
 
-def check_type(t):
+'''def check_type(t):
     if t in signals:
         return t
     else:
-        raise argparse.ArgumentTypeError(Fore.RED + Style.BRIGHT + "Ivalid signal type: Must be 'sin', 'sqrt', 'trg' or 'swt'." + Fore.RESET + Style.RESET_ALL)
+        raise argparse.ArgumentTypeError(Fore.RED + Style.BRIGHT + "Ivalid signal type: Must be 'sin', 'sqrt', 'trg' or 'swt'." + Fore.RESET + Style.RESET_ALL)'''
     
 def generate_tone(args):
     name = args.destination
@@ -87,7 +87,7 @@ def main():
     parser.add_argument('-mr','--modulation_rate',type=int,default=12,help="Modulation rate in Hz")
     parser.add_argument('-play','--play_audio',action='store_true',help="Play modulated signal")
     parser.add_argument('-wr','--write_data',action='store_true',help="Create text file with audio data")
-    parser.add_argument('-sig','--signal',default='sin',type=check_type,help="Modulation wave")
+    parser.add_argument('-sig','--signal',default='sin',choices=['sin', 'sqrt', 'trg', 'swt'],help="Modulation wave")# type=check_type,
     parser.add_argument('-scl','--scale',default=32767,type=int,help="Sound scale")
     
     args = parser.parse_args()
