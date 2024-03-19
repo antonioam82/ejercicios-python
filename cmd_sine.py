@@ -8,6 +8,7 @@ def main():
     parser.add_argument('-amp','--amplitude',type=int,default=1,help="Amplitude for sine waves.")
     parser.add_argument('-per','--periods',type=int,default=4,help="Number of periods.")
     parser.add_argument('-freq','--frequency',type=float,default=1,help="Sine frequency value")
+    parser.add_argument('-tm','--time',type=int,default=40,help="Sine time")
     
     args = parser.parse_args()
     sine_anim(args)
@@ -26,7 +27,7 @@ def sine_anim(args):
         plotext.cld()
 
         x = np.linspace(0, 10, length)
-        phase = 2 * np.pi * i / frames
+        phase = 2 * np.pi * i / args.time #frames
 
         y = amplitude * np.sin(frequency * x + phase)
 
