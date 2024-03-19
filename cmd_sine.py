@@ -1,3 +1,5 @@
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
 import plotext
 import argparse
 import numpy as np
@@ -5,7 +7,7 @@ import numpy as np
 def main():
     parser = argparse.ArgumentParser(prog="CMD-SIN",description="Sine function simulations on CMD")
     parser.add_argument('-fms','--frames',type=int,default=100,help="Number of frames for the animation.")
-    parser.add_argument('-amp','--amplitude',type=int,default=1,help="Amplitude for sine waves.")
+    parser.add_argument('-amp','--amplitude',type=float,default=1,help="Amplitude for sine waves.")
     parser.add_argument('-per','--periods',type=int,default=4,help="Number of periods.")
     parser.add_argument('-freq','--frequency',type=float,default=1,help="Sine frequency value")
     parser.add_argument('-tm','--time',type=int,default=40,help="Sine time")
@@ -18,6 +20,7 @@ def sine_anim(args):
     frequency = args.frequency
     length = 1000
     frames = args.frames
+    amplitude = args.amplitude
 
     plotext.title("Sine Animation")
     plotext.clc()
@@ -32,7 +35,8 @@ def sine_anim(args):
         y = amplitude * np.sin(frequency * x + phase)
 
         plotext.plot(x, y, marker="dot", color="red")
-        plotext.ylim(-1.0, 1.0)
+        #plotext.ylim(-1.0, 1.0)
+        plotext.ylim(-amplitude,amplitude)
         plotext.xlim(0, 10)
         plotext.sleep(0.01)
         plotext.show()
