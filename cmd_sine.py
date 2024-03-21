@@ -39,7 +39,7 @@ def sine_anim(args):
 
     #for i in range(frames):
     i = 0
-    while stop == False:
+    while True:
         plotext.clt()
         plotext.cld()
 
@@ -61,3 +61,4 @@ def sine_anim(args):
 
 if __name__=='__main__':
     main()
+
