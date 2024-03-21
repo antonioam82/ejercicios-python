@@ -34,7 +34,7 @@ def sine_anim(args):
     listener = keyboard.Listener(on_press=on_press)
     listener.start()
 
-    plotext.title("Sine Animation")
+    plotext.title("Sine Animation -PRESS SPACE BAR TO SCAPE-")
     plotext.clc()
 
     #for i in range(frames):
