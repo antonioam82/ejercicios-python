@@ -9,7 +9,7 @@ stop = False
 
 def main():
     parser = argparse.ArgumentParser(prog="CMD-SIN",description="Sine function simulations on CMD")
-    parser.add_argument('-fms','--frames',type=int,default=100,help="Number of frames for the animation.")
+    #parser.add_argument('-fms','--frames',type=int,default=100,help="Number of frames for the animation.")
     parser.add_argument('-amp','--amplitude',type=float,default=1,help="Amplitude for sine waves.")
     #parser.add_argument('-per','--periods',type=int,default=4,help="Number of periods.")
     parser.add_argument('-freq','--frequency',type=float,default=1,help="Sine frequency value")
@@ -28,7 +28,7 @@ def sine_anim(args):
     amplitude = args.amplitude
     frequency = args.frequency
     length = 1000
-    frames = args.frames
+    #frames = args.frames
     amplitude = args.amplitude
     
     listener = keyboard.Listener(on_press=on_press)
