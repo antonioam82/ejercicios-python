@@ -37,7 +37,9 @@ def sine_anim(args):
     plotext.title("Sine Animation")
     plotext.clc()
 
-    for i in range(frames):
+    #for i in range(frames):
+    i = 0
+    while stop == False:
         plotext.clt()
         plotext.cld()
 
@@ -51,6 +53,7 @@ def sine_anim(args):
         plotext.xlim(0, 10)
         plotext.sleep(0.01)
         plotext.show()
+        i += 1
 
         if stop == True:
             print("Animation interrupted by user")
