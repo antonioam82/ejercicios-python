@@ -13,7 +13,7 @@ def main():
     parser.add_argument('-amp','--amplitude',type=float,default=1,help="Amplitude for sine waves.")
     #parser.add_argument('-per','--periods',type=int,default=4,help="Number of periods.")
     parser.add_argument('-freq','--frequency',type=float,default=1,help="Sine frequency value")
-    parser.add_argument('-tm','--time',type=int,default=40,help="Sine time")
+    parser.add_argument('-tm','--time',type=int,default=40,help="Time elapsed in seconds")
     
     args = parser.parse_args()
     sine_anim(args)
