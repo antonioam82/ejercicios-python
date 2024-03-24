@@ -2,16 +2,19 @@
 from tradingview_ta import TA_Handler, Interval, Exchange
 import time
 
-# Store the last order.
-last_order = "sell"
-
 # Instantiate TA_Handler.
 handler = TA_Handler(
-    symbol="TSLA",
+    symbol="META",
     exchange="NASDAQ",
     screener="america",
     interval=Interval.INTERVAL_1_MINUTE
 )
+
+start = handler.get_analysis().summary["RECOMMENDATION"]
+if "BUY" in start:
+    last_order = "buy"
+else:
+    last_order = "sell"
 
 # Repeat forever.
 count = 0
@@ -41,3 +44,10 @@ while True:
     # Wait for x seconds before retrieving new analysis.
     # The time should be the same as the interval.
     time.sleep(60)
+
+'''Interval.INTERVAL_1_MINUTE: Representa un intervalo de 1 minuto.
+Interval.INTERVAL_5_MINUTES: Representa un intervalo de 5 minutos.
+Interval.INTERVAL_15_MINUTES: Representa un intervalo de 15 minutos.
+Interval.INTERVAL_1_HOUR: Representa un intervalo de 1 hora.
+Interval.INTERVAL_4_HOURS: Representa un intervalo de 4 horas.
+Interval.INTERVAL_1_DAY: Representa un intervalo de 1 día.'''
