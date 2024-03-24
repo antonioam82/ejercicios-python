@@ -16,6 +16,9 @@ if "BUY" in start:
 else:
     last_order = "sell"
 
+print("INITIAL RECOMMENDATION: ",last_order.upper())
+time.sleep(60)
+
 # Repeat forever.
 count = 0
 while True:
@@ -26,16 +29,15 @@ while True:
     # Create a sell order if the recommendation is "SELL" or "STRONG_SELL" and the last order is "buy".
     if "BUY" in rec and last_order == "sell":
         # REPLACE COMMENT: Create a buy order using your exchange's API.
-        print("TIME TO BUY")
+        print("RECOMMENDATION: ",rec)
 
         last_order = "buy"
     elif "SELL" in rec and last_order == "buy":
-        # REPLACE COMMENT: Create a sell order using your exchange's API.
-        print("TIME TO SELL")
+        # REPLACE COMMENT: Create a buy order using your exchange's API.
+        print("RECOMMENDATION: ",rec)
 
         last_order = "sell"
     else:
-        print(rec)
         print("NO NEWS")
     count += 1
     if count == 4:
