@@ -8,7 +8,7 @@ from sklearn.metrics import r2_score
 
 warnings.filterwarnings("ignore")
 
-df = pd.read_csv(r'C:\Users\Antonio\Documents\docs\Datasets\FuelConsumption.csv')
+df = pd.read_csv('FuelConsumption.csv')
 
 print(df.head())
 print(df.describe())
