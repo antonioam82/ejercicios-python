@@ -94,6 +94,12 @@ def grabar_audio(r):
             # Reproducir el audio modulado
             pydub.playback.play(modulated_audio)
 
+            preg = input("¿Escriba 'S' para guardar?: ")
+            if preg.upper() == "S":
+                output_filename = "modulated_audio.wav"
+                modulated_audio.export(output_filename, format="wav")
+                print("Audio guardado correctamente")
+
     except Exception as e:
         print(Fore.RED + Style.BRIGHT + "ERROR: " , str(e) + Fore.RESET + Style.RESET_ALL)
 
