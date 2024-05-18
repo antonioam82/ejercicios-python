@@ -14,15 +14,15 @@ def write_data(args):
         file.write(f"Duration: {args.duration}\n")
 
 def plot_signals(m,c,am):
-    
-    plt.subplot(3,1,1)
-    plt.title('Modulating Signal')
-    plt.plot(m,'g')
-    plt.ylabel('Amplitude')
 
     plt.subplot(3,1,2)
     plt.title('Carrier Signal')
     plt.plot(c,'r')
+    plt.ylabel('Amplitude')
+    
+    plt.subplot(3,1,1)
+    plt.title('Modulating Signal')
+    plt.plot(m,'g')
     plt.ylabel('Amplitude')
 
     plt.subplot(3,1,3)
@@ -69,11 +69,11 @@ def main():
     if args.plot:
         plot_signals(modulation, carrier, AM_modulated)
     
-    print('Playing Modulation Signal')
-    sd.play(modulation, samplerate=44100)
-    sd.wait()
     print("Playing Carrier Signal")
     sd.play(carrier, samplerate=44100)
+    sd.wait()
+    print('Playing Modulation Signal')
+    sd.play(modulation, samplerate=44100)
     sd.wait()
     print("Playing AM Modulated")
     sd.play(AM_modulated, samplerate=44100)
