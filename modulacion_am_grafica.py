@@ -12,7 +12,7 @@ Nc = 2  # Número de ciclos que se mostrará en la gráfica
 t = np.arange(0, Nc/fm, 1/fs)  # Vector de tiempo
 
 # Generación de señales
-Vc = Ec * np.sin(2 * np.pi * fc * t)  # Señal portadora
+Vc = m * Ec * np.sin(2 * np.pi * fc * t)  # Señal portadora
 Vmod = m * Ec * np.sin(2 * np.pi * fm * t)  # Señal moduladora
 Vam = (1 + m * np.sin(2 * np.pi * fm * t)) * Ec * np.sin(2 * np.pi * fc * t)  # Señal AM
 
