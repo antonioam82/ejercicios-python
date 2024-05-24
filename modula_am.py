@@ -1,5 +1,5 @@
 import numpy as np
-import matplotlib.pyplot as plt
+#import matplotlib.pyplot as plt
 from playsound import playsound
 import sounddevice as sd
 import argparse
@@ -13,7 +13,7 @@ def write_data(args):
         file.write(f"Modulation Index: {args.modulation_index}\n")
         file.write(f"Duration: {args.duration}\n")
 
-def plot_signals(m,c,am):
+'''def plot_signals(m,c,am):
 
     plt.subplot(3,1,2)
     plt.title('Carrier Signal')
@@ -29,7 +29,7 @@ def plot_signals(m,c,am):
     plt.title('AM Modulated')
     plt.plot(am, color='purple')
     plt.ylabel('Amplitude')
-    plt.xlabel('AM Signal')
+    plt.xlabel('AM Signal')'''
 
     plt.show()
 
@@ -58,7 +58,7 @@ def main():
     parser.add_argument('-mi','--modulation_index',required=True,type=float,help="Modulation index value")
     parser.add_argument('-dur','--duration',required=True,type=int,help="Signal duration in seconds")
     parser.add_argument('-wr','--write_data',action='store_true',help="Create text file with signal data")
-    parser.add_argument('-plt','--plot',action='store_true',help="Plot signals")
+    #parser.add_argument('-plt','--plot',action='store_true',help="Plot signals")
 
     args = parser.parse_args()
     modulation, carrier, AM_modulated = modulation_function(args)
@@ -66,8 +66,8 @@ def main():
     if args.write_data:
         write_data(args)
 
-    if args.plot:
-        plot_signals(modulation, carrier, AM_modulated)
+    '''if args.plot:
+        plot_signals(modulation, carrier, AM_modulated)'''
     
     print("Playing Carrier Signal")
     sd.play(carrier, samplerate=44100)
