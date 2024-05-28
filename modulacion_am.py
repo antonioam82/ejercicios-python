@@ -68,12 +68,12 @@ def main():
 
     '''if args.plot:
         plot_signals(modulation, carrier, AM_modulated)'''
-    
-    print("Playing Carrier Signal")
-    sd.play(carrier, samplerate=44100)
-    sd.wait()
+
     print('Playing Modulation Signal')
     sd.play(modulation, samplerate=44100)
+    sd.wait()
+    print("Playing Carrier Signal")
+    sd.play(carrier, samplerate=44100)
     sd.wait()
     print("Playing AM Modulated")
     sd.play(AM_modulated, samplerate=44100)
