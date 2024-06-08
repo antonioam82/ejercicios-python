@@ -23,5 +23,8 @@ class GIFMaker(tk.Tk):
         self.preview_label = tk.Label(self, text='Video Preview')
         self.preview_label.pack(paddy=10)
 
+        self.canvas = tk.Canvas(self, width=640, height=480, background='#eeeeee')
+        self.canvas.pack(paddy=10)
+
     def select_video(self):
         pass
