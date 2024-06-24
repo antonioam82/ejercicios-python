@@ -3,7 +3,7 @@ import matplotlib.pyplot as plt
 from datetime import datetime
 
 # Definir los símbolos de las acciones de las compañías
-symbol1 = 'NVDA'  # Apple Inc.
+symbol1 = 'NVDA'  # Nvidia
 symbol2 = 'MSFT'  # Microsoft Corporation
 symbol3 = 'AMD'   # AMD
 
