@@ -2,9 +2,9 @@ import numpy as np
 import matplotlib.pyplot as plt
 
 
-x = np.random.random_sample((5,))
-y = np.random.random_sample((5,))
-z = np.random.random_sample((5,))
+x = np.random.random_sample((3,))
+y = np.random.random_sample((3,))
+z = np.random.random_sample((3,))
 
 CELLS = 10
 nCPTS = np.size(x, 0)
