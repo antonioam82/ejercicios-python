@@ -5,7 +5,7 @@ import numpy as np
 from scipy.stats import norm
 from fitter import Fitter, get_common_distributions, get_distributions
 
-ticker = ['GOOGL']
+ticker = ['^IBEX']
 returns = yf.download(ticker, '2015-01-01', progress=False)['Close'].pct_change()[1:].rename(ticker[0])
 print(returns)
 
@@ -30,3 +30,8 @@ plt.show()
 # Distribuciones posibles
 print(get_common_distributions())
 print(get_distributions())
+
+f = Fitter(returns,distributions=['cauchy','norm','levy','laplace','johnsonsu',])
+f.fit()
+f.summary()
+plt.show()
