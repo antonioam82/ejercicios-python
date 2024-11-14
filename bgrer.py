@@ -107,7 +107,6 @@ def main():
                     image_matrix = binary_to_png(binary_data,args['info'])
                     if args['info'] == 'data':
                         print(image_matrix)
-
-    
+                        
 if __name__ == '__main__':
     main()
