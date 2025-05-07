@@ -1,5 +1,3 @@
-#!/usr/bin/env python
-# -*- coding: utf-8 -*-
 import plotext
 import argparse
 import numpy as np
@@ -29,7 +27,6 @@ def sine_anim(args):
     frequency = args.frequency
     length = 1000
     #frames = args.frames
-    amplitude = args.amplitude
     
     listener = keyboard.Listener(on_press=on_press)
     listener.start()
