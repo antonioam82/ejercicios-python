@@ -38,7 +38,8 @@ def sine_anim(args):
 
         y = amplitude * np.sin(frequency * x + phase)
 
-        plotext.plot(x, y, marker="dot", color=args.line_color)
+        plotext.plot(x, y, marker="braille", color=args.line_color)
+        #plotext.grid(horizontal=True, vertical=True)
         plotext.ylim(-amplitude,amplitude)
         plotext.xlim(0, 10)
         plotext.sleep(0.01)
@@ -66,8 +67,6 @@ def main():
     
     args = parser.parse_args()
     sine_anim(args)
-
-
 
 if __name__=='__main__':
     main()
