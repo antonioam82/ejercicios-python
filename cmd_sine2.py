@@ -48,6 +48,7 @@ def sine_anim(args):
 
         if stop == True:
             print("Animation interrupted by user")
+            listener.stop()
             break
 
 def check_color(color):
