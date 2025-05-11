@@ -45,7 +45,7 @@ def sine_anim(args):
 
         y = amplitude * np.sin(frequency * x + phase)
 
-        plotext.plot(x, y, marker="dot", color="red")
+        plotext.plot(x, y, marker="braille", color="red")
         plotext.ylim(-amplitude,amplitude)
         plotext.xlim(0, 10)
         plotext.sleep(0.01)
@@ -54,8 +54,10 @@ def sine_anim(args):
 
         if stop == True:
             print("Animation interrupted by user")
+            listener.stop()
             break
 
 if __name__=='__main__':
     main()
+
 
