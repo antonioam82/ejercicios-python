@@ -7,7 +7,11 @@ from colorama import init, Fore, Style
 init()
 
 stop = False
-line_colors = ["red","green","blue"]
+line_colors = ["red","green","blue","white","black"]
+themes = ['default','clear','pro','matrix','windows',
+          'dark','retro','elegant','nature','dreamland',
+          'grandpa','salad','girly','serious','sahara',
+          'screen']
 
 def on_press(key):
     global stop
@@ -40,6 +44,7 @@ def sine_anim(args):
 
         plotext.plot(x, y, marker="braille", color=args.line_color)
         #plotext.grid(horizontal=True, vertical=True)
+        plotext.theme(args.plot_theme)
         plotext.ylim(-amplitude,amplitude)
         plotext.xlim(0, 10)
         plotext.sleep(0.01)
@@ -48,14 +53,19 @@ def sine_anim(args):
 
         if stop == True:
             print("Animation interrupted by user")
-            listener.stop()
+            if listener:
+                listener.stop()
             break
 
 def check_color(color):
     if color not in line_colors:
         raise argparse.ArgumentTypeError(Fore.RED+Style.BRIGHT+f"Color must be 'red', 'blue'or 'green'. {color} is not valid."+Fore.RESET+Style.RESET_ALL)
     return color
- 
+
+def check_theme(t):
+    if t not in themes:
+        raise argparse.ArgumentTypeError(Fore.RED+Style.BRIGHT+f"Invalid theme name: '{t}'"+Fore.RESET+Style.RESET_ALL)
+    return t
 
 def main():
     parser = argparse.ArgumentParser(prog="CMD-SIN",description="Sine function simulations on CMD")
@@ -65,6 +75,7 @@ def main():
     parser.add_argument('-freq','--frequency',type=float,default=1,help="Sine frequency value")
     parser.add_argument('-tm','--time',type=int,default=40,help="Time elapsed in seconds")
     parser.add_argument('-lc','--line_color',type=check_color,default="red",help="Line color")
+    parser.add_argument('-theme','--plot_theme',type=check_theme,default="clear",help="Plot theme")
     
     args = parser.parse_args()
     sine_anim(args)
