@@ -41,6 +41,8 @@ def sine_anim(args):
         phase = 2 * np.pi * i / args.time ###
 
         y = amplitude * np.sin(frequency * x + phase)
+        #y = 2 * amplitude * (2 * np.abs(2 * ((x * frequency + phase/(2*np.pi)) % 1) - 1) - 1) onda triangular
+        #y = amplitude * np.sign(np.sin(frequency * x + phase)) onda cuadrada
 
         plotext.plot(x, y, marker="braille", color=args.line_color)
         #plotext.grid(horizontal=True, vertical=True)
