@@ -32,12 +32,13 @@ def sine_anim(args):
     plotext.clc()
 
     #for i in range(frames):
+    x = np.linspace(0, 10, length)
     i = 0
     while True:
         plotext.clt()
         plotext.cld()
 
-        x = np.linspace(0, 10, length)
+        
         phase = 2 * np.pi * i / args.time ###
 
         y = amplitude * np.sin(frequency * x + phase)
@@ -87,3 +88,4 @@ def main():
 
 if __name__=='__main__':
     main()
+
