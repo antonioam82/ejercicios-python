@@ -45,7 +45,8 @@ def sine_anim(args):
         #y = amplitude * np.sign(np.sin(frequency * x + phase)) #onda cuadrada
 
         plotext.plot(x, y, marker="braille", color=args.line_color)
-        #plotext.grid(horizontal=True, vertical=True)
+        if args.show_grid:
+            plotext.grid(horizontal=True, vertical=True)###
         if args.plot_theme:
             plotext.theme(args.plot_theme)
         plotext.ylim(-amplitude,amplitude)
@@ -78,6 +79,7 @@ def main():
     parser.add_argument('-freq','--frequency',type=float,default=1,help="Sine frequency value")
     parser.add_argument('-tm','--time',type=int,default=40,help="Time elapsed in seconds")
     parser.add_argument('-lc','--line_color',type=check_color,default="red",help="Line color")
+    parser.add_argument('-grid','--show_grid',action="store_true",help="Show grid")
     parser.add_argument('-theme','--plot_theme',type=check_theme,default=None,help="Plot theme")
     
     args = parser.parse_args()
