@@ -5,6 +5,8 @@ import time
 from pynput import keyboard as pk
 import argparse
 import functools
+import sys
+import time
 
 CHANNELS = 1
 RATE     = 44100
@@ -15,13 +17,12 @@ reproduciendo = False
 terminado     = False
 phase         = 0
 
-
 def on_press(key):
     global grabando, reproduciendo
     if key == pk.Key.space and grabando:
         grabando      = False
         reproduciendo = True
-        print("REPRODUCIENDO...")
+        print("\nREPRODUCIENDO...")
 
 def input_callback(audio_queue, frequency, in_data, frame_count, time_info, flag):
     global phase
@@ -62,7 +63,6 @@ def start(audio_queue, frequency):
           f"(~{audio_queue.maxsize * CHUNK / RATE:.1f}s)")
     print("\nGrabando desde el inicio. Pulsa ESPACIO para parar y reproducir.\n")
 
-    # Enlazar los parámetros extra a los callbacks
     cb_in  = functools.partial(input_callback,  audio_queue, frequency)
     cb_out = functools.partial(output_callback, audio_queue)
 
@@ -82,11 +82,15 @@ def start(audio_queue, frequency):
 
     listener = pk.Listener(on_press=on_press)
     listener.start()
-
+    sec = 1
     try:
         while not terminado:
             if grabando:
                 seg = audio_queue.qsize() * CHUNK / RATE
+                sys.stdout.write(f"\rTIEMPO DE GRABACION: {sec} segundos")
+                sys.stdout.flush()
+                time.sleep(1)
+                sec += 1
             elif reproduciendo:
                 seg = audio_queue.qsize() * CHUNK / RATE
             time.sleep(0.05)
@@ -98,6 +102,7 @@ def start(audio_queue, frequency):
         stream_in.stop_stream();  stream_in.close()
         stream_out.stop_stream(); stream_out.close()
         p.terminate()
+        print("Hasta luego.")
 
 def main():
     parser = argparse.ArgumentParser(
@@ -106,10 +111,12 @@ def main():
         conflict_handler="resolve",
     )
     parser.add_argument("-freq", "--frequency", type=float, default=440.0,help="Frecuencia del oscilador en Hz (default: 440)")
-    parser.add_argument("-max",  "--maxsize",   type=int,   default=400,help="Tamaño máximo de la cola en chunks (default: 400)")
-
-    args        = parser.parse_args()
-    audio_queue = queue.Queue(maxsize=args.maxsize)
+    #parser.add_argument("-max",  "--maxsize",   type=int, default=400,help="Tamaño máximo de la cola en chunks (default: 400)")
+    parser.add_argument("-sec", "--seconds", type=int, default=5,help="Duracion de la grabacion, en segundos")
+    
+    args = parser.parse_args()
+    maxsize = (args.seconds * RATE) / CHUNK
+    audio_queue = queue.Queue(maxsize=maxsize)
     start(audio_queue, args.frequency)
 
 
