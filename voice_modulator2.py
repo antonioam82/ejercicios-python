@@ -7,6 +7,7 @@ import argparse
 import functools
 import sys
 import time
+from colorama import init, Fore, Style
 
 CHANNELS = 1
 RATE     = 44100
@@ -24,6 +25,17 @@ def on_press(key):
         reproduciendo = True
         print("\nREPRODUCIENDO...")
 
+def check_positive(v):
+    value = float(v)
+    if value <= 0:
+        init()
+        raise argparse.ArgumentTypeError(
+            Fore.RED + Style.BRIGHT +
+            f"Frequency and seconds must be greater than 0 ('{v}' is not valid)." +
+            Fore.RESET + Style.RESET_ALL
+        )
+    return value
+    
 def input_callback(audio_queue, frequency, in_data, frame_count, time_info, flag):
     global phase
     if grabando:
@@ -110,9 +122,9 @@ def main():
         description="Voice modulator",
         conflict_handler="resolve",
     )
-    parser.add_argument("-freq", "--frequency", type=float, default=440.0,help="Frecuencia del oscilador en Hz (default: 440)")
+    parser.add_argument("-freq", "--frequency", type=check_positive, default=440.0,help="Frecuencia del oscilador en Hz (default: 440)")
     #parser.add_argument("-max",  "--maxsize",   type=int, default=400,help="Tamaño máximo de la cola en chunks (default: 400)")
-    parser.add_argument("-sec", "--seconds", type=int, default=5,help="Duracion de la grabacion, en segundos")
+    parser.add_argument("-sec", "--seconds", type=check_positive, default=5.0,help="Duracion de la grabacion, en segundos")
     
     args = parser.parse_args()
     maxsize = (args.seconds * RATE) / CHUNK
