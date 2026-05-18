@@ -36,7 +36,7 @@ def check_positive(v):
         )
     return value
     
-def input_callback(audio_queue, frequency, in_data, frame_count, time_info, flag):
+def input_callback(audio_queue, frequency, amplitude, in_data, frame_count, time_info, flag):
     global phase
     if grabando:
         audio = np.frombuffer(in_data, dtype=np.float32).copy()
@@ -45,7 +45,7 @@ def input_callback(audio_queue, frequency, in_data, frame_count, time_info, flag
 
         twopi = 2 * np.pi
         osc_tan = np.tan(np.sin(twopi * frequency * t))
-        osc = 6 * (np.clip(osc_tan, -1.5, 1.5) / 1.5).astype(np.float32)
+        osc = amplitude * (np.clip(osc_tan, -1.5, 1.5) / 1.5).astype(np.float32)
         '''osc_exponencial = np.exp(np.sin(twopi * frequency * t)) - 1.0
         osc = (osc_exponencial / np.max(osc_exponencial)).astype(np.float32)'''
 
@@ -81,7 +81,7 @@ def output_callback(audio_queue, in_data, frame_count, time_info, flag):
         data = np.zeros(frame_count, dtype=np.float32).tobytes()
     return (data, pyaudio.paContinue)
 
-def start(audio_queue, frequency):
+def start(audio_queue, frequency, amplitude):
     p = pyaudio.PyAudio()
 
     in_dev  = p.get_default_input_device_info()
@@ -93,7 +93,7 @@ def start(audio_queue, frequency):
           f"(~{audio_queue.maxsize * CHUNK / RATE:.1f}s)")
     print("\nGrabando desde el inicio. Pulsa ESPACIO para parar y reproducir.\n")
 
-    cb_in  = functools.partial(input_callback,  audio_queue, frequency)
+    cb_in  = functools.partial(input_callback,  audio_queue, frequency, amplitude)
     cb_out = functools.partial(output_callback, audio_queue)
 
     stream_in = p.open(
@@ -143,11 +143,12 @@ def main():
     parser.add_argument("-freq", "--frequency", type=check_positive, default=440.0,help="Frecuencia del oscilador en Hz (default: 440)")
     #parser.add_argument("-max",  "--maxsize",   type=int, default=400,help="Tamaño máximo de la cola en chunks (default: 400)")
     parser.add_argument("-sec", "--seconds", type=check_positive, default=5.0,help="Duracion de la grabacion, en segundos")
+    parser.add_argument("-amp", "--amplitude", type=check_positive, default=1.0,help="Amplitud")
     
     args = parser.parse_args()
     maxsize = (args.seconds * RATE) / CHUNK
     audio_queue = queue.Queue(maxsize=maxsize)
-    start(audio_queue, args.frequency)
+    start(audio_queue, args.frequency, args.amplitude)
 
 
 if __name__ == "__main__":
