@@ -41,7 +41,25 @@ def input_callback(audio_queue, frequency, in_data, frame_count, time_info, flag
     if grabando:
         audio = np.frombuffer(in_data, dtype=np.float32).copy()
         t     = (np.arange(frame_count) + phase) / RATE
-        osc   = np.sin(2 * np.pi * frequency * t).astype(np.float32)
+        #osc   = np.sin(2 * np.pi * frequency * t).astype(np.float32)
+
+        twopi = 2 * np.pi
+        osc_tan = np.tan(np.sin(twopi * frequency * t))
+        osc = 6 * (np.clip(osc_tan, -1.5, 1.5) / 1.5).astype(np.float32)
+        '''osc_exponencial = np.exp(np.sin(twopi * frequency * t)) - 1.0
+        osc = (osc_exponencial / np.max(osc_exponencial)).astype(np.float32)'''
+
+        '''twopi = 2 * np.pi
+        osc = np.abs(np.sin(twopi * frequency * t)).astype(np.float32)'''
+        
+        '''twopi = 2 * np.pi
+        modulador = np.sin(twopi * 8.0 * t) * 15.0  # Profundidad de modulación
+        osc = 6 * (np.sin(twopi * frequency * t + modulador).astype(np.float32))'''
+
+        '''lfo_ancho = np.sin(twopi * 0.2 * t) * 0.4 + 0.5  # Modulación interna del ancho
+        fase_cuadrada = np.mod(t * frequency, 1.0)
+        osc = ((fase_cuadrada < lfo_ancho).astype(np.float32) * 2.0 - 1.0)'''
+        
         audio *= osc
         try:
             audio_queue.put_nowait(audio.tobytes())
