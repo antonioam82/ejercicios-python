@@ -7,22 +7,27 @@ import argparse
 import functools
 import sys
 from colorama import init, Fore, Style
+from dataclasses import dataclass, field
+
+#audio_modulator2.py -freq 650 -sec 8 -amp 9
 
 CHANNELS = 1
 RATE     = 44100
 CHUNK    = 1024
 
-grabando = True
-reproduciendo = False
-terminado = False
-phase = 0
+@dataclass
+class AppState:
+    grabando: bool = True
+    reproduciendo: bool = False
+    terminado: bool = False
+    phase: int = 0
 
-def on_press(key):
-    global grabando, reproduciendo
-    if key == pk.Key.space and not reproduciendo:
-        if grabando:
-            grabando = False
-        reproduciendo = True
+def on_press(state,key):
+    #global grabando, reproduciendo
+    if key == pk.Key.space and not state.reproduciendo:
+        if state.grabando:
+            state.grabando = False
+        state.reproduciendo = True
         #print("\nREPRODUCIENDO...")
 
 def check_positive(v):
@@ -36,11 +41,11 @@ def check_positive(v):
         )
     return value
 
-def input_callback(audio_queue, frequency, amplitude, in_data, frame_count, time_info, flag):
-    global phase, grabando
-    if grabando:
+def input_callback(audio_queue, frequency, amplitude, state, in_data, frame_count, time_info, flag):
+    #global phase, grabando
+    if state.grabando:
         audio = np.frombuffer(in_data, dtype=np.float32).copy()
-        t     = (np.arange(frame_count) + phase) / RATE
+        t     = (np.arange(frame_count) + state.phase) / RATE
 
         twopi   = 2 * np.pi
         osc_tan = np.tan(np.sin(twopi * frequency * t))
@@ -48,24 +53,24 @@ def input_callback(audio_queue, frequency, amplitude, in_data, frame_count, time
 
         audio *= osc
         audio_queue.put(audio.tobytes())
-    phase += frame_count
+    state.phase += frame_count
     return (None, pyaudio.paContinue)
 
-def output_callback(audio_queue, in_data, frame_count, time_info, flag):
-    global reproduciendo, terminado
-    if reproduciendo:
+def output_callback(audio_queue, state, in_data, frame_count, time_info, flag):
+    #global reproduciendo, terminado
+    if state.reproduciendo:
         try:
             data = audio_queue.get_nowait()
         except queue.Empty:
-            reproduciendo = False
-            terminado     = True
+            state.reproduciendo = False
+            state.terminado     = True
             data = np.zeros(frame_count, dtype=np.float32).tobytes()
     else:
         data = np.zeros(frame_count, dtype=np.float32).tobytes()
     return (data, pyaudio.paContinue)
 
-def start(audio_queue, frequency, amplitude, seconds):
-    global grabando, reproduciendo, terminado
+def start(audio_queue, frequency, amplitude, seconds, state):
+    #global grabando, reproduciendo, terminado
 
     p = pyaudio.PyAudio()
 
@@ -77,8 +82,8 @@ def start(audio_queue, frequency, amplitude, seconds):
     print(f"Duracion  : {seconds:.1f}s")
     print("\nGrabando desde el inicio. Pulsa ESPACIO para parar y reproducir.\n")
 
-    cb_in  = functools.partial(input_callback,  audio_queue, frequency, amplitude)
-    cb_out = functools.partial(output_callback, audio_queue)
+    cb_in  = functools.partial(input_callback,  audio_queue, frequency, amplitude, state)
+    cb_out = functools.partial(output_callback, audio_queue, state)
 
     stream_in = p.open(
         format=pyaudio.paFloat32, channels=CHANNELS,
@@ -94,23 +99,23 @@ def start(audio_queue, frequency, amplitude, seconds):
     stream_in.start_stream()
     stream_out.start_stream()
 
-    listener = pk.Listener(on_press=on_press)
+    listener = pk.Listener(on_press=functools.partial(on_press, state))
     listener.start()
 
     start_time = time.time()
     try:
-        while not terminado:
-            if grabando:
+        while not state.terminado:
+            if state.grabando:
                 elapsed = time.time() - start_time
                 sys.stdout.write(f"\rTIEMPO DE GRABACION: {elapsed:.1f} s / {seconds:.1f} s")
                 sys.stdout.flush()
                 if elapsed >= seconds:
-                    grabando = False
+                    state.grabando = False
                     print("\nTiempo agotado. Pulsa ESPACIO para reproducir...")
-                    while not reproduciendo:
+                    while not state.reproduciendo:
                         time.sleep(0.05)
                     #print("REPRODUCIENDO...")
-            elif reproduciendo:
+            elif state.reproduciendo:
                 seg = audio_queue.qsize() * CHUNK / RATE
                 sys.stdout.write(f"\rREPRODUCIENDO... {seg:.1f}s RESTANTES    ")
                 sys.stdout.flush()
@@ -136,8 +141,9 @@ def main():
     parser.add_argument("-amp",  "--amplitude", type=check_positive, default=1.0,help="Amplitud")
 
     args = parser.parse_args()
+    state = AppState()
     audio_queue = queue.Queue()
-    start(audio_queue, args.frequency, args.amplitude, args.seconds)
+    start(audio_queue, args.frequency, args.amplitude, args.seconds, state)
 
 
 if __name__ == "__main__":
