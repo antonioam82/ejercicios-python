@@ -41,16 +41,28 @@ def check_positive(v):
         )
     return value
 
-def input_callback(audio_queue, frequency, amplitude, state, in_data, frame_count, time_info, flag):
+def input_callback(audio_queue, frequency, amplitude, state, modulator, in_data, frame_count, time_info, flag):
     #global phase, grabando
     if state.grabando:
         audio = np.frombuffer(in_data, dtype=np.float32).copy()
-        t     = (np.arange(frame_count) + state.phase) / RATE
+        t = (np.arange(frame_count) + state.phase) / RATE
 
-        twopi   = 2 * np.pi
-        osc_tan = np.tan(np.sin(twopi * frequency * t))
-        osc     = amplitude * (np.clip(osc_tan, -1.5, 1.5) / 1.5).astype(np.float32)
-
+        if modulator == 'NORMAL':
+            osc = np.sin(2 * np.pi * frequency * t).astype(np.float32)
+        else:
+            twopi   = 2 * np.pi
+            if modulator == "m1":
+                osc_tan = np.tan(np.sin(twopi * frequency * t))
+                osc = amplitude * (np.clip(osc_tan, -1.5, 1.5) / 1.5).astype(np.float32)
+            elif modulator == "m2":
+                lfo_ancho = np.sin(twopi * 0.2 * t) * 0.4 + 0.5  # Modulación interna del ancho
+                fase_cuadrada = np.mod(t * frequency, 1.0)
+                osc = ((fase_cuadrada < lfo_ancho).astype(np.float32) * 2.0 - 1.0)
+            elif modulator == "m3":
+                niveles = 6
+                osc_seno = np.sin(twopi * frequency * t)
+                osc = (np.round(osc_seno * niveles) / niveles).astype(np.float32)
+            
         audio *= osc
         audio_queue.put(audio.tobytes())
     state.phase += frame_count
@@ -69,7 +81,17 @@ def output_callback(audio_queue, state, in_data, frame_count, time_info, flag):
         data = np.zeros(frame_count, dtype=np.float32).tobytes()
     return (data, pyaudio.paContinue)
 
-def start(audio_queue, frequency, amplitude, seconds, state):
+def check_name(m):
+    modulators = ['NORMAL','m1','m2','m3']
+    if m not in modulators:
+        raise argparse.ArgumentTypeError(
+            Fore.RED + Style.BRIGHT +
+            f"'{m}' is not a valid modulator name." +
+            Fore.RESET + Style.RESET_ALL
+        )
+    return m
+
+def start(audio_queue, frequency, amplitude, seconds, state, modulator):
     #global grabando, reproduciendo, terminado
 
     p = pyaudio.PyAudio()
@@ -82,7 +104,7 @@ def start(audio_queue, frequency, amplitude, seconds, state):
     print(f"Duracion  : {seconds:.1f}s")
     print("\nGrabando desde el inicio. Pulsa ESPACIO para parar y reproducir.\n")
 
-    cb_in  = functools.partial(input_callback,  audio_queue, frequency, amplitude, state)
+    cb_in  = functools.partial(input_callback,  audio_queue, frequency, amplitude, state, modulator)
     cb_out = functools.partial(output_callback, audio_queue, state)
 
     stream_in = p.open(
@@ -128,7 +150,7 @@ def start(audio_queue, frequency, amplitude, seconds, state):
         stream_in.stop_stream();  stream_in.close()
         stream_out.stop_stream(); stream_out.close()
         p.terminate()
-        print("Hasta luego.")
+        #print("Hasta luego.")
 
 def main():
     parser = argparse.ArgumentParser(
@@ -136,14 +158,15 @@ def main():
         description="Voice modulator",
         conflict_handler="resolve",
     )
-    parser.add_argument("-freq", "--frequency", type=check_positive, default=440.0,help="Frecuencia del oscilador en Hz (default: 440)")
-    parser.add_argument("-sec",  "--seconds",   type=check_positive, default=5.0,help="Duracion de la grabacion, en segundos")
-    parser.add_argument("-amp",  "--amplitude", type=check_positive, default=1.0,help="Amplitud")
+    parser.add_argument("-freq","--frequency",type=check_positive, default=440.0,help="Frecuencia del oscilador en Hz (default: 440)")
+    parser.add_argument("-sec","--seconds",type=check_positive, default=5.0,help="Duracion de la grabacion, en segundos")
+    parser.add_argument("-mod","--modulator",type=check_name,default="NORMAL",help="Modulator")
+    parser.add_argument("-amp","--amplitude",type=check_positive, default=1.0,help="Amplitud")
 
     args = parser.parse_args()
     state = AppState()
     audio_queue = queue.Queue()
-    start(audio_queue, args.frequency, args.amplitude, args.seconds, state)
+    start(audio_queue, args.frequency, args.amplitude, args.seconds, state, args.modulator)
 
 
 if __name__ == "__main__":
