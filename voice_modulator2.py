@@ -62,6 +62,10 @@ def input_callback(audio_queue, frequency, amplitude, state, modulator, in_data,
                 niveles = 6
                 osc_seno = np.sin(twopi * frequency * t)
                 osc = (np.round(osc_seno * niveles) / niveles).astype(np.float32)
+            elif modulator == "m4":
+                fase = np.mod(t * frequency, 1.0)
+                osc_tiburon = np.where(fase < 0.1, fase / 0.1, (1.0 - fase) / 0.9)
+                osc = (osc_tiburon * 2.0 - 1.0).astype(np.float32)
             
         audio *= osc
         audio_queue.put(audio.tobytes())
@@ -82,7 +86,7 @@ def output_callback(audio_queue, state, in_data, frame_count, time_info, flag):
     return (data, pyaudio.paContinue)
 
 def check_name(m):
-    modulators = ['NORMAL','m1','m2','m3']
+    modulators = ['NORMAL','m1','m2','m3','m4']
     if m not in modulators:
         raise argparse.ArgumentTypeError(
             Fore.RED + Style.BRIGHT +
@@ -171,3 +175,4 @@ def main():
 
 if __name__ == "__main__":
     main()
+
