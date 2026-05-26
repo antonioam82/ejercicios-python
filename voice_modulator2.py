@@ -13,7 +13,7 @@ from dataclasses import dataclass, field
 #audio_modulator2.py -mod m1 -freq 1400 -sec 10 -amp 7
 #audio_modulator2.py -mod m3 -freq 678 -sec 20 -amp 10
 
-CHANNELS = 1
+CHANNELS = 2
 RATE     = 44100
 CHUNK    = 1024
 
@@ -43,7 +43,7 @@ def check_positive(v):
         )
     return value
 
-def input_callback(audio_queue, frequency, amplitude, state, modulator, in_data, frame_count, time_info, flag):
+'''def input_callback(audio_queue, frequency, amplitude, state, modulator, in_data, frame_count, time_info, flag):
     #global phase, grabando
     if state.grabando:
         audio = np.frombuffer(in_data, dtype=np.float32).copy()
@@ -69,15 +69,53 @@ def input_callback(audio_queue, frequency, amplitude, state, modulator, in_data,
                 osc_tiburon = np.where(fase < 0.1, fase / 0.1, (1.0 - fase) / 0.9)
                 osc = amplitude * (osc_tiburon * 2.0 - 1.0).astype(np.float32)
             elif modulator == "m5":
-                modulador_fm = np.sin(twopii * (frequency * 1.5) * t) * 2.0
+                modulador_fm = np.sin(twopi * (frequency * 1.5) * t) * 2.0
                 osc = amplitude * (np.sin(twopi * frequency * t + np.exp(modulador_fm)).astype(np.float32))
             
         audio *= osc
         audio_queue.put(audio.tobytes())
     state.phase += frame_count
+    return (None, pyaudio.paContinue)'''
+
+def input_callback(audio_queue, frequency, amplitude, state, modulator, in_data, frame_count, time_info, flag):
+    if state.grabando:
+        audio = np.frombuffer(in_data, dtype=np.float32).copy()
+        # Mezclar canales estéreo a mono
+        audio = audio.reshape(-1, 2).mean(axis=1)  # ← (frame_count, 2) → (frame_count,)
+
+        t = (np.arange(frame_count) + state.phase) / RATE
+        twopi = 2 * np.pi
+
+        if modulator == 'NORMAL':
+            osc = np.sin(twopi * frequency * t).astype(np.float32)
+        elif modulator == "m1":
+            osc_tan = np.tan(np.sin(twopi * frequency * t))
+            osc = amplitude * (np.clip(osc_tan, -1.5, 1.5) / 1.5).astype(np.float32)
+        elif modulator == "m2":
+            lfo_ancho = np.sin(twopi * 0.2 * t) * 0.4 + 0.5
+            fase_cuadrada = np.mod(t * frequency, 1.0)
+            osc = amplitude * ((fase_cuadrada < lfo_ancho).astype(np.float32) * 2.0 - 1.0)
+        elif modulator == "m3":
+            niveles = 6
+            osc_seno = np.sin(twopi * frequency * t)
+            osc = amplitude * (np.round(osc_seno * niveles) / niveles).astype(np.float32)
+        elif modulator == "m4":
+            fase = np.mod(t * frequency, 1.0)
+            osc_tiburon = np.where(fase < 0.1, fase / 0.1, (1.0 - fase) / 0.9)
+            osc = amplitude * (osc_tiburon * 2.0 - 1.0).astype(np.float32)
+        elif modulator == "m5":
+            modulador_fm = np.sin(twopi * (frequency * 1.5) * t) * 2.0
+            osc = amplitude * np.sin(twopi * frequency * t + np.exp(modulador_fm)).astype(np.float32)
+
+        audio *= osc
+
+        estereo = np.stack([audio, audio], axis=1).flatten()
+        audio_queue.put(estereo.tobytes())
+
+    state.phase += frame_count
     return (None, pyaudio.paContinue)
 
-def output_callback(audio_queue, state, in_data, frame_count, time_info, flag):
+'''def output_callback(audio_queue, state, in_data, frame_count, time_info, flag):
     #global reproduciendo, terminado
     if state.reproduciendo:
         try:
@@ -88,6 +126,18 @@ def output_callback(audio_queue, state, in_data, frame_count, time_info, flag):
             data = np.zeros(frame_count, dtype=np.float32).tobytes()
     else:
         data = np.zeros(frame_count, dtype=np.float32).tobytes()
+    return (data, pyaudio.paContinue)'''
+
+def output_callback(audio_queue, state, in_data, frame_count, time_info, flag):
+    if state.reproduciendo:
+        try:
+            data = audio_queue.get_nowait()
+        except queue.Empty:
+            state.reproduciendo = False
+            state.terminado     = True
+            data = np.zeros(frame_count * 2, dtype=np.float32).tobytes()  # ← *2
+    else:
+        data = np.zeros(frame_count * 2, dtype=np.float32).tobytes()  # ← *2
     return (data, pyaudio.paContinue)
 
 def check_name(m):
