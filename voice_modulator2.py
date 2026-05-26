@@ -80,8 +80,7 @@ def check_positive(v):
 def input_callback(audio_queue, frequency, amplitude, state, modulator, in_data, frame_count, time_info, flag):
     if state.grabando:
         audio = np.frombuffer(in_data, dtype=np.float32).copy()
-        # Mezclar canales estéreo a mono
-        audio = audio.reshape(-1, 2).mean(axis=1)  # ← (frame_count, 2) → (frame_count,)
+        audio = audio.reshape(-1, 2).mean(axis=1)
 
         t = (np.arange(frame_count) + state.phase) / RATE
         twopi = 2 * np.pi
