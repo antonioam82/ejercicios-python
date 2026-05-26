@@ -78,9 +78,15 @@ def check_positive(v):
     return (None, pyaudio.paContinue)'''
 
 def input_callback(audio_queue, frequency, amplitude, state, modulator, in_data, frame_count, time_info, flag):
+
+    if flag:
+        print(f"\nWarning input stream: {flag}")
+        return (None, pyaudio.paContinue)
+    
     if state.grabando:
         audio = np.frombuffer(in_data, dtype=np.float32).copy()
-        audio = audio.reshape(-1, 2).mean(axis=1)
+        # Mezclar canales estéreo a mono
+        audio = audio.reshape(-1, 2).mean(axis=1)  # ← (frame_count, 2) → (frame_count,)
 
         t = (np.arange(frame_count) + state.phase) / RATE
         twopi = 2 * np.pi
@@ -128,6 +134,11 @@ def input_callback(audio_queue, frequency, amplitude, state, modulator, in_data,
     return (data, pyaudio.paContinue)'''
 
 def output_callback(audio_queue, state, in_data, frame_count, time_info, flag):
+
+    if flag:
+        print(f"\nWarning output stream: {flag}")
+        return (np.zeros(frame_count * 2, dtype=np.float32).tobytes(), pyaudio.paContinue)
+    
     if state.reproduciendo:
         try:
             data = audio_queue.get_nowait()
@@ -227,3 +238,4 @@ def main():
 
 if __name__ == "__main__":
     main()
+
