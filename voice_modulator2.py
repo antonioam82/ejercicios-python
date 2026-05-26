@@ -10,6 +10,8 @@ from colorama import init, Fore, Style
 from dataclasses import dataclass, field
 
 #audio_modulator2.py -freq 650 -sec 8 -amp 9
+#audio_modulator2.py -mod m1 -freq 1400 -sec 10 -amp 7
+#audio_modulator2.py -mod m3 -freq 678 -sec 20 -amp 10
 
 CHANNELS = 1
 RATE     = 44100
@@ -55,17 +57,20 @@ def input_callback(audio_queue, frequency, amplitude, state, modulator, in_data,
                 osc_tan = np.tan(np.sin(twopi * frequency * t))
                 osc = amplitude * (np.clip(osc_tan, -1.5, 1.5) / 1.5).astype(np.float32)
             elif modulator == "m2":
-                lfo_ancho = np.sin(twopi * 0.2 * t) * 0.4 + 0.5  # Modulación interna del ancho
+                lfo_ancho = np.sin(twopi * 0.2 * t) * 0.4 + 0.5  # Modulación interna del ancho sin
                 fase_cuadrada = np.mod(t * frequency, 1.0)
-                osc = ((fase_cuadrada < lfo_ancho).astype(np.float32) * 2.0 - 1.0)
+                osc = amplitude * ((fase_cuadrada < lfo_ancho).astype(np.float32) * 2.0 - 1.0)
             elif modulator == "m3":
                 niveles = 6
                 osc_seno = np.sin(twopi * frequency * t)
-                osc = (np.round(osc_seno * niveles) / niveles).astype(np.float32)
+                osc = amplitude * (np.round(osc_seno * niveles) / niveles).astype(np.float32)
             elif modulator == "m4":
                 fase = np.mod(t * frequency, 1.0)
                 osc_tiburon = np.where(fase < 0.1, fase / 0.1, (1.0 - fase) / 0.9)
-                osc = (osc_tiburon * 2.0 - 1.0).astype(np.float32)
+                osc = amplitude * (osc_tiburon * 2.0 - 1.0).astype(np.float32)
+            elif modulator == "m5":
+                modulador_fm = np.sin(twopii * (frequency * 1.5) * t) * 2.0
+                osc = amplitude * (np.sin(twopi * frequency * t + np.exp(modulador_fm)).astype(np.float32))
             
         audio *= osc
         audio_queue.put(audio.tobytes())
@@ -86,7 +91,7 @@ def output_callback(audio_queue, state, in_data, frame_count, time_info, flag):
     return (data, pyaudio.paContinue)
 
 def check_name(m):
-    modulators = ['NORMAL','m1','m2','m3','m4']
+    modulators = ['NORMAL','m1','m2','m3','m4','m5']
     if m not in modulators:
         raise argparse.ArgumentTypeError(
             Fore.RED + Style.BRIGHT +
@@ -154,7 +159,6 @@ def start(audio_queue, frequency, amplitude, seconds, state, modulator):
         stream_in.stop_stream();  stream_in.close()
         stream_out.stop_stream(); stream_out.close()
         p.terminate()
-        #print("Hasta luego.")
 
 def main():
     parser = argparse.ArgumentParser(
@@ -172,7 +176,5 @@ def main():
     audio_queue = queue.Queue()
     start(audio_queue, args.frequency, args.amplitude, args.seconds, state, args.modulator)
 
-
 if __name__ == "__main__":
     main()
-
