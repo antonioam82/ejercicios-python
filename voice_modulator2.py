@@ -111,6 +111,19 @@ def input_callback(audio_queue, frequency, amplitude, state, modulator, in_data,
         elif modulator == "m5":
             modulador_fm = np.sin(twopi * (frequency * 1.5) * t) * 2.0
             osc = amplitude * np.sin(twopi * frequency * t + np.exp(modulador_fm)).astype(np.float32)
+        elif modulator == "m6":
+            f2 = frequency * 1.007  # desafinación leve
+            osc1 = np.sin(twopi * frequency * t)
+            osc2 = np.sin(twopi * f2 * t)
+            osc  = amplitude * (osc1 * osc2)
+        elif modulator == "m7":
+            osc = np.sin(twopi * frequency * t)
+            drive = amplitude * 8.0
+            osc = amplitude * np.tanh(drive * osc) / np.tanh(drive)
+        elif modulator == "m8":
+            lfo_rate = 5.0  # Hz del tremolo
+            lfo = 0.5 + 0.5 * np.sin(twopi * lfo_rate * t)
+            osc = amplitude * np.sin(twopi * frequency * t) * lfo
 
         audio *= osc
 
@@ -151,7 +164,7 @@ def output_callback(audio_queue, state, in_data, frame_count, time_info, flag):
     return (data, pyaudio.paContinue)
 
 def check_name(m):
-    modulators = ['NORMAL','m1','m2','m3','m4','m5']
+    modulators = ['NORMAL','m1','m2','m3','m4','m5','m6','m7','m8']
     if m not in modulators:
         raise argparse.ArgumentTypeError(
             Fore.RED + Style.BRIGHT +
