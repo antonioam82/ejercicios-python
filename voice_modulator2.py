@@ -155,12 +155,37 @@ def output_callback(audio_queue, state, in_data, frame_count, time_info, flag):
     if state.reproduciendo:
         try:
             data = audio_queue.get_nowait()
+            #print(" ".join(f"{b:08b}" for b in data[:16]) + " ...")########################################
+            #print(" ".join(f"{b:08b}" for b in data))
+            ####################################################################################################
+            '''# Tomamos una muestra representativa (el primer canal del primer frame)
+            valores = np.frombuffer(data, dtype=np.float32)
+            muestra = valores[0]
+            
+            # Mapeamos el valor (-1.0 a 1.0) a una barra de texto de un ancho máximo de 40 caracteres
+            ancho_maximo = 40
+            centro = ancho_maximo // 2
+            posicion = int(centro + (muestra * centro))
+            posicion = max(0, min(ancho_maximo - 1, posicion)) # Asegurar límites
+            
+            # Construimos la línea visual
+            linea = [" "] * ancho_maximo
+            linea[centro] = "|" # Eje central (silencio)
+            linea[posicion] = "O" # Posición actual de la onda
+            
+            # Imprimimos la línea en la terminal
+            print("".join(linea))
+            # --- FIN DEL GRÁFICO ---
+            '''######################################################################################################
+            
         except queue.Empty:
             state.reproduciendo = False
             state.terminado     = True
             data = np.zeros(frame_count * 2, dtype=np.float32).tobytes()  # ← *2
     else:
+         #print(data)
         data = np.zeros(frame_count * 2, dtype=np.float32).tobytes()  # ← *2
+        #print(data)
     return (data, pyaudio.paContinue)
 
 def check_name(m):
