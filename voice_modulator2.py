@@ -90,7 +90,7 @@ def input_callback(audio_queue, frequency, amplitude, state, modulator, in_data,
         twopi = 2 * np.pi
 
         if modulator == 'NORMAL':
-            osc = np.sin(twopi * frequency * t).astype(np.float32)
+            osc = amplitude * np.sin(twopi * frequency * t).astype(np.float32)
         elif modulator == "m1":
             osc_tan = np.tan(np.sin(twopi * frequency * t))
             osc = amplitude * (np.clip(osc_tan, -1.5, 1.5) / 1.5).astype(np.float32)
@@ -277,4 +277,3 @@ def main():
 
 if __name__ == "__main__":
     main()
-
