@@ -239,7 +239,7 @@ def start(audio_queue, frequency, amplitude, seconds, state, modulator, show_str
                 sys.stdout.flush()
                 if elapsed >= seconds:
                     state.grabando = False
-                    print("\nTiempo agotado. Pulsa ESPACIO para reproducir...")
+                    print("\n\x07Tiempo agotado. Pulsa ESPACIO para reproducir...")
                     while not state.reproduciendo:
                         time.sleep(0.05)
                     #print("REPRODUCIENDO...")
