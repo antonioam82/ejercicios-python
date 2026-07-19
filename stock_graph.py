@@ -4,7 +4,7 @@ from datetime import datetime
 
 # Definir los símbolos de las acciones de las compañías
 symbol1 = 'NVDA'  # Nvidia
-symbol2 = 'MSFT'  # Microsoft Corporation
+symbol2 = 'AVGO'  # Microsoft Corporation
 symbol3 = 'AMD'   # AMD
 
 # Define el rango de fechas para los datos históricos
@@ -12,9 +12,9 @@ start_date = '2022-01-01'
 end_date = datetime.today().strftime('%Y-%m-%d') # Fecha actual
 
 # Descarga los datos históricos de las acciones usando yfinance
-data1 = yf.download(symbol1, start=start_date, end=end_date)
-data2 = yf.download(symbol2, start=start_date, end=end_date)
-data3 = yf.download(symbol3, start=start_date, end=end_date)
+data1 = yf.download(symbol1, start=start_date, end=end_date, auto_adjust=False)
+data2 = yf.download(symbol2, start=start_date, end=end_date, auto_adjust=False)
+data3 = yf.download(symbol3, start=start_date, end=end_date, auto_adjust=False)
 
 # Mostrar datos descargados (5 últimas líneas)
 print(data1.tail())
