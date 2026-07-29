@@ -2,16 +2,21 @@
 # -*- coding: utf-8 -*-
 LETRAS = ("ABCDEFGHIJKLMNÑOPQRSTUVWXYZ")
 
+acciones = ['encriptar', 'descrifrar']
+
 def main():
     mensaje=input("Mensaje: ")
     myKey="MINOMBREESANTONIOALFONSO"
     accion=input("Mode: ")
 
-    if accion=='encriptar':
-        traducido=cifrar_mensaje(myKey,mensaje)
-    elif accion=='descifrar':
-        traducido=descifrar_mensaje(myKey,mensaje)
-    print(traducido)
+    if accion in acciones:
+        if accion=='encriptar':
+            traducido=cifrar_mensaje(myKey,mensaje)
+        elif accion=='descifrar':
+            traducido=descifrar_mensaje(myKey,mensaje)
+        print(traducido)
+    else:
+        print("Acción no reconocida")
 
 def cifrar_mensaje(clave,mensa):
     return traductor_mensaje(clave,mensa,'encriptar')
