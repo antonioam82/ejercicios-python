@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 LETRAS = ("ABCDEFGHIJKLMNÑOPQRSTUVWXYZ")
 
-acciones = ['encriptar', 'descrifrar']
+acciones = ['encriptar', 'descifrar']
 
 def main():
     mensaje=input("Mensaje: ")
