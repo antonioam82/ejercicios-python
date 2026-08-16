@@ -1,6 +1,5 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-import pyfiglet
 import pyglet
 import argparse
 from PIL import Image
@@ -17,8 +16,6 @@ from typing import Optional, Generator
 import numpy as np
 
 init()
-
-# CREATE GIFS FROM VIDEO (in CLI)
 
 color = {0: Fore.RED, 1: Fore.GREEN, 2: Fore.YELLOW,
          3: Fore.BLUE, 4: Fore.CYAN, 5: Fore.MAGENTA, 6: Fore.WHITE}
@@ -107,17 +104,6 @@ def create_gif(args, state: AppState) -> None:
         pbar = tqdm(total=state.total_frames, unit='frames', ncols=100)
         output_frames = []
 
-        '''for img in state.frame_list:
-            resized_frame = resize_frame(img)
-            if state.stop or img is None:
-                print(Fore.YELLOW + Style.NORMAL + "\nGif creation interrupted by user." + Fore.RESET + Style.RESET_ALL)
-                pbar.disable = True
-                state.done = False
-                break
-
-            output_frames.append(resized_frame)
-            pbar.update(1)'''
-
         with ThreadPoolExecutor() as executor:
             futures = executor.map(resize_frame, state.frame_list)
             for img in futures:
@@ -131,7 +117,7 @@ def create_gif(args, state: AppState) -> None:
                     state.done = False
                     break
                 output_frames.append(img)
-                pbar.update(1)    
+                pbar.update(1)
 
         pbar.close()
         listener.stop()
@@ -139,7 +125,14 @@ def create_gif(args, state: AppState) -> None:
         if state.done:
             print("\nSAVING YOUR GIF (PLEASE, WAIT)...")
 
-            if state.frame_durations:
+            if args.frames_per_second is not None:
+                duration = 1000 / (args.frames_per_second * (args.speed / 100))
+                if duration < 20.0 and args.speed > 100:
+                    jump = max(1, round(args.speed / 100))
+                    output_frames = output_frames[::jump]
+                    duration = max(1000 / (args.frames_per_second * (args.speed / 100) / jump), 20)
+
+            elif state.frame_durations:
                 # Source had per-frame timing (e.g. webp): honor each frame's
                 # original duration instead of forcing a single uniform value.
                 speed_factor = args.speed / 100
@@ -192,15 +185,13 @@ def read_video(args, state: AppState) -> None:
         listener = keyboard.Listener(on_press=lambda key: on_press(key, state))
         listener.start()
 
-        #print(c_index + b_index + pyfiglet.figlet_format('MKGIF', font='graffiti') + Fore.RESET + Style.RESET_ALL)
-
         cap = cv2.VideoCapture(args.source)
         state.num_frames = int(cap.get(cv2.CAP_PROP_FRAME_COUNT))
         state.width      = int(cap.get(cv2.CAP_PROP_FRAME_WIDTH))
         state.height     = int(cap.get(cv2.CAP_PROP_FRAME_HEIGHT))
         state.video_fps  = cap.get(cv2.CAP_PROP_FPS)
         duration         = state.num_frames / state.video_fps
-        
+
         #---------------------------------------------------------------------------------
         if args.from_second:
             initial_frame = int(args.from_second * state.video_fps)
@@ -226,10 +217,13 @@ def read_video(args, state: AppState) -> None:
             cap.release()
             return
 
-        print(c_index + b_index + pyfiglet.figlet_format('MKGIF', font='graffiti') + Fore.RESET + Style.RESET_ALL)#######################
+        #print(c_index + b_index + pyfiglet.figlet_format('MKGIF', font='graffiti') + Fore.RESET + Style.RESET_ALL)#######################
+        show_logo(c_index,b_index)
 
         cap.set(cv2.CAP_PROP_POS_FRAMES, initial_frame)
-        state.total_frames = abs(state.num_frames - initial_frame) - abs(final_frame - state.num_frames)
+        #state.total_frames = abs(state.num_frames - initial_frame) - abs(final_frame - state.num_frames)
+        state.total_frames = final_frame - initial_frame
+        #print("TOOOTAL FRAMES: ",state.total_frames)
 
         print("SOURCE VIDEO/GIF DATA:")
         print(
@@ -273,6 +267,15 @@ def on_press(key, state: AppState) -> Optional[bool]:
         state.stop = True
         return False
 
+def show_logo(c_index,b_index):
+    logo = r"""   _____   ____  __.________.______________
+  /     \ |    |/ _/  _____/|   \_   _____/
+ /  \ /  \|      </   \  ___|   ||    __)
+/    Y    \    |  \    \_\  \   ||     \
+\____|__  /____|__ \______  /___|\___  /
+        \/        \/      \/         \/"""
+    print(c_index + b_index + logo + Fore.RESET + Style.RESET_ALL + "\n") 
+
 
 def calculate_sha1(file_path: str) -> str:
     sha1_hash = hashlib.sha1()
@@ -292,13 +295,13 @@ def convert_to_gif(args, state: AppState) -> None:
     try:
         listener = keyboard.Listener(on_press=lambda key: on_press(key, state))
         listener.start()
- 
+
         webp = Image.open(args.source)
         n_frames = getattr(webp, 'n_frames', 1)
- 
+
         initial_frame = args.from_frame
         final_frame   = int(args.to_frame) if args.to_frame else n_frames
- 
+
         valid_range = (
             0 <= initial_frame < n_frames and
             0 < final_frame <= n_frames and
@@ -310,17 +313,18 @@ def convert_to_gif(args, state: AppState) -> None:
             state.done = False
             webp.close()
             return
- 
-        print(c_index + b_index + pyfiglet.figlet_format('MKGIF', font='graffiti') + Fore.RESET + Style.RESET_ALL)
- 
+
+        #print(c_index + b_index + pyfiglet.figlet_format('MKGIF', font='graffiti') + Fore.RESET + Style.RESET_ALL)
+        show_logo()
+
         state.width        = webp.width
         state.height       = webp.height
         state.num_frames   = n_frames
         state.total_frames = final_frame - initial_frame
- 
+
         frame_duration_ms = webp.info.get('duration', 100)
         state.video_fps   = 1000 / frame_duration_ms if frame_duration_ms > 0 else 10.0
- 
+
         duration_s = state.total_frames / state.video_fps
         print("SOURCE WEBP DATA:")
         print(
@@ -328,10 +332,10 @@ def convert_to_gif(args, state: AppState) -> None:
             f'WIDTH: {state.width} | HEIGHT: {state.height} | '
             f'FRAME RATE: {state.video_fps:.2f} | DURATION: {duration_s:.2f}s\n'
         )
- 
+
         print("READING WEBP FRAMES...(PRESS SPACE BAR TO CANCEL)")
         pbar = tqdm(total=state.total_frames, unit='frames', ncols=100)
- 
+
         # Phase 1: sequential reading
         raw_frames = []
         frame_durations = []
@@ -347,17 +351,17 @@ def convert_to_gif(args, state: AppState) -> None:
             pbar.update(1)
 
         state.frame_durations = frame_durations
- 
+
         pbar.close()
- 
+
         # Phase 2: RGBA -> RGB conversion.
         if state.done:
             def to_rgb_array(frame_rgba: Image.Image) -> np.ndarray:
                 return np.array(frame_rgba.convert('RGB'))
- 
+
             with ThreadPoolExecutor() as executor:
                 state.frame_list = list(executor.map(to_rgb_array, raw_frames))
- 
+
         listener.stop()
         webp.close()
 
@@ -373,7 +377,7 @@ def convert_to_gif(args, state: AppState) -> None:
 def show(f: str) -> None:
     try:
         if os.path.exists(f):
-             
+
             print("GENERATING VIEW...")
             from pyglet.window import key
             with Image.open(f) as img:
@@ -448,8 +452,6 @@ def main():
     parser.add_argument('-fps','--frames_per_second',default=None,type=check_positive,help='Frame rate')
     parser.add_argument('-spd','--speed',default=100,type=check_positive,help='Speed of the gif as a percentage of the original (100 by default)')
     parser.add_argument('-shw','--show',action='store_true',help='Show result file')
-    #parser.add_argument('-from','--from_frame',default=0,type=check_index,help='Starting frame')
-    #parser.add_argument('-to','--to_frame',default=None,type=check_index,   help='Ending frame')
     parser.add_argument('-opt','--optimize',action='store_true',help='Optimize gif file size (slower save)')
 
     group_from = parser.add_mutually_exclusive_group()
@@ -463,12 +465,12 @@ def main():
     args = parser.parse_args()
 
     if args.source == args.destination:
-        print(Fore.YELLOW + 
+        print(Fore.YELLOW +
               f"WARNING: Source and destination files are the same. File '{args.source}' will be overwritten!" +
               Fore.RESET)
         continue_ = input("Do you want to proceed? [Y, n]: ")
         if continue_.strip().lower() in ['n', 'no']:
-            print(Fore.RED + Style.BRIGHT + 
+            print(Fore.RED + Style.BRIGHT +
                   "Operation cancelled by user." +
                   Fore.RESET + Style.RESET_ALL)
             return
