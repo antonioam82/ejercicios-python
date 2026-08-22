@@ -13,6 +13,7 @@ Ejecutar:
 
 Controles:
     - Flechas izquierda/derecha/arriba/abajo: mover la luz
+    - T / R: girar toda la escena alrededor del eje Y
     - ESC o cerrar ventana: salir
 """
 
@@ -20,7 +21,11 @@ import sys
 import time
 
 import pygame
-from pygame.locals import DOUBLEBUF, OPENGL, QUIT, KEYDOWN, K_ESCAPE, K_LEFT, K_RIGHT, K_UP, K_DOWN, K_o, K_p
+from pygame.locals import (
+    DOUBLEBUF, OPENGL, QUIT, KEYDOWN,
+    K_ESCAPE, K_LEFT, K_RIGHT, K_UP, K_DOWN,
+    K_t, K_r, K_o, K_p
+)
 
 from OpenGL.GL import *
 from OpenGL.GLU import *
@@ -29,6 +34,7 @@ from OpenGL.GLU import *
 # Estado global
 # ----------------------------------------------------------------------
 angle = 0.0
+scene_angle = 0.0                  # rotacion de toda la escena sobre el eje Y
 light_pos = [2.0, 4.0, 2.0, 1.0]   # posicion de la luz (w=1 -> luz puntual)
 
 
@@ -169,6 +175,11 @@ def render(dt):
               0.0, 0.5, 0.0,
               0.0, 1.0, 0.0)
 
+    # Rotar toda la escena (suelo + cubo + sombra + luz) alrededor del eje Y.
+    # Al aplicarse aqui, despues de gluLookAt, la camara permanece fija
+    # y es el "mundo" el que gira delante de ella.
+    glRotatef(scene_angle, 0.0, 1.0, 0.0)
+
     glLightfv(GL_LIGHT0, GL_POSITION, light_pos)
 
     # Suelo
@@ -211,6 +222,8 @@ def render(dt):
 # Bucle principal
 # ----------------------------------------------------------------------
 def main():
+    global scene_angle
+
     pygame.init()
     width, height = 900, 700
     pygame.display.set_mode((width, height), DOUBLEBUF | OPENGL)
@@ -219,10 +232,11 @@ def main():
     init_gl(width, height)
 
     clock = pygame.time.Clock()
-    step = 0.06
+    step = 0.06        # velocidad de movimiento de la luz
+    rot_step = 60.0     # grados por segundo al girar la escena (se multiplica por dt)
     running = True
 
-    print("Controles: flechas para mover la luz, ESC para salir.")
+    print("Controles: flechas para mover la luz, T/R para girar la escena, ESC para salir.")
 
     while running:
         dt = clock.tick(60) / 1000.0
@@ -247,6 +261,11 @@ def main():
             light_pos[1] -= step
         if keys[K_p]:
             light_pos[1] += step
+
+        if keys[K_t]:
+            scene_angle += rot_step * dt
+        if keys[K_r]:
+            scene_angle -= rot_step * dt
 
         render(dt)
         pygame.display.flip()
