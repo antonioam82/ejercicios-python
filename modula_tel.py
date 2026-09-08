@@ -5,12 +5,9 @@ from scipy.io import wavfile
 from scipy.signal import sawtooth
 import argparse
 from playsound3 import playsound
-from colorama import init, Fore, Style
 import sounddevice as sd
 from pynput import keyboard
 import os
-
-init()
 
 def write_data(name, signal, duration, sample_rate, frequency, modulation_rate, scale, lfo):
     base_name, ex = os.path.splitext(name)
@@ -24,14 +21,14 @@ def write_data(name, signal, duration, sample_rate, frequency, modulation_rate, 
         file.write(f"Modulation Rate: {modulation_rate} Hz\n")
         file.write(f"Scale: {scale}\n")
         file.write(f"LFO: {lfo}")
-    print(Fore.YELLOW + f"Saved signal info in '{base_name}_data.txt'" + Fore.RESET)
+    print(f"\033[33mSaved signal info in '{base_name}_data.txt'.\033[0m")
 
 def check_extension(file):
     name, ex = os.path.splitext(file)
     if ex == ".wav":
         return file
     else:
-        raise argparse.ArgumentTypeError(Fore.RED + Style.BRIGHT + f"result file must have '.wav' extension." + Fore.RESET + Style.RESET_ALL)
+        raise argparse.ArgumentTypeError(f"\033[31mresult file must have '.wav' extension.\033[0m")
 
 def play(file_name):
     sample_rate, audio_data = wavfile.read(file_name)
@@ -40,7 +37,7 @@ def play(file_name):
     def on_press(key):
         if key == keyboard.Key.space:
             sd.stop()
-            print(Fore.YELLOW + "Sound stopped by user." + Fore.RESET)
+            print("\033[33mSound stopped by user.\033[0m")
             return False
 
     listener = keyboard.Listener(on_press=on_press)
@@ -78,6 +75,7 @@ def generate_tone(args):
     if write:
         write_data(name, signal, duration, sample_rate, frequency, modulation_rate, scale, lfo)
     
+
 def main():
     parser = argparse.ArgumentParser(prog="MODULA_TEL 0.1", description="Generate modulated audio tones and phone ring tones")
     parser.add_argument('-dest', '--destination', type=check_extension, default="modulated_audio_signal.wav", help="Destination file name")
