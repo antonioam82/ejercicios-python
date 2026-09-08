@@ -7,7 +7,10 @@ import argparse
 from playsound3 import playsound
 from colorama import init, Fore, Style
 import sounddevice as sd
+from pynput import keyboard
 import os
+
+init()
 
 def write_data(name, signal, duration, sample_rate, frequency, modulation_rate, scale, lfo):
     base_name, ex = os.path.splitext(name)
@@ -33,7 +36,18 @@ def check_extension(file):
 def play(file_name):
     sample_rate, audio_data = wavfile.read(file_name)
     sd.play(audio_data, sample_rate)
+
+    def on_press(key):
+        if key == keyboard.Key.space:
+            sd.stop()
+            print("Sound stopped by user")
+            return False
+
+    listener = keyboard.Listener(on_press=on_press)
+    listener.start()
+
     sd.wait()
+    listener.stop()
     
 def generate_tone(args):
     name = args.destination
@@ -82,6 +96,7 @@ def main():
     generate_tone(args)
     if args.play_audio:
         play(args.destination)
+
 
 if __name__ == '__main__':
     main()
