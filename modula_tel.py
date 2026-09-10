@@ -9,7 +9,7 @@ import sounddevice as sd
 from pynput import keyboard
 import os
 
-def write_data(name, signal, duration, sample_rate, frequency, modulation_rate, scale, lfo):
+def write_data(name, signal, duration, sample_rate, frequency, modulation_rate, scale, lfo, cycles):
     base_name, ex = os.path.splitext(name)
     
     with open(name.replace('.wav', '_data.txt'), 'w') as file:
@@ -20,7 +20,8 @@ def write_data(name, signal, duration, sample_rate, frequency, modulation_rate, 
         file.write(f"Frequency: {frequency} Hz\n")
         file.write(f"Modulation Rate: {modulation_rate} Hz\n")
         file.write(f"Scale: {scale}\n")
-        file.write(f"LFO: {lfo}")
+        file.write(f"LFO: {lfo}\n")
+        file.write(f"Cycles: {cycles}")
     print(f"\033[33mSaved signal info in '{base_name}_data.txt'.\033[0m")
 
 def check_extension(file):
@@ -56,6 +57,7 @@ def generate_tone(args):
     scale = args.scale
     lfo = args.lfo_rate
     write = args.write_data
+    cycles = args.cycles
 
     t = np.linspace(0, duration, int(sample_rate * duration), endpoint=False)
  
@@ -68,12 +70,17 @@ def generate_tone(args):
     elif signal == "swt":
         modulation_wave = sawtooth(2 * np.pi * lfo * t) #6
 
-    
     modulated_wave = np.sin(2 * np.pi * (frequency + modulation_rate * modulation_wave) * t)
     modulated_wave /= np.max(np.abs(modulated_wave), axis=0)
+
+    if args.cycles > 0:
+        silence = np.zeros(int(sample_rate * 2.5))
+        modulated_wave = np.concatenate([modulated_wave, silence] * cycles)
+        
     wavfile.write(name, sample_rate, np.int16(modulated_wave * scale))
+    
     if write:
-        write_data(name, signal, duration, sample_rate, frequency, modulation_rate, scale, lfo)
+        write_data(name, signal, duration, sample_rate, frequency, modulation_rate, scale, lfo, cycles)
     
 
 def main():
@@ -87,6 +94,7 @@ def main():
     parser.add_argument('-play', '--play_audio', action='store_true', help="Play modulated signal")
     parser.add_argument('-wr', '--write_data', action='store_true', help="Create text file with audio data")
     parser.add_argument('-sig', '--signal', default='sqrt', choices=['sin', 'sqrt', 'trg', 'swt'], help="Modulation wave (ignored in ring mode)")
+    parser.add_argument('-cyl', '--cycles', default=0, type=int, help="Number of loop cycles")
     parser.add_argument('-scl', '--scale', default=32767, type=int, help="Sound scale")
 
     args = parser.parse_args()
