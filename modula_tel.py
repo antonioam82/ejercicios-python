@@ -9,7 +9,7 @@ import sounddevice as sd
 from pynput import keyboard
 import os
 
-def write_data(name, signal, duration, sample_rate, frequency, modulation_rate, scale, lfo, cycles):
+def write_data(name, signal, duration, sample_rate, frequency, modulation_rate, scale, lfo, cycles, ring_off):
     base_name, ex = os.path.splitext(name)
     
     with open(name.replace('.wav', '_data.txt'), 'w') as file:
@@ -21,7 +21,8 @@ def write_data(name, signal, duration, sample_rate, frequency, modulation_rate, 
         file.write(f"Modulation Rate: {modulation_rate} Hz\n")
         file.write(f"Scale: {scale}\n")
         file.write(f"LFO: {lfo}\n")
-        file.write(f"Cycles: {cycles}")
+        file.write(f"Cycles: {cycles}\n")
+        file.write(f"Ring Off: {ring_off}")
     print(f"\033[33mSaved signal info in '{base_name}_data.txt'.\033[0m")
 
 def check_extension(file):
@@ -58,6 +59,7 @@ def generate_tone(args):
     lfo = args.lfo_rate
     write = args.write_data
     cycles = args.cycles
+    ring_off = args.ring_off
 
     t = np.linspace(0, duration, int(sample_rate * duration), endpoint=False)
  
@@ -74,14 +76,13 @@ def generate_tone(args):
     modulated_wave /= np.max(np.abs(modulated_wave), axis=0)
 
     if args.cycles > 0:
-        silence = np.zeros(int(sample_rate * 2.5))
+        silence = np.zeros(int(sample_rate * ring_off))
         modulated_wave = np.concatenate([modulated_wave, silence] * cycles)
         
     wavfile.write(name, sample_rate, np.int16(modulated_wave * scale))
     
     if write:
-        write_data(name, signal, duration, sample_rate, frequency, modulation_rate, scale, lfo, cycles)
-    
+        write_data(name, signal, duration, sample_rate, frequency, modulation_rate, scale, lfo, cycles, ring_off)   
 
 def main():
     parser = argparse.ArgumentParser(prog="MODULA_TEL 0.1", description="Generate modulated audio tones and phone ring tones")
@@ -96,12 +97,12 @@ def main():
     parser.add_argument('-sig', '--signal', default='sqrt', choices=['sin', 'sqrt', 'trg', 'swt'], help="Modulation wave (ignored in ring mode)")
     parser.add_argument('-cyl', '--cycles', default=0, type=int, help="Number of loop cycles")
     parser.add_argument('-scl', '--scale', default=32767, type=int, help="Sound scale")
+    parser.add_argument('-ro', '--ring_off', default=2.5, type=float, help="Silence duration")
 
     args = parser.parse_args()
     generate_tone(args)
     if args.play_audio:
         play(args.destination)
-
 
 if __name__ == '__main__':
     main()
