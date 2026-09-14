@@ -87,14 +87,14 @@ def generate_tone(args):
 def main():
     parser = argparse.ArgumentParser(prog="MODULA_TEL 0.1", description="Generate modulated audio tones and phone ring tones")
     parser.add_argument('-dest', '--destination', type=check_extension, default="modulated_audio_signal.wav", help="Destination file name")
-    parser.add_argument('-dur', '--duration', type=int, default=2, help="Audio duration, in seconds (ignored in ring mode)")
+    parser.add_argument('-dur', '--duration', type=int, default=2, help="Audio duration, in seconds")
     parser.add_argument('-sr', '--sample_rate', type=int, default=44100, help="Sample rate in Hz")
     parser.add_argument('-lfo', '--lfo_rate', type=int, default=10, help="Low Frequency Oscillator value")
     parser.add_argument('-freq', '--frequency', type=int, default=440, help="Base frequency in Hz")
-    parser.add_argument('-mr', '--modulation_rate', type=int, default=12, help="Modulation rate in Hz (ignored in ring mode)")
+    parser.add_argument('-mr', '--modulation_rate', type=int, default=12, help="Modulation rate in Hz")
     parser.add_argument('-play', '--play_audio', action='store_true', help="Play modulated signal")
     parser.add_argument('-wr', '--write_data', action='store_true', help="Create text file with audio data")
-    parser.add_argument('-sig', '--signal', default='sqrt', choices=['sin', 'sqrt', 'trg', 'swt'], help="Modulation wave (ignored in ring mode)")
+    parser.add_argument('-sig', '--signal', default='sqrt', choices=['sin', 'sqrt', 'trg', 'swt'], help="Modulation wave")
     parser.add_argument('-cyl', '--cycles', default=0, type=int, help="Number of loop cycles")
     parser.add_argument('-scl', '--scale', default=32767, type=int, help="Sound scale")
     parser.add_argument('-ro', '--ring_off', default=2.5, type=float, help="Silence duration")
@@ -104,5 +104,7 @@ def main():
     if args.play_audio:
         play(args.destination)
 
+
 if __name__ == '__main__':
     main()
+
