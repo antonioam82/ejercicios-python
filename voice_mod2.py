@@ -41,7 +41,9 @@ def check_positive(v):
         )
     return value
 
-def input_callback(audio_queue, frequency, amplitude, state, modulator, in_data, frame_count, time_info, flag):
+def input_callback(audio_queue, frequency, amplitude, state, modulator, limiter, in_data, frame_count, time_info, flag):
+
+    apply_soft = limiter
 
     if flag:
         print(f"\nWarning input stream: {flag}")
@@ -90,6 +92,8 @@ def input_callback(audio_queue, frequency, amplitude, state, modulator, in_data,
             osc = amplitude * np.sin(twopi * frequency * t) * lfo
 
         audio *= osc
+        if apply_soft:
+            audio = np.tanh(audio)
 
         estereo = np.stack([audio, audio], axis=1).flatten()
         audio_queue.put(estereo.tobytes())
@@ -99,7 +103,6 @@ def input_callback(audio_queue, frequency, amplitude, state, modulator, in_data,
 
 
 def output_callback(audio_queue, state, show_stream, in_data, frame_count, time_info, flag):
-
     if flag:
         print(f"\nWarning output stream: {flag}")
         return (np.zeros(frame_count * 2, dtype=np.float32).tobytes(), pyaudio.paContinue)
@@ -151,11 +154,10 @@ def check_name(m):
         )
     return m
 
-def start(audio_queue, frequency, amplitude, seconds, state, modulator, show_stream):
+def start(audio_queue, frequency, amplitude, seconds, state, modulator, show_stream, limiter):
     #global grabando, reproduciendo, terminado
-
     p = pyaudio.PyAudio()
-
+    
     in_dev  = p.get_default_input_device_info()
     out_dev = p.get_default_output_device_info()
     print(f"Entrada   : [{in_dev['index']}] {in_dev['name']}")
@@ -163,8 +165,8 @@ def start(audio_queue, frequency, amplitude, seconds, state, modulator, show_str
     print(f"Oscilador : {frequency} Hz")
     print(f"Duracion  : {seconds:.1f}s")
     print("\nGrabando desde el inicio. Pulsa ESPACIO para parar y reproducir.\n")
-
-    cb_in  = functools.partial(input_callback,  audio_queue, frequency, amplitude, state, modulator)
+    
+    cb_in  = functools.partial(input_callback,  audio_queue, frequency, amplitude, state, modulator, limiter)
     cb_out = functools.partial(output_callback, audio_queue, state, show_stream)
 
     stream_in = p.open(
@@ -223,11 +225,12 @@ def main():
     parser.add_argument("-mod","--modulator",type=check_name,default="NORMAL",help="Modulator")
     parser.add_argument("-amp","--amplitude",type=check_positive, default=1.0,help="Amplitud")
     parser.add_argument("-sd","--stream_data",action="store_true",help="Show stream audio data")
+    parser.add_argument("-lim","--limiter",action="store_true",help="Activates a soft limiter (tanh) at the output")
 
     args = parser.parse_args()
     state = AppState()
     audio_queue = queue.Queue()
-    start(audio_queue, args.frequency, args.amplitude, args.seconds, state, args.modulator, args.stream_data)
+    start(audio_queue, args.frequency, args.amplitude, args.seconds, state, args.modulator, args.stream_data, args.limiter)
 
 if __name__ == "__main__":
     main()
