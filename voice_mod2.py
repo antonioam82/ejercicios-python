@@ -9,9 +9,12 @@ import sys
 from colorama import init, Fore, Style
 from dataclasses import dataclass, field
 
-#audio_modulator2.py -freq 650 -sec 8 -amp 9
-#audio_modulator2.py -mod m1 -freq 1400 -sec 10 -amp 7
-#audio_modulator2.py -mod m3 -freq 678 -sec 20 -amp 10
+#-----------------SOME OF MY FAVS------------------
+#voice_mod2.py -freq 650 -sec 8 -amp 9
+#voice_mod2.py -mod m1 -freq 1400 -sec 10 -amp 7
+#voice_mod2.py -mod m3 -freq 678 -sec 20 -amp 10
+#voice_mod2.py -freq 40 -sec 20 -mod m5 -amp 9 -lim
+#--------------------------------------------------
 
 CHANNELS = 2
 RATE     = 44100
